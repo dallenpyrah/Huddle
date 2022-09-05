@@ -1,4 +1,5 @@
 import { NextPage } from 'next'
+import { useRouter } from 'next/router'
 import React from 'react'
 import UserModel from '../models/UserModel'
 import { axiosService } from '../services/AxiosService'
@@ -6,17 +7,19 @@ import SignupService from '../services/SignupService'
 
 export default function SignUpComponent () {
     const [errorMessage, setErrorMessage] = React.useState('')
+    const router = useRouter();
 
     const signUpService = new SignupService(axiosService)
 
     async function addUser (event: any): Promise<void> {
             event.preventDefault()
-            const isPasswordMatching = signUpService.IsUserPasswordMatch(event.target.password.value, event.target.confirm_password.value)
-            if (isPasswordMatching) {
-                const user = new UserModel(event.target.fullName.value, event.target.email.value, event.target.password.value)
-                await signUpService.AddUser(user)
+            const user = new UserModel(event.target.fullName.value, event.target.email.value, event.target.password.value, event.target.confirm_password.value)
+            const authenticationResponse = await signUpService.AddUser(user)
+            console.log(authenticationResponse)
+            if (authenticationResponse.isSuccess) {
+                router.push('/dashboard')
             } else {
-                setErrorMessage('Passwords do not match')
+                setErrorMessage(authenticationResponse.message)
             }
     }
 

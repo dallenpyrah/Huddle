@@ -8,11 +8,11 @@ class SignupService {
     this.axios = axios
   }
 
-  async AddUser (user: UserModel): Promise<void> {
+  async AddUser (user: UserModel): Promise<any> {
     try {
-      await this.axios.post('/api/adduser', user)
+      const signupResult = await this.axios.post('/v1/auth/signup', user)
+      return signupResult.data
     } catch (error) {
-      console.log(error)
       throw error
     }
   }
