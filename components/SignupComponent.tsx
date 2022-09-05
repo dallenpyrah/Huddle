@@ -1,12 +1,14 @@
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import React from 'react'
+import { useGlobalContext } from '../context/GlobalContext'
 import UserModel from '../models/UserModel'
 import { axiosService } from '../services/AxiosService'
 import SignupService from '../services/SignupService'
 
 export default function SignUpComponent () {
     const [errorMessage, setErrorMessage] = React.useState('')
+    const { isAuthenticated, setIsAuthenticated } = useGlobalContext();
     const router = useRouter();
 
     const signUpService = new SignupService(axiosService)
@@ -18,6 +20,8 @@ export default function SignUpComponent () {
             console.log(authenticationResponse)
             if (authenticationResponse.isSuccess) {
                 router.push('/dashboard')
+                window.localStorage.setItem('isAuthenticated', 'true')
+                setIsAuthenticated(true)
             } else {
                 setErrorMessage(authenticationResponse.message)
             }
