@@ -1,3 +1,4 @@
+
 import { useRouter } from 'next/router'
 import React from 'react'
 import { useGlobalContext } from '../context/GlobalContext'
@@ -5,18 +6,18 @@ import AuthenticationModel from '../models/AuthenticationModel'
 import { axiosService } from '../services/AxiosService'
 import SignupService from '../services/SignupService'
 
-export default function SignUpComponent () {
+export default function LoginComponent () {
     const [errorMessage, setErrorMessage] = React.useState('')
     const { isAuthenticated, setIsAuthenticated } = useGlobalContext();
     const router = useRouter();
 
     const signUpService = new SignupService(axiosService)
 
-    async function addUser (event: any): Promise<void> {
+    async function login (event: any): Promise<void> {
             event.preventDefault()
-            const user = new AuthenticationModel(event.target.email.value, event.target.password.value, event.target.fullName.value, event.target.confirm_password.value)
-            const authenticationResponse = await signUpService.addUser(user)
-            console.log(authenticationResponse)
+            const user = new AuthenticationModel(event.target.email.value, event.target.password.value)
+            const authenticationResponse = await signUpService.login(user)
+
             if (authenticationResponse.isSuccess) {
                 router.push('/dashboard')
                 window.localStorage.setItem('isAuthenticated', 'true')
@@ -30,14 +31,8 @@ export default function SignUpComponent () {
         <div className="bg-grey-lighter min-h-screen flex flex-col">
             <div className="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
                 <div className="bg-white px-6 py-8 rounded shadow-md text-black w-full">
-                    <h1 className="mb-8 text-3xl text-center">Sign up</h1>
-                    <form onSubmit={addUser}>
-                        <input
-                            type="text"
-                            className="block border border-grey-light w-full p-3 rounded mb-4"
-                            name="fullName"
-                            placeholder="Full Name" />
-
+                    <h1 className="mb-8 text-3xl text-center">Welcome Back</h1>
+                    <form onSubmit={login}>
                         <input
                             type="text"
                             className="block border border-grey-light w-full p-3 rounded mb-4"
@@ -49,11 +44,6 @@ export default function SignUpComponent () {
                             className="block border border-grey-light w-full p-3 rounded mb-4"
                             name="password"
                             placeholder="Password" />
-                        <input
-                            type="password"
-                            className="block border border-grey-light w-full p-3 rounded mb-4"
-                            name="confirm_password"
-                            placeholder="Confirm Password" />
 
                         <span className='w-full text-center text-red-500'>
                             {errorMessage !== '' && <h6>{errorMessage}</h6>}
@@ -62,7 +52,7 @@ export default function SignUpComponent () {
                         <button
                             type="submit"
                             className="w-full text-center py-3 rounded bg-black text-white hover:bg-green-dark focus:outline-none my-1"
-                        >Create Account</button>
+                        >Login</button>
                     </form>
 
                     <h6 className='text-center m-2'>
@@ -99,8 +89,8 @@ export default function SignUpComponent () {
                 </div>
 
                 <div className="text-grey-dark mt-6">
-                    Already have an account? <a className="no-underline border-b border-blue text-blue" href="../login/">
-                        Log in
+                    Don't have an account? <a className="no-underline border-b border-blue text-blue" href="../signup/">
+                        Sign up
                     </a>.
                 </div>
             </div>

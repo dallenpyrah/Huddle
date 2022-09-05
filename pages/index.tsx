@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 import Image from 'next/image'
 import LungingMan from '../images/lunge_man.png'
-import NavigateToSignUpButton from '../buttons/NavigateToSignupButton'
+import NavigateToSignUpButton from '../components/buttons/NavigateToSignupButton'
 
 const Home: NextPage = () => {
 
