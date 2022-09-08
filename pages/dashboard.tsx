@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import SideBarComponent from '../components/SideBarComponent'
 import { useGlobalContext } from '../context/GlobalContext'
 
-export default function Dashboard () {
+export default function DashboardPage () {
   const { isAuthenticated, setIsAuthenticated } = useGlobalContext();
   const router = useRouter();
 

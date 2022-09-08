@@ -12,10 +12,10 @@ export default function SignUpComponent () {
 
     const signUpService = new SignupService(axiosService)
 
-    async function addUser (event: any): Promise<void> {
+    async function handleSignUpEvent (event: any): Promise<void> {
             event.preventDefault()
             const user = new AuthenticationModel(event.target.email.value, event.target.password.value, event.target.fullName.value, event.target.confirm_password.value)
-            const authenticationResponse = await signUpService.addUser(user)
+            const authenticationResponse = await signUpService.signUpWithPasswordAndEmail(user)
             console.log(authenticationResponse)
             if (authenticationResponse.isSuccess) {
                 router.push('/dashboard')
@@ -31,7 +31,7 @@ export default function SignUpComponent () {
             <div className="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
                 <div className="bg-white px-6 py-8 rounded shadow-md text-black w-full">
                     <h1 className="mb-8 text-3xl text-center">Sign up</h1>
-                    <form onSubmit={addUser}>
+                    <form onSubmit={handleSignUpEvent}>
                         <input
                             type="text"
                             className="block border border-grey-light w-full p-3 rounded mb-4"

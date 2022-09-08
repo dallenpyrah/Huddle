@@ -2,8 +2,14 @@ import type { NextPage } from 'next'
 import Image from 'next/image'
 import LungingMan from '../images/lunge_man.png'
 import NavigateToSignUpButton from '../components/buttons/NavigateToSignupButton'
+import { useRouter } from 'next/router'
 
-const Home: NextPage = () => {
+export default function HomePage() {
+  const router = useRouter()
+
+  function navigateToPage(page: string): void {
+    router.push(page)
+  }
 
   return (
     <section>
@@ -20,7 +26,14 @@ const Home: NextPage = () => {
             </h1>
           </div>
           <div className='mt-4'>
-            <NavigateToSignUpButton />
+            <div>
+              <button type="button" onClick={() => navigateToPage('/signup')} className="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
+                Get Started
+              </button>
+              <button type="button" onClick={() => navigateToPage('/login')} className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
+                Login
+              </button>
+            </div>
           </div>
         </div>
         <div className='basis-1/4'>
@@ -30,9 +43,7 @@ const Home: NextPage = () => {
       <div className="flex bg-violet-50 h-screen w-screen justify-evenly items-center">
       </div>
       <div className="flex h-screen w-screen justify-evenly items-center">
-        </div>
-     </section>
+      </div>
+    </section>
   )
 }
-
-export default Home
