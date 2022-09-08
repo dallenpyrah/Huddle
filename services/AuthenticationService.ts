@@ -5,7 +5,7 @@ import { auth } from "../firebase-config"
 import AuthenticationModel from "../models/AuthenticationModel"
 import AuthenticationResponseModel from "../models/AuthenticationResponseModel"
 
-class LoginService {
+class AuthenticationService {
     axios: Axios
     constructor (axios: Axios) {
       this.axios = axios
@@ -20,7 +20,7 @@ class LoginService {
       }
     }
   
-    async loginWithGithub() : Promise<AuthenticationResponseModel> {
+    async loginOrSignupWithGithub() : Promise<AuthenticationResponseModel> {
       let authenticationResponseModel = {} as AuthenticationResponseModel;
 
       try {
@@ -34,7 +34,7 @@ class LoginService {
       }
     }
 
-    async loginWithGoogle() : Promise<AuthenticationResponseModel> {
+    async loginOrSignupWithGoogle() : Promise<AuthenticationResponseModel> {
         let authenticationResponseModel = {} as AuthenticationResponseModel;
 
         try {
@@ -47,8 +47,17 @@ class LoginService {
             return authenticationResponseModel;
         }
     }
+
+    async signUpWithPasswordAndEmail (user: AuthenticationModel): Promise<any> {
+      try {
+        const signupResult = await this.axios.post('/v1/auth/signup', user)
+        return signupResult.data
+      } catch (error) {
+        throw error
+      }
+    }
   
   }
   
-  export default LoginService
+  export default AuthenticationService
   
