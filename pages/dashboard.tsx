@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react'
+import MainDashboardComponent from '../components/MainDashboardComponent';
 import SideBarComponent from '../components/SideBarComponent'
 import { useGlobalContext } from '../context/GlobalContext'
 
@@ -20,8 +21,9 @@ export default function DashboardPage () {
   })
 
   return (
-    <div className="h-screen">
-      {isAuthenticated ? <SideBarComponent /> : <></>}
+    <div className="h-screen bg-black">
+      <SideBarComponent />
+      <MainDashboardComponent />
     </div>
   )
 }
