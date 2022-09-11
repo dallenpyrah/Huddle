@@ -4,7 +4,7 @@ import MainDashboardComponent from '../components/MainDashboardComponent';
 import SideBarComponent from '../components/SideBarComponent'
 import { useGlobalContext } from '../context/GlobalContext'
 
-export default function DashboardPage () {
+export default function DashboardPage() {
   const { isAuthenticated, setIsAuthenticated } = useGlobalContext();
   const router = useRouter();
 
@@ -17,7 +17,7 @@ export default function DashboardPage () {
       } else {
         router.push('/login')
       }
-    } 
+    }
   })
 
   return (
