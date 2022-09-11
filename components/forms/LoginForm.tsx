@@ -5,12 +5,12 @@ import AuthenticationModel from "../../models/AuthenticationModel";
 import AuthenticationService from "../../services/AuthenticationService";
 import { axiosService } from "../../services/AxiosService";
 
-export default function LoginForm (props: { setErrorMessage: (errorMessage: any) => void; errorMessage: string; }) {
+export default function LoginForm(props: { setErrorMessage: (errorMessage: any) => void; errorMessage: string; }) {
     const { setIsAuthenticated } = useGlobalContext();
     const router = useRouter();
     const authenticationService = new AuthenticationService(axiosService)
 
-    async function login (event: any): Promise<void> {
+    async function login(event: any): Promise<void> {
         event.preventDefault()
         const user = new AuthenticationModel(event.target.email.value, event.target.password.value)
         const authenticationResponse = await authenticationService.login(user)
@@ -22,8 +22,8 @@ export default function LoginForm (props: { setErrorMessage: (errorMessage: any)
         } else {
             props.setErrorMessage(authenticationResponse.message)
         }
-}
-    
+    }
+
     return (
         <form onSubmit={login}>
             <input
