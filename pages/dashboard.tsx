@@ -9,8 +9,13 @@ export default function DashboardPage () {
 
   useEffect(() => {
     if (!isAuthenticated) {
-      const persistedAuthenticated = window.localStorage.getItem('isAuthenticated')
-      persistedAuthenticated === 'true' ? setIsAuthenticated(true) : router.push('/login')
+      const userCredentialsString = window.localStorage.getItem('user')
+      const userCredentials = JSON.parse(userCredentialsString || '{}')
+      if (userCredentials?.uid) {
+        setIsAuthenticated(true)
+      } else {
+        router.push('/login')
+      }
     } 
   })
 

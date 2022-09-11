@@ -17,7 +17,7 @@ export default function LoginForm (props: { setErrorMessage: (errorMessage: any)
 
         if (authenticationResponse.isSuccess) {
             router.push('/dashboard')
-            window.localStorage.setItem('isAuthenticated', 'true')
+            window.localStorage.setItem('user', JSON.stringify(authenticationResponse.userCredentials?.user))
             setIsAuthenticated(true)
         } else {
             props.setErrorMessage(authenticationResponse.message)

@@ -13,7 +13,7 @@ export default function AuthenticateWithGithubButton(props: { passErrorMessage: 
         const authenticationResponse = await authenticationService.loginOrSignupWithGithub()
         if (authenticationResponse.userCrendential?.user) {
             router.push('/dashboard')
-            window.localStorage.setItem('isAuthenticated', 'true')
+            window.localStorage.setItem('user', JSON.stringify(authenticationResponse.userCrendential.user))
             setIsAuthenticated(true)
         } else {
             props.passErrorMessage(authenticationResponse.errorMesssage)
