@@ -26,16 +26,22 @@ export default function DashboardPage() {
 
   return (
     <div className="h-screen">
-      <div className="flex flex-row">
+      <div className="flex flex-row w-screen h-screen bg-purple-50">
         <SideBarComponent />
-        <div className="flex flex-row w-screen h-screen justify-between bg-purple-50">
+        <div className="flex flex-row w-full justify-between">
           <div className="flex flex-col rounded-lg">
+            <div className="flex flex-row">
+              <HelloUserHeader name={user.displayName} />
+            </div>
             <div className="flex flex-row">
               <HelloUserHeader name={user.displayName} />
             </div>
           </div>
           <div className="flex flex-col p-5 rounded-lg w-1/3 mt-2">
             <IssuesSearchBar />
+            <div className="flex flex-row">
+              <HelloUserHeader name={user.displayName} />
+            </div>
           </div>
         </div>
       </div>
