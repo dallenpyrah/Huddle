@@ -3,6 +3,8 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
 import GroupComponent from '../components/GroupComponent';
 import HelloUserHeader from '../components/headers/HelloUserHeader';
+import IssuesComponent from '../components/IssuesComponent';
+import NotificationsComponent from '../components/NotificationsComponent';
 import IssuesSearchBar from '../components/search-bars/IssuesSearchBar';
 import SideBarComponent from '../components/SideBarComponent'
 import { useGlobalContext } from '../context/GlobalContext'
@@ -26,20 +28,25 @@ export default function DashboardPage() {
   })
 
   return (
-    <div className="h-screen">
-      <div className="flex flex-row w-screen h-screen bg-purple-50">
+    <div className="grid grid-cols-4 justify-between h-screen">
+      <div className="col-span-1 bg-black">
         <SideBarComponent />
-        <div className="flex flex-row w-full justify-between">
-          <div className="flex flex-col rounded-lg">
-            <HelloUserHeader name={user.displayName} />
+      </div>
+      <div className="col-span-2">
+        <HelloUserHeader name={user.displayName} />
+        <div className="grid grid-cols-2">
+          <div className="col-span-1">
             <GroupComponent />
           </div>
-          <div className="flex flex-col">
-            
+          <div className="col-span-1">
+            <NotificationsComponent />
           </div>
-          <div className="flex flex-col p-5 rounded-lg w-1/3 mt-2">
-            <IssuesSearchBar />
-          </div>
+        </div>
+      </div>
+      <div className="col-start-4 mt-6 m-4">
+        <IssuesSearchBar />
+        <div className="grid grid-cols-1 mt-12">
+          <IssuesComponent />
         </div>
       </div>
     </div>
