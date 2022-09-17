@@ -1,6 +1,7 @@
 import { User } from 'firebase/auth';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
+import GroupComponent from '../components/GroupComponent';
 import HelloUserHeader from '../components/headers/HelloUserHeader';
 import IssuesSearchBar from '../components/search-bars/IssuesSearchBar';
 import SideBarComponent from '../components/SideBarComponent'
@@ -30,18 +31,14 @@ export default function DashboardPage() {
         <SideBarComponent />
         <div className="flex flex-row w-full justify-between">
           <div className="flex flex-col rounded-lg">
-            <div className="flex flex-row">
-              <HelloUserHeader name={user.displayName} />
-            </div>
-            <div className="flex flex-row">
-              <HelloUserHeader name={user.displayName} />
-            </div>
+            <HelloUserHeader name={user.displayName} />
+            <GroupComponent />
+          </div>
+          <div className="flex flex-col">
+            
           </div>
           <div className="flex flex-col p-5 rounded-lg w-1/3 mt-2">
             <IssuesSearchBar />
-            <div className="flex flex-row">
-              <HelloUserHeader name={user.displayName} />
-            </div>
           </div>
         </div>
       </div>
