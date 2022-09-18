@@ -1,6 +1,7 @@
 import { User } from 'firebase/auth';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
+import CommunityIssuesComponent from '../components/CommunityIssuesComponent';
 import GroupComponent from '../components/GroupComponent';
 import HelloUserHeader from '../components/headers/HelloUserHeader';
 import IssuesComponent from '../components/IssuesComponent';
@@ -28,26 +29,27 @@ export default function DashboardPage() {
   })
 
   return (
-    <div className="grid grid-cols-4 justify-between h-screen">
-      <div className="col-span-1 bg-black">
+    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-7'>
+      <div className='col-span-1 hidden md:block bg-slate-50'>
         <SideBarComponent />
       </div>
-      <div className="col-span-2">
+      <div className='col-span-2'>
         <HelloUserHeader name={user.displayName} />
-        <div className="grid grid-cols-2">
-          <div className="col-span-1">
-            <GroupComponent />
-          </div>
-          <div className="col-span-1">
-            <NotificationsComponent />
-          </div>
-        </div>
+        <GroupComponent />
       </div>
-      <div className="col-start-4 mt-6 m-4">
-        <IssuesSearchBar />
-        <div className="grid grid-cols-1 mt-12">
-          <IssuesComponent />
+      <div className='col-span-2'>
+        <div className='h-28'>
         </div>
+        <NotificationsComponent />
+      </div>
+      <div className='col-span-2 hidden md:block md:col-start-3 lg:col-start-6 lg:mt-3 p-5'>
+        <IssuesSearchBar />
+        <div className='h-10'>
+        </div>
+        <IssuesComponent />
+      </div>
+      <div className='col-span-7 hidden md:block md:col-start-3 lg:col-start-2 p-5'>
+        <CommunityIssuesComponent />
       </div>
     </div>
   )
