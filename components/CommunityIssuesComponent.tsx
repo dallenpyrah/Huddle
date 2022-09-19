@@ -133,24 +133,7 @@ export default function CommunityIssuesComponent() {
                         <h1 className="text-sm text-gray-300 ml-5 m-2">August 14th, 2022</h1>
                     </div>
                 </div>
-                <div className="grid grid-cols-4 pt-2 pb-2 hover:translate-x-1">
-                    <div className="col-span-1">
-                        <h1 className="text-sm text-gray-300 ml-5 m-2">ASPX Throwing 500 Error on Page Load</h1>
-                    </div>
-                    <div className="col-span-1">
-                        <span className="text-xs ml-5 mt-1 font-semibold inline-block py-1 px-2 uppercase rounded-full text-green-600 bg-green-200 last:mr-0 mr-1">
-                            C# Gurus
-                        </span>
-                    </div>
-                    <div className="col-span-1">
-                        <span className="text-xs ml-5 mt-1 font-semibold inline-block py-1 px-2 uppercase rounded-full text-green-600 bg-green-200 last:mr-0 mr-1">
-                            C#
-                        </span>
-                    </div>
-                    <div className="col-span-1">
-                        <h1 className="text-sm text-gray-300 ml-5 m-2">August 14th, 2022</h1>
-                    </div>
-                </div>
+
             </div>
         </>
     )
