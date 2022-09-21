@@ -1,6 +1,6 @@
 import IssuesSearchBar from "./search-bars/IssuesSearchBar";
 
-export default function CommunityIssuesComponent() {
+export default function CommunityIssuesDashboardComponent() {
     return (
         <>
             <div className="bg-black rounded-lg p-3">

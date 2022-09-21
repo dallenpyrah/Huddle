@@ -1,4 +1,4 @@
-export default function NotificationsComponent() {
+export default function NotificationsDashboardComponent() {
     return (
         <>
             <div className="col-span-1">

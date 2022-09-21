@@ -1,11 +1,11 @@
 import { User } from 'firebase/auth';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
-import CommunityIssuesComponent from '../components/CommunityIssuesComponent';
-import GroupComponent from '../components/GroupComponent';
+import CommunityIssuesDashboardComponent from '../components/CommunityIssuesDashboardComponent';
+import GroupDashboardComponent from '../components/GroupDashboardComponent';
 import HelloUserHeader from '../components/headers/HelloUserHeader';
-import IssuesComponent from '../components/IssuesComponent';
-import NotificationsComponent from '../components/NotificationsComponent';
+import IssuesDashboardComponent from '../components/IssuesDashboardComponent';
+import NotificationsDashboardComponent from '../components/NotificationsDashboardComponent';
 import IssuesSearchBar from '../components/search-bars/IssuesSearchBar';
 import SideBarComponent from '../components/SideBarComponent'
 import { useGlobalContext } from '../context/GlobalContext'
@@ -35,21 +35,21 @@ export default function DashboardPage() {
       </div>
       <div className='col-span-2'>
         <HelloUserHeader name={user.displayName} />
-        <GroupComponent />
+        <GroupDashboardComponent />
       </div>
       <div className='col-span-2'>
         <div className='h-28'>
         </div>
-        <NotificationsComponent />
+        <NotificationsDashboardComponent />
       </div>
       <div className='col-span-2 hidden md:block md:col-start-3 lg:col-start-6 lg:mt-3 p-5'>
         <IssuesSearchBar />
         <div className='h-10'>
         </div>
-        <IssuesComponent />
+        <IssuesDashboardComponent />
       </div>
       <div className='col-span-7 hidden md:block md:col-start-3 lg:col-start-2 p-5'>
-        <CommunityIssuesComponent />
+        <CommunityIssuesDashboardComponent />
       </div>
     </div>
   )

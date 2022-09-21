@@ -1,4 +1,4 @@
-export default function GroupComponent() {
+export default function GroupDashboardComponent() {
     return (
         <>
             <h1 className="font-bold text-stone-900 text-lg ml-6">Your Groups</h1>

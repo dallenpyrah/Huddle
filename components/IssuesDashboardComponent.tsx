@@ -1,4 +1,4 @@
-export default function IssuesComponent() {
+export default function IssuesDashboardComponent() {
     return (
         <>
             <div className="col-span-1 ml-5">
