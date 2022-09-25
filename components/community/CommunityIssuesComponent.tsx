@@ -1,12 +1,14 @@
-import IssuesSearchBar from "./search-bars/IssuesSearchBar";
+import IssuesSearchBar from "../search-bars/IssuesSearchBar";
 
-export default function CommunityIssuesDashboardComponent() {
+export default function CommunityIssuesComponent() {
     return (
         <>
             <div className="bg-black rounded-lg p-3">
-                <div className="grid grid-cols-3">
-                    <h1 className="text-white text-lg font-bold p-5">Community Issues</h1>
-                    <div className="col-span-1 col-start-3 m-3">
+                <div className="grid grid-cols-8">
+                    <div className="col-span-2">
+                        <h1 className="text-white text-lg font-bold p-5">Community Issues</h1>
+                    </div>
+                    <div className="col-span-2 col-start-7 mt-2">
                         <IssuesSearchBar />
                     </div>
                 </div>

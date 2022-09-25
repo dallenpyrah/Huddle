@@ -1,14 +1,13 @@
 import { User } from 'firebase/auth';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
-import CommunityIssuesDashboardComponent from '../components/CommunityIssuesDashboardComponent';
-import GroupDashboardComponent from '../components/GroupDashboardComponent';
-import HelloUserHeader from '../components/headers/HelloUserHeader';
-import IssuesDashboardComponent from '../components/IssuesDashboardComponent';
-import NotificationsDashboardComponent from '../components/NotificationsDashboardComponent';
-import IssuesSearchBar from '../components/search-bars/IssuesSearchBar';
-import SideBarComponent from '../components/SideBarComponent'
+import CommunityIssuesComponent from '../components/community/CommunityIssuesComponent';
+import UserNotificationsComponent from '../components/user/UserNotificationsComponent';
+import UserGroupsComponent from '../components/user/UserGroupsComponent';
+import UserIssuesComponent from '../components/user/UserIssuesComponent';
+import SideBarComponent from '../components/sidebar/SideBarComponent'
 import { useGlobalContext } from '../context/GlobalContext'
+import HelloUserHeader from '../components/headers/HelloUserHeader';
 
 export default function DashboardPage() {
   const { isAuthenticated, setIsAuthenticated } = useGlobalContext();
@@ -33,23 +32,22 @@ export default function DashboardPage() {
       <div className='col-span-1 hidden md:block bg-slate-50'>
         <SideBarComponent />
       </div>
-      <div className='col-span-2'>
-        <HelloUserHeader name={user.displayName} />
-        <GroupDashboardComponent />
-      </div>
-      <div className='col-span-2'>
-        <div className='h-28'>
+      <div className="col-span-6">
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6'>
+          <div className='col-span-2'>
+            <HelloUserHeader name={user.displayName} />
+            <UserGroupsComponent />
+          </div>
+          <div className='col-span-2'>
+            <UserNotificationsComponent />
+          </div>
+          <div className='col-span-3'>
+            <UserIssuesComponent />
+          </div>
+          <div className='col-span-7 hidden md:block md:col-start-3 lg:col-start-1 p-5'>
+            <CommunityIssuesComponent />
+          </div>
         </div>
-        <NotificationsDashboardComponent />
-      </div>
-      <div className='col-span-2 hidden md:block md:col-start-3 lg:col-start-6 lg:mt-3 p-5 h-full'>
-        <div className='h-10'></div>
-        <div className='h-10'>
-        </div>
-        <IssuesDashboardComponent />
-      </div>
-      <div className='col-span-7 hidden md:block md:col-start-3 lg:col-start-2 p-5'>
-        <CommunityIssuesDashboardComponent />
       </div>
     </div>
   )

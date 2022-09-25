@@ -1,4 +1,4 @@
-import SideBarComponent from "../components/SideBarComponent";
+import SideBarComponent from "../components/sidebar/SideBarComponent";
 import {useState} from "react";
 
 export default function ChatPage() {

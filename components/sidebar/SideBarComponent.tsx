@@ -1,13 +1,13 @@
 import { NextPage } from 'next'
 import Image from 'next/image'
 import React from 'react'
-import SideBarListItem from './list-items/SideBarListItem'
+import SideBarListItem from '../list-items/SideBarListItem'
 import { faBug, faHome, faMessage, faPeopleGroup, faBell, faNewspaper, faGear, faH } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export default function SideBarComponent() {
     return (
-        <div className="overflow-y-auto py-4 px-3 dark:bg-gray-800 bg-slate-50">
+        <div className="overflow-y-auto py-4 px-3 dark:bg-gray-800 bg-slate-50 h-screen">
             <span className="self-center text-xl whitespace-nowrap text-black font-semibold font-mono ml-5">
                 <a href='/'>
                     Hu<span className='text-purple-300'>dd</span>le
