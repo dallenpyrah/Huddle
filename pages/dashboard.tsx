@@ -42,8 +42,8 @@ export default function DashboardPage() {
         </div>
         <NotificationsDashboardComponent />
       </div>
-      <div className='col-span-2 hidden md:block md:col-start-3 lg:col-start-6 lg:mt-3 p-5'>
-        <IssuesSearchBar />
+      <div className='col-span-2 hidden md:block md:col-start-3 lg:col-start-6 lg:mt-3 p-5 h-full'>
+        <div className='h-10'></div>
         <div className='h-10'>
         </div>
         <IssuesDashboardComponent />
