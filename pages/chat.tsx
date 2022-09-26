@@ -6,6 +6,10 @@ import { faCancel, faPaperPlane, faSearch } from "@fortawesome/free-solid-svg-ic
 export default function ChatPage() {
     const [message, setMessage] = useState("Write a message...");
 
+    function handleMessageInput(event: any) {
+        setMessage(event.target.value);
+    }
+
     return (
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-7 h-screen'>
             <div className="col-span-1 hidden md:block">
@@ -42,23 +46,31 @@ export default function ChatPage() {
                 </div>
             </div>
             <div className="col-span-4 p-5 overflow-y-auto">
-                <div className="flex flex-row h-[95%]">
-                    <div className="flex flex-col bg-slate-100 w-full overflow-y-auto rounded-t-lg justify-between">
-                        <div className="flex flex-row justify-between p-5 bg-black">
-                            <h1 className="text-md text-white">Gaurav Sharma</h1>
-                            <h1 className="text-md text-white">Software Engineer</h1>
-                        </div>
-                        <div className="flex flex-row justify-between break-words">
-                            <span onFocus={() => setMessage("")} contentEditable="true" className="w-screen bg-slate-50 p-4 text-sm">{message}</span>
-                        </div>
+                <div className="grid grid-cols-4 bg-black rounded-md p-5">
+                    <div className="col-span-1">
+                        <h1 className="text-md text-white">Gaurav Sharma</h1>
+                    </div>
+                    <div className="col-span-1 col-start-4 text-right">
+                        <h1 className="text-md text-white">Software Engineer</h1>
                     </div>
                 </div>
-                <div className="flex flex-row justify-end">
-                    <button className="text-white text-sm bg-black p-2 rounded-lg mt-2 hover:bg-gray-800">
-                        <FontAwesomeIcon icon={faPaperPlane} />
-                    </button>
+                <div className="grid grid-cols-1 bg-slate-100 p-10 h-[83%]">
+                </div>
+                <div className="grid grid-cols-1 justify-between break-words">
+                    <div className="col-span-1">
+                        <form onSubmit={handleMessageInput} className="">
+                            <input placeholder="Write a message..." className=" w-full p-4 bg-slate-50 text-sm" />
+                        </form>
+                    </div>
+                </div>
+                <div className="grid grid-cols-12">
+                    <div className="col-span-1 col-start-12 text-right">
+                        <button className="text-white text-sm bg-black p-2 rounded-lg mt-2 hover:bg-gray-800">
+                            <FontAwesomeIcon icon={faPaperPlane} />
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
