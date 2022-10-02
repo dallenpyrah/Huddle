@@ -13,6 +13,7 @@ import DashboardButtons from '../components/user/DashboardButtons';
 export default function DashboardPage() {
   const { isAuthenticated, setIsAuthenticated } = useGlobalContext();
   const [user, setUser] = useState({} as User);
+  const [isStateLoaded, setIsStateLoaded] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -37,7 +38,7 @@ export default function DashboardPage() {
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6'>
           <div className='col-span-2'>
             <HelloUserHeader name={user.displayName} />
-            <UserGroupsComponent />
+            <UserGroupsComponent setIsStateLoaded={setIsStateLoaded} isStateLoaded={isStateLoaded} />
           </div>
           <div className='col-span-2'>
             <UserNotificationsComponent />

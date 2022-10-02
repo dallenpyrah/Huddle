@@ -1,5 +1,5 @@
 import { Axios } from "axios";
-import GroupModel from "../models/GroupModel";
+import UserGroupModel from "../models/UserGroupModel";
 
 class GroupsService {
     axios: Axios
@@ -7,9 +7,10 @@ class GroupsService {
         this.axios = axios
     }
     
-    async getUserGroups(userId: number): Promise<GroupModel[]> { 
+    async getUserGroups(userId: number): Promise<UserGroupModel[]> {
         try {
-            const groups = await this.axios.get<GroupModel[]>(`/usergroups/${1}`);
+            const groups = await this.axios.get<UserGroupModel[]>(`/usergroups/${1}`);
+            console.log(groups);
             return groups.data;
         } catch (error) {
             throw error;

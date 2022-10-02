@@ -1,23 +1,19 @@
-import { User } from "firebase/auth";
-
-export default class GroupModel {
-    id: string;
+export default class Group {
+    id: number;
     name: string;
     description: string;
-    creatorId: number;
-    users: User[];
     createdAt: Date;
     updatedAt: Date;
     color: string;
+    creatorId: number;
 
-    constructor(id: string, name: string, description: string, creatorId: number, users: User[], createdAt: Date, updatedAt: Date, color: string) {
+    constructor(id: number, name: string, description: string, createdAt: Date, updatedAt: Date, color: string, creatorId: number) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.creatorId = creatorId;
-        this.users = users;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.color = color;
+        this.creatorId = creatorId;
     }
 }
