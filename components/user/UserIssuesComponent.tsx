@@ -1,7 +1,7 @@
 export default function UserIssuesComponent() {
     return (
         <>
-            <div className="col-span-1 mt-28">
+            <div className="col-span-1 mt-[3.75rem]">
                 <h1 className="font-bold text-lg ml-7 mb-5">Your Issues</h1>
             </div>
             <div className="grid grid-cols-1 h-80 ml-7 mr-7">

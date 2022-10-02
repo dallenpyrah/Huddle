@@ -8,6 +8,7 @@ import UserIssuesComponent from '../components/user/UserIssuesComponent';
 import SideBarComponent from '../components/sidebar/SideBarComponent'
 import { useGlobalContext } from '../context/GlobalContext'
 import HelloUserHeader from '../components/headers/HelloUserHeader';
+import DashboardButtons from '../components/user/DashboardButtons';
 
 export default function DashboardPage() {
   const { isAuthenticated, setIsAuthenticated } = useGlobalContext();
@@ -42,6 +43,7 @@ export default function DashboardPage() {
             <UserNotificationsComponent />
           </div>
           <div className='col-span-3'>
+            <DashboardButtons />
             <UserIssuesComponent />
           </div>
           <div className='col-span-7 hidden md:block md:col-start-3 lg:col-start-1 p-5'>
