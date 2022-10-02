@@ -14,7 +14,7 @@ class AuthenticationService {
   
     async login (user: AuthenticationModel): Promise<AuthenticationResponseContract> {
       try {
-        const loginResult = await this.axios.post('/v1/auth/login', user)
+        const loginResult = await this.axios.post('/auth/login', user)
         return loginResult.data
       } catch (error) {
         throw error
@@ -51,7 +51,7 @@ class AuthenticationService {
 
     async signUpWithPasswordAndEmail (user: AuthenticationModel): Promise<AuthenticationResponseContract> {
       try {
-        const signupResult = await this.axios.post('/v1/auth/signup', user)
+        const signupResult = await this.axios.post('/auth/signup', user)
         return signupResult.data
       } catch (error) {
         throw error

@@ -11,8 +11,8 @@ export default function UserGroupsComponent() {
     async function getUsersGroups() {
         const userCredentialsString = window.localStorage.getItem('user')
         const userCredentials = JSON.parse(userCredentialsString || '{}')
-        const groups = await groupsService.getUserGroups(userCredentials.uid);
-        setGroups(groups);
+        const userGroups = await groupsService.getUserGroups(userCredentials.uid);
+        setGroups(userGroups);
     }
 
     useEffect(() => {
