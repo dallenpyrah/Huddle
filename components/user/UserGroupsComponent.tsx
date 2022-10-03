@@ -49,7 +49,7 @@ export default function UserGroupsComponent(props: UserGroupsComponentProps) {
                 <h1 className="font-bold text-stone-900 text-lg ml-6 mb-5">Your Groups</h1>
                 <div className="grid grid-cols-2 gap-4 ml-5 h-80">
                     {userGroups.map((userGroup, index) => (
-                        <div key={index} className={`col-span-1 ${validColors.find(c => c === userGroup.group.color)} rounded-md p-3 flex justify-center items-center`}>
+                        <div key={index} className={`col-span-1 ${validColors.find(c => c === userGroup.group.color)} rounded-md p-3 text-white cursor-pointer flex justify-center items-center hover:-translate-y-1.5`}>
                             <h1 className="truncate text-center">{userGroup.group.name}</h1>
                         </div>
                     ))}
