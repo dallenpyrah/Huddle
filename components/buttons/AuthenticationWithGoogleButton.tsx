@@ -10,14 +10,15 @@ export default function AuthenticateWithGoogleButton (props: { passErrorMessage:
   const authenticationService = new AuthenticationService(axiosService)
 
   async function handleLoginOrSignupWithGoogle (event: any): Promise<void> {
-    event.preventDefault()
-    const authenticationResponse = await authenticationService.loginOrSignupWithGoogle()
-    if ((authenticationResponse.userCredential?.user) != null) {
-      window.localStorage.setItem('user', JSON.stringify(authenticationResponse.userCredential.user))
-      setIsAuthenticated(true)
-      void await router.push('/dashboard')
-    } else {
-      props.passErrorMessage(authenticationResponse.errorMessage)
+    try {
+      event.preventDefault()
+      const userCredentials = await authenticationService.loginOrSignupWithGoogle()
+      if ((userCredentials?.user) !== null) {
+        setIsAuthenticated(true)
+        void await router.push('/dashboard')
+      }
+    } catch (error: any) {
+      props.passErrorMessage(error.message)
     }
   }
 

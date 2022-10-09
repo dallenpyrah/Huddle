@@ -5,9 +5,11 @@ import UserGroupModel from '../../models/UserGroupModel'
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import 'tailwindcss/colors'
+import AuthenticationService from '../../services/AuthenticationService'
 
 export default function UserGroupsComponent (): JSX.Element {
   const groupsService = new GroupsService(axiosService)
+  const authenticationService = new AuthenticationService(axiosService)
   const [userGroups, setUserGroups] = useState<UserGroupModel[]>([])
   const [isStateLoaded, setIsStateLoaded] = useState(false)
 
@@ -26,11 +28,13 @@ export default function UserGroupsComponent (): JSX.Element {
   const maxGroupCount = 4
 
   async function getUsersGroups (): Promise<void> {
-    const userCredentialsString = window.localStorage.getItem('user')
-    const userCredentials = JSON.parse(userCredentialsString || '{}')
-    const userGroups = await groupsService.getUserGroups(userCredentials.uid)
-    setUserGroups(userGroups)
-    setIsStateLoaded(true)
+    const user = await authenticationService.getCurrentUser()
+    console.log(user)
+    if (user !== null) {
+      const userGroups = await groupsService.getUserGroups(user.uid)
+      setUserGroups(userGroups)
+      setIsStateLoaded(true)
+    }
   }
 
   function loadUserGroupSkeletons (): JSX.Element[] {
@@ -39,7 +43,7 @@ export default function UserGroupsComponent (): JSX.Element {
     for (let i = 0; i < maxGroupCount; i++) {
       skeletons.push(
                 <div key={i} className="col-span-1 bg-slate-100 rounded-md p-3 flex justify-center items-center">
-                    <h6><Skeleton count={6} /></h6>
+                    <h6><Skeleton count={5} /></h6>
                 </div>)
     }
 

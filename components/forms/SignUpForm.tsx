@@ -12,21 +12,22 @@ export default function SignUpForm (props: { setErrorMessage: (errorMessage: any
   const authenticationService = new AuthenticationService(axiosService)
 
   async function handleSignUpEvent (event: any): Promise<void> {
-    event.preventDefault()
-    const user = new AuthenticationModel(event.target.email.value, event.target.password.value, event.target.fullName.value, event.target.confirm_password.value)
-    const authenticationResponse = await authenticationService.signUpWithPasswordAndEmail(user)
-    console.log(authenticationResponse)
-    if (authenticationResponse.isSuccess) {
-      window.localStorage.setItem('user', JSON.stringify(authenticationResponse.userCredentials?.user))
-      setIsAuthenticated(true)
-      void await router.push('/dashboard')
-    } else {
-      props.setErrorMessage(authenticationResponse.message)
+    try {
+      event.preventDefault()
+      const user = new AuthenticationModel(event.target.email.value, event.target.password.value, event.target.fullName.value, event.target.confirm_password.value)
+      const userCredentials = await authenticationService.signUpWithPasswordAndEmail(user)
+      if (userCredentials.user !== null) {
+        setIsAuthenticated(true)
+        void await router.push('/dashboard')
+      }
+    } catch (error: any) {
+      console.log(error)
+      props.setErrorMessage(error.message)
     }
   }
 
   return (
-        <form onSubmit={() => handleSignUpEvent}>
+        <form onSubmit={handleSignUpEvent}>
                         <input
                             type="text"
                             className="block border border-grey-light w-full p-3 rounded mb-4"

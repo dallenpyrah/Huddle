@@ -9,6 +9,7 @@ import SideBarComponent from '../components/sidebar/SideBarComponent'
 import { useGlobalContext } from '../context/GlobalContext'
 import HelloUserHeader from '../components/headers/HelloUserHeader'
 import DashboardButtons from '../components/user/DashboardButtons'
+import { UserCredential } from '@firebase/auth'
 
 export default function DashboardPage (): JSX.Element {
   const { isAuthenticated, setIsAuthenticated } = useGlobalContext()
@@ -17,10 +18,10 @@ export default function DashboardPage (): JSX.Element {
 
   useEffect(() => {
     if (!isAuthenticated) {
-      const userCredentialsString = window.localStorage.getItem('user')
-      const userCredentials = JSON.parse(userCredentialsString || '{}')
-      if (userCredentials?.uid) {
-        setUser(userCredentials)
+      const userCredentialsString = window.localStorage.getItem('user') ?? '{}'
+      const userCredentials = JSON.parse(userCredentialsString) as UserCredential
+      if (userCredentials.user !== null) {
+        setUser(userCredentials.user)
         setIsAuthenticated(true)
       } else {
         void router.push('/login')
@@ -36,14 +37,23 @@ export default function DashboardPage (): JSX.Element {
       <div className="col-span-6">
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6'>
           <div className='col-span-2'>
-            <HelloUserHeader name={user.displayName} />
+            <HelloUserHeader name={user?.displayName} />
             <h1 className="font-bold text-stone-900 text-lg ml-6 mb-5">Your Groups</h1>
             <div className="grid grid-cols-2 gap-4 ml-5 h-80">
               <UserGroupsComponent />
             </div>
           </div>
           <div className='col-span-2'>
-            <UserNotificationsComponent />
+            <div className="col-span-1 mt-28">
+              <h1 className="font-bold text-lg ml-7 mb-5">Notifications</h1>
+            </div>
+            <div className="grid grid-cols-1 h-80 ml-7">
+              <div className="col-span-1 bg-black rounded-md">
+                <div className="grid grid-cols-1 ml-5 gap-1 p-3">
+                    <UserNotificationsComponent />
+                </div>
+              </div>
+            </div>
           </div>
           <div className='col-span-3'>
             <DashboardButtons />

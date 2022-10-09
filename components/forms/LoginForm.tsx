@@ -11,21 +11,21 @@ export default function LoginForm (props: { setErrorMessage: (errorMessage: any)
   const authenticationService = new AuthenticationService(axiosService)
 
   async function login (event: any): Promise<void> {
-    event.preventDefault()
-    const user = new AuthenticationModel(event.target.email.value, event.target.password.value)
-    const authenticationResponse = await authenticationService.login(user)
-
-    if (authenticationResponse.isSuccess) {
-      window.localStorage.setItem('user', JSON.stringify(authenticationResponse.userCredentials?.user))
-      setIsAuthenticated(true)
-      void await router.push('/dashboard')
-    } else {
-      props.setErrorMessage(authenticationResponse.message)
+    try {
+      event.preventDefault()
+      const user = new AuthenticationModel(event.target.email.value, event.target.password.value)
+      const userCredentials = await authenticationService.login(user)
+      if (userCredentials.user !== null) {
+        setIsAuthenticated(true)
+        void await router.push('/dashboard')
+      }
+    } catch (error: any) {
+      props.setErrorMessage(error.message)
     }
   }
 
   return (
-        <form onSubmit={login}>
+        <form onSubmit={() => login}>
             <input
                 type="text"
                 className="block border border-grey-light w-full p-3 rounded mb-4"

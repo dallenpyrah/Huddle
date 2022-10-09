@@ -1,63 +1,64 @@
 import { AxiosInstance } from 'axios'
-import { GithubAuthProvider, GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
-import AuthenticationResponseContract from '../contracts/AuthenticationResponseContract'
+import {
+  createUserWithEmailAndPassword,
+  GithubAuthProvider,
+  GoogleAuthProvider,
+  signInWithPopup,
+  User
+} from 'firebase/auth'
 import { auth } from '../firebase-config'
 import AuthenticationModel from '../models/AuthenticationModel'
-import AuthenticationResponseModel from '../models/AuthenticationResponseModel'
 import pino from 'pino'
+import { UserCredential } from '@firebase/auth'
 
 class AuthenticationService {
   axiosService: AxiosInstance
-  private readonly logger: pino.Logger = pino({ prettyPrint: true })
+  private readonly logger: pino.Logger = pino()
 
   constructor (axiosService: AxiosInstance) {
     this.axiosService = axiosService
   }
 
-  async login (user: AuthenticationModel): Promise<AuthenticationResponseContract> {
+  async login (user: AuthenticationModel): Promise<UserCredential> {
     try {
-      const loginResult = await this.axiosService.post('/auth/login', user)
-      return loginResult.data
+      return await createUserWithEmailAndPassword(auth, user.email, user.password)
     } catch (error) {
       this.logger.error(error)
       throw error
     }
   }
 
-  async loginOrSignupWithGithub (): Promise<AuthenticationResponseModel> {
-    const authenticationResponseModel: AuthenticationResponseModel = { userCredential: undefined, errorMessage: '' }
-
+  async loginOrSignupWithGithub (): Promise<UserCredential> {
     try {
       const provider = new GithubAuthProvider()
-      authenticationResponseModel.userCredential = await signInWithPopup(auth, provider)
-      return authenticationResponseModel
+      return await signInWithPopup(auth, provider)
     } catch (error: any) {
-      authenticationResponseModel.errorMessage = error.message
-      return authenticationResponseModel
+      this.logger.error(error)
+      throw error
     }
   }
 
-  async loginOrSignupWithGoogle (): Promise<AuthenticationResponseModel> {
-    const authenticationResponseModel: AuthenticationResponseModel = { userCredential: undefined, errorMessage: '' }
-
+  async loginOrSignupWithGoogle (): Promise<UserCredential> {
     try {
       const provider = new GoogleAuthProvider()
-      authenticationResponseModel.userCredential = await signInWithPopup(auth, provider)
-      return authenticationResponseModel
+      return await signInWithPopup(auth, provider)
     } catch (error: any) {
-      authenticationResponseModel.errorMessage = error.message
-      return authenticationResponseModel
+      this.logger.error(error)
+      throw error
     }
   }
 
-  async signUpWithPasswordAndEmail (user: AuthenticationModel): Promise<AuthenticationResponseContract> {
+  async signUpWithPasswordAndEmail (user: AuthenticationModel): Promise<UserCredential> {
     try {
-      const signupResult = await this.axiosService.post('/auth/signup', user)
-      return signupResult.data
+      return await createUserWithEmailAndPassword(auth, user.email, user.password)
     } catch (error) {
       this.logger.error(error)
       throw error
     }
+  }
+
+  async getCurrentUser (): Promise<User | null> {
+    return auth.currentUser
   }
 }
 

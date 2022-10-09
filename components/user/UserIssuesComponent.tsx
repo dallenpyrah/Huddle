@@ -3,19 +3,22 @@ import IssueModel from '../../models/IssueModel'
 import IssuesService from '../../services/IssuesService'
 import { axiosService } from '../../services/AxiosService'
 import Skeleton from 'react-loading-skeleton'
+import AuthenticationService from '../../services/AuthenticationService'
 
 export default function UserIssuesComponent (): JSX.Element {
   const [issues, setIssues] = useState([] as IssueModel[])
   const [isStateLoaded, setIsStateLoaded] = useState(false)
   const issuesService = new IssuesService(axiosService)
+  const authenticationService = new AuthenticationService(axiosService)
   const maxIssuesCount = 7
 
   async function getUsersIssues (): Promise<void> {
-    const userCredentialsString = window.localStorage.getItem('user')
-    const userCredentials = JSON.parse(userCredentialsString || '{}')
-    const issues = await issuesService.getUserIssues(userCredentials.uid)
-    setIssues(issues)
-    setIsStateLoaded(true)
+    const user = await authenticationService.getCurrentUser()
+    if (user !== null) {
+      const issues = await issuesService.getUserIssues(user.uid)
+      setIssues(issues)
+      setIsStateLoaded(true)
+    }
   }
 
   function loadIssueSkeletons (): JSX.Element[] {

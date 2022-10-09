@@ -4,13 +4,13 @@ import pino from 'pino'
 
 export default class IssuesService {
   private readonly axiosService: AxiosInstance
-  private readonly logger: pino.Logger = pino({ prettyPrint: true })
+  private readonly logger: pino.Logger = pino()
 
   constructor (axiosService: AxiosInstance) {
     this.axiosService = axiosService
   }
 
-  async getUserIssues (userId: number): Promise<IssueModel[]> {
+  async getUserIssues (userId: string): Promise<IssueModel[]> {
     try {
       const issues = await this.axiosService.get<IssueModel[]>(`/issues/${1}`)
       console.log(issues)
