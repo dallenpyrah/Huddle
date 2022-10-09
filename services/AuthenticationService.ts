@@ -1,5 +1,4 @@
-import { Axios } from "axios"
-import { FirebaseError } from "firebase/app"
+import { AxiosInstance} from "axios"
 import { GithubAuthProvider, GoogleAuthProvider, signInWithPopup, User, UserCredential } from "firebase/auth"
 import AuthenticationResponseContract from "../contracts/AuthenticationResponseContract"
 import { auth } from "../firebase-config"
@@ -7,14 +6,15 @@ import AuthenticationModel from "../models/AuthenticationModel"
 import AuthenticationResponseModel from "../models/AuthenticationResponseModel"
 
 class AuthenticationService {
-    axios: Axios
-    constructor (axios: Axios) {
-      this.axios = axios
+    axiosService: AxiosInstance
+
+    constructor (axiosService: AxiosInstance) {
+      this.axiosService = axiosService
     }
   
     async login (user: AuthenticationModel): Promise<AuthenticationResponseContract> {
       try {
-        const loginResult = await this.axios.post('/auth/login', user)
+        const loginResult = await this.axiosService.post('/auth/login', user)
         return loginResult.data
       } catch (error) {
         throw error
@@ -51,7 +51,7 @@ class AuthenticationService {
 
     async signUpWithPasswordAndEmail (user: AuthenticationModel): Promise<AuthenticationResponseContract> {
       try {
-        const signupResult = await this.axios.post('/auth/signup', user)
+        const signupResult = await this.axiosService.post('/auth/signup', user)
         return signupResult.data
       } catch (error) {
         throw error

@@ -11,7 +11,7 @@ export default function LoginPage() {
   const [errorMessage, setErrorMessage] = React.useState('')
   const router = useRouter();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (!isAuthenticated) {
       const userCredentialsString = window.localStorage.getItem('user')
       const userCredentials = JSON.parse(userCredentialsString || '{}')
