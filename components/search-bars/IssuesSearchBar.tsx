@@ -1,8 +1,9 @@
-import { faSearch } from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import React from 'react'
 
-export default function IssuesSearchBar() {
-    return (
+export default function IssuesSearchBar (): JSX.Element {
+  return (
         <div>
             <form>
                 <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300">Search</label>
@@ -13,5 +14,5 @@ export default function IssuesSearchBar() {
                 </div>
             </form>
         </div>
-    )
+  )
 }

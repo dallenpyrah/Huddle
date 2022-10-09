@@ -1,16 +1,17 @@
-import SideBarComponent from "../components/sidebar/SideBarComponent";
-import { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCancel, faPaperPlane, faSearch } from "@fortawesome/free-solid-svg-icons";
+import SideBarComponent from '../components/sidebar/SideBarComponent'
+import React, { useState } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPaperPlane, faSearch } from '@fortawesome/free-solid-svg-icons'
 
-export default function ChatPage() {
-    const [message, setMessage] = useState("Write a message...");
+export default function ChatPage (): JSX.Element {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [message, setMessage] = useState('Write a message...')
 
-    function handleMessageInput(event: any) {
-        setMessage(event.target.value);
-    }
+  function handleMessageInput (event: any): void {
+    setMessage(event.target.value)
+  }
 
-    return (
+  return (
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-7 h-screen'>
             <div className="col-span-1 hidden md:block">
                 <SideBarComponent />
@@ -72,5 +73,5 @@ export default function ChatPage() {
                 </div>
             </div>
         </div >
-    )
+  )
 }

@@ -1,14 +1,13 @@
-import type { NextPage } from 'next'
 import Image from 'next/image'
 import LungingMan from '../images/lunge_man.png'
-import NavigateToSignUpButton from '../components/buttons/NavigateToSignupButton'
 import { useRouter } from 'next/router'
+import React from 'react'
 
-export default function HomePage() {
+export default function HomePage (): JSX.Element {
   const router = useRouter()
 
-  function navigateToPage(page: string): void {
-    router.push(page)
+  function navigateToPage (page: string): void {
+    void router.push(page)
   }
 
   return (

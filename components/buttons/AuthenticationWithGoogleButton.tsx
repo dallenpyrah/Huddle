@@ -1,27 +1,27 @@
-import { useRouter } from "next/router";
-import React from "react";
-import { useGlobalContext } from "../../context/GlobalContext";
-import AuthenticationService from "../../services/AuthenticationService";
-import { axiosService } from "../../services/AxiosService";
+import { useRouter } from 'next/router'
+import React from 'react'
+import { useGlobalContext } from '../../context/GlobalContext'
+import AuthenticationService from '../../services/AuthenticationService'
+import { axiosService } from '../../services/AxiosService'
 
-export default function AuthenticateWithGoogleButton(props: { passErrorMessage: (errorMessage: string) => void }) {
-    const { setIsAuthenticated } = useGlobalContext();
-    const router = useRouter();
-    const authenticationService = new AuthenticationService(axiosService)
+export default function AuthenticateWithGoogleButton (props: { passErrorMessage: (errorMessage: string) => void }): JSX.Element {
+  const { setIsAuthenticated } = useGlobalContext()
+  const router = useRouter()
+  const authenticationService = new AuthenticationService(axiosService)
 
-    async function handleLoginOrSignupWithGoogle(event: any): Promise<void> {
-        event.preventDefault()
-        const authenticationResponse = await authenticationService.loginOrSignupWithGoogle()
-        if (authenticationResponse.userCrendential?.user) {
-            router.push('/dashboard')
-            window.localStorage.setItem('user', JSON.stringify(authenticationResponse.userCrendential.user))
-            setIsAuthenticated(true)
-        } else {
-            props.passErrorMessage(authenticationResponse.errorMesssage)
-        }
+  async function handleLoginOrSignupWithGoogle (event: any): Promise<void> {
+    event.preventDefault()
+    const authenticationResponse = await authenticationService.loginOrSignupWithGoogle()
+    if ((authenticationResponse.userCredential?.user) != null) {
+      window.localStorage.setItem('user', JSON.stringify(authenticationResponse.userCredential.user))
+      setIsAuthenticated(true)
+      void await router.push('/dashboard')
+    } else {
+      props.passErrorMessage(authenticationResponse.errorMessage)
     }
+  }
 
-    return (
+  return (
         <button aria-label="Continue with google" onClick={handleLoginOrSignupWithGoogle} role="button" className="focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-gray-700 py-3.5 px-4 border rounded-lg border-gray-700 flex items-center w-full">
             <svg width={19} height={20} viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M18.9892 10.1871C18.9892 9.36767 18.9246 8.76973 18.7847 8.14966H9.68848V11.848H15.0277C14.9201 12.767 14.3388 14.1512 13.047 15.0812L13.0289 15.205L15.905 17.4969L16.1042 17.5173C17.9342 15.7789 18.9892 13.221 18.9892 10.1871Z" fill="#4285F4" />
@@ -31,5 +31,5 @@ export default function AuthenticateWithGoogleButton(props: { passErrorMessage: 
             </svg>
             <p className="text-base font-medium ml-4 text-gray-700">Continue with Google</p>
         </button>
-    )
+  )
 }

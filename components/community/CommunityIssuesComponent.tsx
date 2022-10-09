@@ -1,7 +1,8 @@
-import IssuesSearchBar from "../search-bars/IssuesSearchBar";
+import IssuesSearchBar from '../search-bars/IssuesSearchBar'
+import React from 'react'
 
-export default function CommunityIssuesComponent() {
-    return (
+export default function CommunityIssuesComponent (): JSX.Element {
+  return (
         <>
             <div className="bg-black rounded-lg p-3">
                 <div className="grid grid-cols-8">
@@ -138,5 +139,5 @@ export default function CommunityIssuesComponent() {
 
             </div>
         </>
-    )
+  )
 }

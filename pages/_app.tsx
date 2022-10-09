@@ -3,8 +3,8 @@ import type { AppProps } from 'next/app'
 import { MyGlobalContext } from '../context/GlobalContext'
 import React from 'react'
 
-function MyApp({ Component, pageProps }: AppProps) {
-  const[isAuthenticated, setIsAuthenticated] = React.useState(false)
+function MyApp ({ Component, pageProps }: AppProps): JSX.Element {
+  const [isAuthenticated, setIsAuthenticated] = React.useState(false)
 
   return (
     <MyGlobalContext.Provider value={{ isAuthenticated, setIsAuthenticated }}>

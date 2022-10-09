@@ -1,20 +1,19 @@
-import { User } from 'firebase/auth';
-import { useRouter } from 'next/router';
+import { User } from 'firebase/auth'
+import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-import CommunityIssuesComponent from '../components/community/CommunityIssuesComponent';
-import UserNotificationsComponent from '../components/user/UserNotificationsComponent';
-import UserGroupsComponent from '../components/user/UserGroupsComponent';
-import UserIssuesComponent from '../components/user/UserIssuesComponent';
+import CommunityIssuesComponent from '../components/community/CommunityIssuesComponent'
+import UserNotificationsComponent from '../components/user/UserNotificationsComponent'
+import UserGroupsComponent from '../components/user/UserGroupsComponent'
+import UserIssuesComponent from '../components/user/UserIssuesComponent'
 import SideBarComponent from '../components/sidebar/SideBarComponent'
 import { useGlobalContext } from '../context/GlobalContext'
-import HelloUserHeader from '../components/headers/HelloUserHeader';
-import DashboardButtons from '../components/user/DashboardButtons';
+import HelloUserHeader from '../components/headers/HelloUserHeader'
+import DashboardButtons from '../components/user/DashboardButtons'
 
-export default function DashboardPage() {
-  const { isAuthenticated, setIsAuthenticated } = useGlobalContext();
-  const [user, setUser] = useState({} as User);
-  const [isStateLoaded, setIsStateLoaded] = useState(false);
-  const router = useRouter();
+export default function DashboardPage (): JSX.Element {
+  const { isAuthenticated, setIsAuthenticated } = useGlobalContext()
+  const [user, setUser] = useState<User | null>(null)
+  const router = useRouter()
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -24,7 +23,7 @@ export default function DashboardPage() {
         setUser(userCredentials)
         setIsAuthenticated(true)
       } else {
-        router.push('/login')
+        void router.push('/login')
       }
     }
   })

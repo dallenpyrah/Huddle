@@ -3,7 +3,7 @@ import AuthenticateWithGithubButton from '../components/buttons/AuthenticateWith
 import AuthenticateWithGoogleButton from '../components/buttons/AuthenticationWithGoogleButton'
 import SignUpForm from '../components/forms/SignUpForm'
 
-export default function SignUpPage() {
+export default function SignUpPage (): JSX.Element {
   const [errorMessage, setErrorMessage] = React.useState('')
 
   return (

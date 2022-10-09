@@ -1,12 +1,11 @@
-import { UserCredential } from "firebase/auth";
+import { UserCredential } from 'firebase/auth'
 
 export default class AuthenticationResponseModel {
-    userCrendential: UserCredential | undefined; 
-    errorMesssage: string | "";
+  userCredential: UserCredential | undefined
+  errorMessage: string | ''
 
-    constructor(userCrendential: UserCredential, errorMesssage: string) {
-        this.userCrendential = userCrendential;
-        this.errorMesssage = errorMesssage;
-    }
+  constructor (userCredential: UserCredential, errorMessage: string) {
+    this.userCredential = userCredential
+    this.errorMessage = errorMessage
   }
-  
+}

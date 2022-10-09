@@ -1,30 +1,30 @@
-import { useRouter } from "next/router";
-import React from "react";
-import { useGlobalContext } from "../../context/GlobalContext";
-import AuthenticationModel from "../../models/AuthenticationModel";
-import AuthenticationService from "../../services/AuthenticationService";
-import { axiosService } from "../../services/AxiosService";
+import { useRouter } from 'next/router'
+import React from 'react'
+import { useGlobalContext } from '../../context/GlobalContext'
+import AuthenticationModel from '../../models/AuthenticationModel'
+import AuthenticationService from '../../services/AuthenticationService'
+import { axiosService } from '../../services/AxiosService'
 
-export default function LoginForm(props: { setErrorMessage: (errorMessage: any) => void; errorMessage: string; }) {
-    const { setIsAuthenticated } = useGlobalContext();
-    const router = useRouter();
-    const authenticationService = new AuthenticationService(axiosService)
+export default function LoginForm (props: { setErrorMessage: (errorMessage: any) => void, errorMessage: string }): JSX.Element {
+  const { setIsAuthenticated } = useGlobalContext()
+  const router = useRouter()
+  const authenticationService = new AuthenticationService(axiosService)
 
-    async function login(event: any): Promise<void> {
-        event.preventDefault()
-        const user = new AuthenticationModel(event.target.email.value, event.target.password.value)
-        const authenticationResponse = await authenticationService.login(user)
+  async function login (event: any): Promise<void> {
+    event.preventDefault()
+    const user = new AuthenticationModel(event.target.email.value, event.target.password.value)
+    const authenticationResponse = await authenticationService.login(user)
 
-        if (authenticationResponse.isSuccess) {
-            router.push('/dashboard')
-            window.localStorage.setItem('user', JSON.stringify(authenticationResponse.userCredentials?.user))
-            setIsAuthenticated(true)
-        } else {
-            props.setErrorMessage(authenticationResponse.message)
-        }
+    if (authenticationResponse.isSuccess) {
+      window.localStorage.setItem('user', JSON.stringify(authenticationResponse.userCredentials?.user))
+      setIsAuthenticated(true)
+      void await router.push('/dashboard')
+    } else {
+      props.setErrorMessage(authenticationResponse.message)
     }
+  }
 
-    return (
+  return (
         <form onSubmit={login}>
             <input
                 type="text"
@@ -47,5 +47,5 @@ export default function LoginForm(props: { setErrorMessage: (errorMessage: any) 
                 className="w-full text-center py-3 rounded bg-black text-white hover:bg-green-dark focus:outline-none my-1"
             >Login</button>
         </form>
-    )
+  )
 }

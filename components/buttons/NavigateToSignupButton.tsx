@@ -1,11 +1,11 @@
 import { useRouter } from 'next/router'
 import React from 'react'
 
-export default function NavigateToSignUpButton() {
-  const router = useRouter();
+export default function NavigateToSignUpButton (): JSX.Element {
+  const router = useRouter()
 
-  function navigateToSignUpPage() {
-    router.push('/signup')
+  function navigateToSignUpPage (): void {
+    void router.push('/signup')
   }
 
   return (

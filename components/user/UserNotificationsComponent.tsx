@@ -1,5 +1,7 @@
-export default function UserNotificationsComponent() {
-    return (
+import React from 'react'
+
+export default function UserNotificationsComponent (): JSX.Element {
+  return (
         <>
             <div className="col-span-1 mt-28">
                 <h1 className="font-bold text-lg ml-7 mb-5">Notifications</h1>
@@ -29,5 +31,5 @@ export default function UserNotificationsComponent() {
                 </div>
             </div>
         </>
-    )
+  )
 }

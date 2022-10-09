@@ -1,9 +1,10 @@
-import SideBarComponent from "../components/sidebar/SideBarComponent";
+import SideBarComponent from '../components/sidebar/SideBarComponent'
+import React from 'react'
 
-export default function IssuesPage() {
-    return (
+export default function IssuesPage (): JSX.Element {
+  return (
         <div className="h-screen bg-black">
             <SideBarComponent />
         </div>
-    )
+  )
 }

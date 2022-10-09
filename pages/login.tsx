@@ -1,22 +1,22 @@
 
-import React, { useEffect, useLayoutEffect } from 'react'
+import React, { useEffect } from 'react'
 import LoginForm from '../components/forms/LoginForm'
 import LoginWithGoogleButton from '../components/buttons/AuthenticationWithGoogleButton'
 import LoginWithGithubButton from '../components/buttons/AuthenticateWithGithubButton'
-import { useGlobalContext } from '../context/GlobalContext';
-import { useRouter } from 'next/router';
+import { useGlobalContext } from '../context/GlobalContext'
+import { useRouter } from 'next/router'
 
-export default function LoginPage() {
-  const { isAuthenticated, setIsAuthenticated } = useGlobalContext();
+export default function LoginPage (): JSX.Element {
+  const { isAuthenticated, setIsAuthenticated } = useGlobalContext()
   const [errorMessage, setErrorMessage] = React.useState('')
-  const router = useRouter();
+  const router = useRouter()
 
   useEffect(() => {
     if (!isAuthenticated) {
       const userCredentialsString = window.localStorage.getItem('user')
       const userCredentials = JSON.parse(userCredentialsString || '{}')
       if (userCredentials?.uid) {
-        router.push('/dashboard')
+        void router.push('/dashboard')
       } else {
         setIsAuthenticated(false)
       }
