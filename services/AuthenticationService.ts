@@ -3,7 +3,7 @@ import {
   createUserWithEmailAndPassword,
   GithubAuthProvider,
   GoogleAuthProvider,
-  signInWithPopup,
+  signInWithPopup, updateProfile,
   User
 } from 'firebase/auth'
 import { auth } from '../firebase-config'
@@ -21,7 +21,9 @@ class AuthenticationService {
 
   async login (user: AuthenticationModel): Promise<UserCredential> {
     try {
-      return await createUserWithEmailAndPassword(auth, user.email, user.password)
+      const loggedInUser = await createUserWithEmailAndPassword(auth, user.email, user.password)
+      window.localStorage.setItem('user', JSON.stringify(loggedInUser))
+      return loggedInUser
     } catch (error) {
       this.logger.error(error)
       throw error
@@ -31,7 +33,9 @@ class AuthenticationService {
   async loginOrSignupWithGithub (): Promise<UserCredential> {
     try {
       const provider = new GithubAuthProvider()
-      return await signInWithPopup(auth, provider)
+      const user = await signInWithPopup(auth, provider)
+      window.localStorage.setItem('user', JSON.stringify(user))
+      return user
     } catch (error: any) {
       this.logger.error(error)
       throw error
@@ -41,16 +45,22 @@ class AuthenticationService {
   async loginOrSignupWithGoogle (): Promise<UserCredential> {
     try {
       const provider = new GoogleAuthProvider()
-      return await signInWithPopup(auth, provider)
+      const user = await signInWithPopup(auth, provider)
+      window.localStorage.setItem('user', JSON.stringify(user))
+      return user
     } catch (error: any) {
       this.logger.error(error)
       throw error
     }
   }
 
-  async signUpWithPasswordAndEmail (user: AuthenticationModel): Promise<UserCredential> {
+  async signUpWithPasswordAndEmail (user: AuthenticationModel): Promise<User | null> {
     try {
-      return await createUserWithEmailAndPassword(auth, user.email, user.password)
+      const createdUser: UserCredential = await createUserWithEmailAndPassword(auth, user.email, user.password)
+      await updateProfile(createdUser.user, { displayName: user.fullName })
+      const updatedUser = await this.getCurrentUser()
+      window.localStorage.setItem('user', JSON.stringify(updatedUser))
+      return updatedUser
     } catch (error) {
       this.logger.error(error)
       throw error

@@ -35,9 +35,7 @@ export default function UserIssuesComponent (): JSX.Element {
   }
 
   useEffect(() => {
-    void (async () => {
-      await getUsersIssues()
-    })()
+    void getUsersIssues()
   }, [])
 
   return (

@@ -28,9 +28,7 @@ export default function UserNotificationsComponent (): JSX.Element {
   }
 
   useEffect(() => {
-    void (async () => {
-      await getUsersNotifications()
-    })()
+    void getUsersNotifications()
   })
 
   return (

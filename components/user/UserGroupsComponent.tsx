@@ -29,7 +29,6 @@ export default function UserGroupsComponent (): JSX.Element {
 
   async function getUsersGroups (): Promise<void> {
     const user = await authenticationService.getCurrentUser()
-    console.log(user)
     if (user !== null) {
       const userGroups = await groupsService.getUserGroups(user.uid)
       setUserGroups(userGroups)
@@ -51,9 +50,7 @@ export default function UserGroupsComponent (): JSX.Element {
   }
 
   useEffect(() => {
-    void (async () => {
-      await getUsersGroups()
-    })()
+    void getUsersGroups()
   }, [])
 
   return (
