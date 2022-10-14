@@ -1,4 +1,4 @@
-import axios, { AxiosInstance } from 'axios'
+import { AxiosInstance } from 'axios'
 import IssueModel from '../models/IssueModel'
 import pino from 'pino'
 
@@ -12,7 +12,7 @@ export default class IssuesService {
 
   async getUserIssues (userId: string): Promise<IssueModel[]> {
     try {
-      const issues = await this.axiosService.get<IssueModel[]>(`/issues/${1}`)
+      const issues = await this.axiosService.get<IssueModel[]>(`/issues/${userId}`)
       console.log(issues)
       return issues.data
     } catch (error) {

@@ -9,19 +9,21 @@ import SideBarComponent from '../components/sidebar/SideBarComponent'
 import HelloUserHeader from '../components/headers/HelloUserHeader'
 import DashboardButtons from '../components/user/DashboardButtons'
 import Skeleton from 'react-loading-skeleton'
+import { axiosService } from '../services/AxiosService'
+import AuthenticationService from '../services/AuthenticationService'
 
 export default function DashboardPage (): JSX.Element {
   const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
   const router = useRouter()
+  const authenticationService = new AuthenticationService(axiosService)
 
-  function getUser (): void {
-    const user = window.localStorage.getItem('user')
-
+  async function getUser (): Promise<void> {
+    const user = await authenticationService.getCurrentUser()
     if (user === null) {
-      void router.push('/login')
+      void await router.push('/login')
     } else {
-      setUser(JSON.parse(user))
+      setUser(user)
       setLoading(false)
     }
   }

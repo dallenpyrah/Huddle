@@ -25,7 +25,7 @@ export default function LoginForm (props: { setErrorMessage: (errorMessage: any)
   }
 
   return (
-        <form onSubmit={() => login}>
+        <form onSubmit={login}>
             <input
                 type="text"
                 className="block border border-grey-light w-full p-3 rounded mb-4"

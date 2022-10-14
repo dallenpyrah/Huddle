@@ -45,6 +45,7 @@ export default function UserIssuesComponent (): JSX.Element {
                     <h6 className="p-2 text-sm text-white truncate">{issue.title}</h6>
                 </div>
             ))}
+            {isStateLoaded && issues.length === 0 && loadIssueSkeletons()}
             {!isStateLoaded && loadIssueSkeletons()}
         </>
   )

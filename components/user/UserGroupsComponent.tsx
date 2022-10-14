@@ -55,11 +55,12 @@ export default function UserGroupsComponent (): JSX.Element {
 
   return (
         <>
-            {isStateLoaded && userGroups.map((userGroup, index) => (
+            {isStateLoaded && userGroups.length > 0 && userGroups.map((userGroup, index) => (
                         <div key={index} className={`col-span-1 ${validColors.find(c => c === userGroup.group.color)} rounded-md p-3 text-white cursor-pointer flex justify-center items-center hover:-translate-y-1.5`}>
                             <h1 className="truncate text-center">{userGroup.group.name}</h1>
                         </div>
             ))}
+            {isStateLoaded && userGroups.length === 0 && loadUserGroupSkeletons()}
             {!isStateLoaded && loadUserGroupSkeletons()}
         </>
   )

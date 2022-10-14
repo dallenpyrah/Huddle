@@ -12,7 +12,7 @@ class GroupsService {
 
   async getUserGroups (userId: string): Promise<UserGroupModel[]> {
     try {
-      const groups = await this.axiosService.get<UserGroupModel[]>(`/usergroups/${1}`)
+      const groups = await this.axiosService.get<UserGroupModel[]>(`/usergroups/${userId}`)
       console.log(groups)
       return groups.data
     } catch (error) {
