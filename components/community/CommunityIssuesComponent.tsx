@@ -1,7 +1,12 @@
 import IssuesSearchBar from '../search-bars/IssuesSearchBar'
 import React from 'react'
+import { User } from 'firebase/auth'
 
-export default function CommunityIssuesComponent (): JSX.Element {
+interface CommunityIssuesComponentProps {
+  user: User | null
+}
+
+export default function CommunityIssuesComponent (props: CommunityIssuesComponentProps): JSX.Element {
   return (
         <>
             <div className="bg-black rounded-lg p-3">

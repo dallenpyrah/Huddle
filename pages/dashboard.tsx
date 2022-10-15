@@ -1,4 +1,3 @@
-import { User } from 'firebase/auth'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import CommunityIssuesComponent from '../components/community/CommunityIssuesComponent'
@@ -8,34 +7,32 @@ import UserIssuesComponent from '../components/user/UserIssuesComponent'
 import SideBarComponent from '../components/sidebar/SideBarComponent'
 import HelloUserHeader from '../components/headers/HelloUserHeader'
 import DashboardButtons from '../components/user/DashboardButtons'
-import Skeleton from 'react-loading-skeleton'
-import { axiosService } from '../services/AxiosService'
-import AuthenticationService from '../services/AuthenticationService'
+import { auth } from '../firebase-config'
+import { User } from 'firebase/auth'
 
 export default function DashboardPage (): JSX.Element {
   const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
   const router = useRouter()
-  const authenticationService = new AuthenticationService(axiosService)
 
-  async function getUser (): Promise<void> {
-    const user = await authenticationService.getCurrentUser()
-    if (user === null) {
-      void await router.push('/login')
-    } else {
-      setUser(user)
-      setLoading(false)
-    }
+  function getUser (): void {
+    auth.onAuthStateChanged((user) => {
+      if (user != null) {
+        setUser(user)
+        setLoading(false)
+      } else {
+        void router.push('/login')
+      }
+    })
   }
 
   useEffect(() => {
-    void getUser()
+    getUser()
   }, [])
 
   if (loading) {
     return (
         <div className="flex bg-violet-50 h-screen w-screen justify-evenly items-center">
-          <Skeleton height={100} width={100} />
         </div>
     )
   } else {
@@ -50,7 +47,7 @@ export default function DashboardPage (): JSX.Element {
                 <HelloUserHeader name={user?.displayName}/>
                 <h1 className="font-bold text-stone-900 text-lg ml-6 mb-5">Your Groups</h1>
                 <div className="grid grid-cols-2 gap-4 ml-5 h-80">
-                  <UserGroupsComponent />
+                  <UserGroupsComponent user={user} />
                 </div>
               </div>
               <div className='col-span-2'>
@@ -60,7 +57,7 @@ export default function DashboardPage (): JSX.Element {
                 <div className="grid grid-cols-1 h-80 ml-7">
                   <div className="col-span-1 bg-black rounded-md">
                     <div className="grid grid-cols-1 ml-5 gap-1 p-3">
-                      <UserNotificationsComponent/>
+                      <UserNotificationsComponent user={user}/>
                     </div>
                   </div>
                 </div>
@@ -72,12 +69,12 @@ export default function DashboardPage (): JSX.Element {
                 </div>
                 <div className="grid grid-cols-1 h-80 ml-7 mr-7">
                   <div className="col-span-1 gap-1">
-                    <UserIssuesComponent/>
+                    <UserIssuesComponent user={user}/>
                   </div>
                 </div>
               </div>
               <div className='col-span-7 hidden md:block md:col-start-3 lg:col-start-1 p-5'>
-                <CommunityIssuesComponent/>
+                <CommunityIssuesComponent user={user}/>
               </div>
             </div>
           </div>

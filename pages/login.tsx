@@ -4,7 +4,7 @@ import LoginForm from '../components/forms/LoginForm'
 import LoginWithGoogleButton from '../components/buttons/AuthenticationWithGoogleButton'
 import LoginWithGithubButton from '../components/buttons/AuthenticateWithGithubButton'
 import { useRouter } from 'next/router'
-import Skeleton from 'react-loading-skeleton'
+import { auth } from '../firebase-config'
 
 export default function LoginPage (): JSX.Element {
   const [errorMessage, setErrorMessage] = React.useState('')
@@ -13,23 +13,22 @@ export default function LoginPage (): JSX.Element {
   const router = useRouter()
 
   function getUser (): void {
-    const user = window.localStorage.getItem('user')
-
-    if (user !== null) {
-      void router.push('/dashboard')
-    } else {
-      setLoading(false)
-    }
+    auth.onAuthStateChanged((user) => {
+      if (user != null) {
+        void router.push('/dashboard')
+      } else {
+        setLoading(false)
+      }
+    })
   }
 
   useEffect(() => {
-    void getUser()
+    getUser()
   }, [])
 
   if (loading) {
     return (
         <div className="flex bg-violet-50 h-screen w-screen justify-evenly items-center">
-          <Skeleton height={100} width={100} />
         </div>
     )
   } else {

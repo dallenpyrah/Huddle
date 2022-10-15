@@ -2,7 +2,7 @@ import { AxiosInstance } from 'axios'
 import UserGroupModel from '../models/UserGroupModel'
 import pino from 'pino'
 
-class GroupsService {
+export default class GroupsService {
   axiosService: AxiosInstance
   private readonly logger: pino.Logger = pino()
 
@@ -21,5 +21,3 @@ class GroupsService {
     }
   }
 }
-
-export default GroupsService

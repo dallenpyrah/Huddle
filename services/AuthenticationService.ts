@@ -13,7 +13,7 @@ import AuthenticationModel from '../models/AuthenticationModel'
 import pino from 'pino'
 import { UserCredential } from '@firebase/auth'
 
-class AuthenticationService {
+export default class AuthenticationService {
   axiosService: AxiosInstance
   private readonly logger: pino.Logger = pino()
 
@@ -69,8 +69,7 @@ class AuthenticationService {
   }
 
   async getCurrentUser (): Promise<User | null> {
+    console.log(auth.currentUser)
     return auth.currentUser
   }
 }
-
-export default AuthenticationService

@@ -1,4 +1,4 @@
-class HomeService {
+export default class HomeService {
   getHome (): object {
     return {
       title: 'Home',
@@ -6,5 +6,3 @@ class HomeService {
     }
   }
 }
-
-export default new HomeService()

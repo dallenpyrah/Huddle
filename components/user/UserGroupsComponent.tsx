@@ -5,11 +5,14 @@ import UserGroupModel from '../../models/UserGroupModel'
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import 'tailwindcss/colors'
-import AuthenticationService from '../../services/AuthenticationService'
+import { User } from 'firebase/auth'
 
-export default function UserGroupsComponent (): JSX.Element {
+interface UserGroupsComponentProps {
+  user: User | null
+}
+
+export default function UserGroupsComponent (props: UserGroupsComponentProps): JSX.Element {
   const groupsService = new GroupsService(axiosService)
-  const authenticationService = new AuthenticationService(axiosService)
   const [userGroups, setUserGroups] = useState<UserGroupModel[]>([])
   const [isStateLoaded, setIsStateLoaded] = useState(false)
 
@@ -28,9 +31,8 @@ export default function UserGroupsComponent (): JSX.Element {
   const maxGroupCount = 4
 
   async function getUsersGroups (): Promise<void> {
-    const user = await authenticationService.getCurrentUser()
-    if (user !== null) {
-      const userGroups = await groupsService.getUserGroups(user.uid)
+    if (props.user !== null) {
+      const userGroups = await groupsService.getUserGroups(props.user.uid)
       setUserGroups(userGroups)
       setIsStateLoaded(true)
     }

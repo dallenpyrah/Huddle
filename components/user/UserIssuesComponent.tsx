@@ -3,19 +3,21 @@ import IssueModel from '../../models/IssueModel'
 import IssuesService from '../../services/IssuesService'
 import { axiosService } from '../../services/AxiosService'
 import Skeleton from 'react-loading-skeleton'
-import AuthenticationService from '../../services/AuthenticationService'
+import { User } from 'firebase/auth'
 
-export default function UserIssuesComponent (): JSX.Element {
+interface UserIssuesComponentProps {
+  user: User | null
+}
+
+export default function UserIssuesComponent (props: UserIssuesComponentProps): JSX.Element {
   const [issues, setIssues] = useState([] as IssueModel[])
   const [isStateLoaded, setIsStateLoaded] = useState(false)
   const issuesService = new IssuesService(axiosService)
-  const authenticationService = new AuthenticationService(axiosService)
   const maxIssuesCount = 7
 
   async function getUsersIssues (): Promise<void> {
-    const user = await authenticationService.getCurrentUser()
-    if (user !== null) {
-      const issues = await issuesService.getUserIssues(user.uid)
+    if (props.user !== null) {
+      const issues = await issuesService.getUserIssues(props.user.uid)
       setIssues(issues)
       setIsStateLoaded(true)
     }
@@ -27,7 +29,7 @@ export default function UserIssuesComponent (): JSX.Element {
     for (let i = 0; i < maxIssuesCount; i++) {
       skeletons.push(
                 <div key={i} className="col-span-1 rounded-md hover:translate-x-1 hover:border-l-4 mt-2 hover:border-blue-400">
-                    <h6 className="p-2 text-sm text-black truncate"><Skeleton /></h6>
+                    <h6 className="p-2 text-sm text-black truncate"><Skeleton baseColor="gray" /></h6>
                 </div>)
     }
 
@@ -45,7 +47,11 @@ export default function UserIssuesComponent (): JSX.Element {
                     <h6 className="p-2 text-sm text-white truncate">{issue.title}</h6>
                 </div>
             ))}
-            {isStateLoaded && issues.length === 0 && loadIssueSkeletons()}
+            {isStateLoaded && issues.length === 0 &&
+                <div className="col-span-1 bg-red-500 rounded-md hover:translate-x-1 hover:border-l-4 mb-2 hover:border-blue-400">
+                    <h6 className="p-2 text-sm text-white truncate">No issues found.</h6>
+                </div>
+            }
             {!isStateLoaded && loadIssueSkeletons()}
         </>
   )
