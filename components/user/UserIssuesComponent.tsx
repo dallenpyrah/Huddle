@@ -43,7 +43,7 @@ export default function UserIssuesComponent (props: UserIssuesComponentProps): J
   return (
         <>
             {isStateLoaded && issues.map((issue, index) => (
-                <div key={index} className="col-span-1 bg-red-500 rounded-md hover:translate-x-1 hover:border-l-4 mb-2 hover:border-blue-400">
+                <div key={index} className="col-span-1 bg-purple-400 rounded-md hover:translate-x-1 hover:border-l-4 mb-2 hover:border-purple-200">
                     <h6 className="p-2 text-sm text-white truncate">{issue.title}</h6>
                 </div>
             ))}

@@ -58,7 +58,7 @@ export default function UserGroupsComponent (props: UserGroupsComponentProps): J
   return (
         <>
             {isStateLoaded && userGroups.length > 0 && userGroups.map((userGroup, index) => (
-                        <div key={index} className={`col-span-1 ${validColors.find(c => c === userGroup.group.color)} rounded-md p-3 text-white cursor-pointer flex justify-center items-center hover:-translate-y-1.5`}>
+                        <div key={index} className={`${index === 2 && userGroups.length === 3 ? 'col-span-2' : 'col-span-1'} ${validColors.find(c => c === userGroup.group.color)} rounded-md p-3 text-white cursor-pointer flex justify-center items-center hover:-translate-y-1.5`}>
                             <h1 className="truncate text-center">{userGroup.group.name}</h1>
                         </div>
             ))}

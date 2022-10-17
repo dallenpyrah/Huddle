@@ -56,7 +56,7 @@ export default function DashboardPage (): JSX.Element {
                 </div>
                 <div className="grid grid-cols-1 h-80 ml-7">
                   <div className="col-span-1 bg-black rounded-md">
-                    <div className="grid grid-cols-1 ml-5 gap-1 p-3">
+                    <div className="grid grid-cols-1 gap-1 p-3">
                       <UserNotificationsComponent user={user}/>
                     </div>
                   </div>
@@ -74,7 +74,9 @@ export default function DashboardPage (): JSX.Element {
                 </div>
               </div>
               <div className='col-span-7 hidden md:block md:col-start-3 lg:col-start-1 p-5'>
+                <div className="bg-black rounded-lg p-3">
                 <CommunityIssuesComponent user={user}/>
+                </div>
               </div>
             </div>
           </div>

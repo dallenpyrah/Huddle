@@ -3,13 +3,14 @@ import Skeleton from 'react-loading-skeleton'
 import { axiosService } from '../../services/AxiosService'
 import NotificationService from '../../services/NotificationService'
 import { User } from 'firebase/auth'
+import NotificationModel from '../../models/NotificationModel'
 
 interface UserNotificationsComponentProps {
   user: User | null
 }
 
 export default function UserNotificationsComponent (props: UserNotificationsComponentProps): JSX.Element {
-  const [notifications, setNotifications] = React.useState<Notification[]>([])
+  const [notifications, setNotifications] = React.useState<NotificationModel[]>([])
   const [isSateLoaded, setIsStateLoaded] = React.useState<boolean>(false)
   const notificationService = new NotificationService(axiosService)
   const maxNotificationsCount = 6
@@ -41,11 +42,13 @@ export default function UserNotificationsComponent (props: UserNotificationsComp
 
   return (
         <>
-            {isSateLoaded && notifications.map((notification, index) => (
-                <div key={index} className="col-span-1 rounded-md hover:translate-x-1 hover:border-l-4 mt-2 hover:border-blue-400">
-                    <h6 className="p-2 text-sm text-white truncate">Gaurav has commented on one of your issues.</h6>
+            {isSateLoaded && notifications.map((notification, index) => index < maxNotificationsCount
+              ? (
+                <div key={index} className="col-span-1 rounded-md hover:translate-x-1 bg-zinc-900 hover:border-l-4 mt-2 hover:border-zinc-400">
+                    <h6 className="p-2 text-sm text-white truncate">{notification.content}</h6>
                 </div>
-            ))}
+                )
+              : null)}
             {isSateLoaded && notifications.length === 0 &&
                 <div className="col-span-1 rounded-md hover:translate-x-1 hover:border-l-4 mt-2 hover:border-blue-400">
                     <h6 className="p-2 text-sm text-white truncate">No notifications found.</h6>

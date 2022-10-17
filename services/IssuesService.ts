@@ -20,4 +20,15 @@ export default class IssuesService {
       throw error
     }
   }
+
+  async getCommunityIssues (limit: number, afterId: number): Promise<IssueModel[]> {
+    try {
+      const issues = await this.axiosService.get<IssueModel[]>(`/issues/community/${limit}/${afterId}`)
+      console.log(issues)
+      return issues.data
+    } catch (error) {
+      this.logger.error(error)
+      throw error
+    }
+  }
 }

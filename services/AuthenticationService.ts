@@ -59,8 +59,8 @@ export default class AuthenticationService {
   async signUpWithPasswordAndEmail (user: AuthenticationModel): Promise<User | null> {
     try {
       const createdUser: UserCredential = await createUserWithEmailAndPassword(auth, user.email, user.password)
-      await this.axiosService.post('/auth/signup', createdUser.user)
       await updateProfile(createdUser.user, { displayName: user.fullName })
+      await this.axiosService.post('/auth/signup', createdUser.user)
       return await this.getCurrentUser()
     } catch (error) {
       this.logger.error(error)

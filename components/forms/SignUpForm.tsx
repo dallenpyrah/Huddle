@@ -16,7 +16,7 @@ export default function SignUpForm (props: { setErrorMessage: (errorMessage: any
       event.preventDefault()
       const user = new AuthenticationModel(event.target.email.value, event.target.password.value, event.target.fullName.value, event.target.confirm_password.value)
       const userCredentials = await authenticationService.signUpWithPasswordAndEmail(user)
-      if (userCredentials.user !== null) {
+      if (userCredentials !== null) {
         setIsAuthenticated(true)
         void await router.push('/dashboard')
       }
