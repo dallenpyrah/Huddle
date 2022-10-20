@@ -14,6 +14,18 @@ export default function UserIssuesComponent (props: UserIssuesComponentProps): J
   const [isStateLoaded, setIsStateLoaded] = useState(false)
   const issuesService = new IssuesService(axiosService)
   const maxIssuesCount = 7
+  const validColors = [
+    'bg-slate-300',
+    'bg-red-300',
+    'bg-orange-300',
+    'bg-yellow-300',
+    'bg-green-300',
+    'bg-teal-300',
+    'bg-blue-300',
+    'bg-indigo-300',
+    'bg-purple-300',
+    'bg-pink-300'
+  ]
 
   async function getUsersIssues (): Promise<void> {
     if (props.user !== null) {
@@ -43,7 +55,7 @@ export default function UserIssuesComponent (props: UserIssuesComponentProps): J
   return (
         <>
             {isStateLoaded && issues.map((issue, index) => (
-                <div key={index} className="col-span-1 bg-purple-400 rounded-md hover:translate-x-1 hover:border-l-4 mb-2 hover:border-purple-200">
+                <div key={index} className={`${validColors.find(c => c === issue.group.color)} col-span-1 rounded-md hover:translate-x-1 hover:border-l-4 mb-2 hover:border-purple-200`}>
                     <h6 className="p-2 text-sm text-white truncate">{issue.title}</h6>
                 </div>
             ))}

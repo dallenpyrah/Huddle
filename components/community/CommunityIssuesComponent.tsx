@@ -5,6 +5,8 @@ import Skeleton from 'react-loading-skeleton'
 import IssueModel from '../../models/IssueModel'
 import IssuesService from '../../services/IssuesService'
 import { axiosService } from '../../services/AxiosService'
+import CommunityIssuesTitleComponent from './CommunityIssuesTitleComponent'
+import CommunityIssuesGroupTitleComponent from './CommunityIssuesGroupTitleComponent'
 
 interface CommunityIssuesComponentProps {
   user: User | null
@@ -27,10 +29,6 @@ export default function CommunityIssuesComponent (props: CommunityIssuesComponen
     'bg-purple-300',
     'bg-pink-300'
   ]
-  const languageColors = {
-    'C#': 'bg-green-300',
-    'C++': 'bg-blue-300'
-  }
 
   async function getCommunityIssues (): Promise<void> {
     if (props.user !== null) {
@@ -47,20 +45,20 @@ export default function CommunityIssuesComponent (props: CommunityIssuesComponen
 
     for (let i = 0; i < maxIssuesCount; i++) {
       skeletons.push(
-          <div key={i} className="grid grid-cols-4 pt-2 pb-2">
-              <div className="col-span-1">
-                  <h1 className="text-sm text-gray-300 ml-5 m-2"><Skeleton count={1} baseColor="black"/> </h1>
-              </div>
-              <div className="col-span-1 ml-5">
-                  <Skeleton count={1} baseColor="black" />
-              </div>
-              <div className="col-span-1 ml-5">
-                  <Skeleton count={1} baseColor="black" />
-              </div>
-              <div className="col-span-1">
-                  <h1 className="text-sm text-gray-300 ml-5 m-2"><Skeleton count={1} baseColor="black" /></h1>
-              </div>
-          </div>
+                <div key={i} className="grid grid-cols-4 pt-2 pb-2">
+                    <div className="col-span-1">
+                        <h1 className="text-sm text-gray-300 ml-5 m-2"><Skeleton count={1} baseColor="black" /> </h1>
+                    </div>
+                    <div className="col-span-1 ml-5">
+                        <Skeleton count={1} baseColor="black" />
+                    </div>
+                    <div className="col-span-1 ml-5">
+                        <Skeleton count={1} baseColor="black" />
+                    </div>
+                    <div className="col-span-1">
+                        <h1 className="text-sm text-gray-300 ml-5 m-2"><Skeleton count={1} baseColor="black" /></h1>
+                    </div>
+                </div>
       )
     }
 
@@ -74,45 +72,45 @@ export default function CommunityIssuesComponent (props: CommunityIssuesComponen
   return (
         <>
             <div className="grid grid-cols-8">
-                    <div className="col-span-2">
-                        <h1 className="text-white text-lg font-bold p-5">Community Issues</h1>
-                    </div>
-                    <div className="col-span-2 col-start-7 mt-2">
-                        <IssuesSearchBar />
-                    </div>
+                <div className="col-span-2">
+                    <h1 className="text-white text-lg font-bold p-5">Community Issues</h1>
                 </div>
+                <div className="col-span-2 col-start-7 mt-2">
+                    <IssuesSearchBar issues={issues} setIssues={setIssues} />
+                </div>
+            </div>
             <div className="grid grid-cols-4">
-                    <div className="col-span-1">
-                        <h1 className="text-md ml-5 text-white">Title</h1>
-                    </div>
-                    <div className="col-span-1">
-                        <h1 className="text-md ml-5 text-white">Group</h1>
-                    </div>
-                    <div className="col-span-1">
-                        <h1 className="text-md ml-5 text-white">Language</h1>
-                    </div>
-                    <div className="col-span-1">
-                        <h1 className="text-md ml-5 text-white">Last Updated</h1>
-                    </div>
+                <div className="col-span-1">
+                    <CommunityIssuesTitleComponent issues={issues} setIssues={setIssues} />
                 </div>
+                <div className="col-span-1">
+                    <CommunityIssuesGroupTitleComponent issues={issues} setIssues={setIssues} />
+                </div>
+                <div className="col-span-1">
+                    <h1 className="text-md ml-5 text-white">Language</h1>
+                </div>
+                <div className="col-span-1">
+                    <h1 className="text-md ml-5 text-white">Last Updated</h1>
+                </div>
+            </div>
             {isStateLoaded && issues.length > 0 && issues.map((issue, index) => (
-                <div key={index} className="grid grid-cols-4 pt-2 pb-2">
+                <div key={index} className="grid grid-cols-4 mt-1 pt-1 pb-1 hover:bg-zinc-900 hover:rounded-lg">
                     <div className="col-span-1">
                         <h1 className="text-sm text-gray-300 ml-5 m-2">{issue.title}</h1>
                         <p className="text-xs text-gray-400 ml-5 m-2">{issue.user.name}</p>
                     </div>
-                    <div className="col-span-1">
+                    <div className="col-span-1 mt-3">
                         <span className={`${validColors.find(c => c === issue.group.color)} text-xs ml-5 mt-1 font-semibold inline-block py-1 px-2 uppercase rounded-full text-white-600 last:mr-0 mr-1`}>
                             {issue.group.name}
                         </span>
                     </div>
-                    <div className="col-span-1">
+                    <div className="col-span-1 mt-3">
                         <span className="text-xs ml-5 mt-1 font-semibold inline-block py-1 px-2 uppercase rounded-full text-green-600 bg-green-200 last:mr-0 mr-1">
                             {issue.language}
                         </span>
                     </div>
-                    <div className="col-span-1">
-                        <h1 className="text-sm text-gray-300 ml-5 m-2">{issue.updatedAt.toString()}</h1>
+                    <div className="col-span-1 mt-3">
+                        <h1 className="text-sm text-gray-300 ml-5 m-2 text-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">{issue.updatedAt.toString().substring(0, 10)}</h1>
                     </div>
                 </div>
             ))}

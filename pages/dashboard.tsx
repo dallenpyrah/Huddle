@@ -41,7 +41,7 @@ export default function DashboardPage (): JSX.Element {
           <div className='col-span-1 hidden md:block bg-slate-50'>
             <SideBarComponent/>
           </div>
-          <div className="col-span-6">
+          <div className="col-span-6 h-screen">
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6'>
               <div className='col-span-2'>
                 <HelloUserHeader name={user?.displayName}/>
@@ -74,7 +74,7 @@ export default function DashboardPage (): JSX.Element {
                 </div>
               </div>
               <div className='col-span-7 hidden md:block md:col-start-3 lg:col-start-1 p-5'>
-                <div className="bg-black rounded-lg p-3">
+                <div className="bg-black rounded-lg p-3 h-full">
                 <CommunityIssuesComponent user={user}/>
                 </div>
               </div>

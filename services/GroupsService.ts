@@ -13,7 +13,7 @@ export default class GroupsService {
   async getUserGroups (userId: string): Promise<UserGroupModel[]> {
     try {
       const groups = await this.axiosService.get<UserGroupModel[]>(`/usergroups/${userId}`)
-      console.log(groups)
+      sessionStorage.setItem('userGroups', JSON.stringify(groups.data))
       return groups.data
     } catch (error) {
       this.logger.error(error)
