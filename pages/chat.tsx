@@ -1,4 +1,4 @@
-import SideBarComponent from '../components/sidebar/SideBarComponent'
+import SideBarComponent from '../components/SideBarComponent'
 import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPaperPlane, faSearch } from '@fortawesome/free-solid-svg-icons'

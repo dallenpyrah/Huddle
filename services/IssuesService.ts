@@ -24,7 +24,6 @@ export default class IssuesService {
   async getCommunityIssues (limit: number, afterId: number): Promise<IssueModel[]> {
     try {
       const issues = await this.axiosService.get<IssueModel[]>(`/issues/community/${limit}/${afterId}`)
-      console.log(issues)
       return issues.data
     } catch (error) {
       this.logger.error(error)
@@ -41,14 +40,6 @@ export default class IssuesService {
       this.logger.error(error)
       throw error
     }
-  }
-
-  protected orderIssuesByTitleAscending (issues: IssueModel[]): IssueModel[] {
-    return issues.sort((a, b) => a.title.localeCompare(b.title))
-  }
-
-  protected orderIssuesByTitleDescending (issues: IssueModel[]): IssueModel[] {
-    return issues.sort((a, b) => b.title.localeCompare(a.title))
   }
 
   orderIssuesByTitle (issues: IssueModel[], sortOrder: string): IssueModel[] {
@@ -73,11 +64,68 @@ export default class IssuesService {
     }
   }
 
+  orderIssuesByLanguage (issues: IssueModel[], sortOrder: string): IssueModel[] {
+    switch (sortOrder) {
+      case 'ascending':
+        return this.orderIssuesByLanguageAscending(issues)
+      case 'descending':
+        return this.orderIssuesByLanguageDescending(issues)
+      default:
+        return issues
+    }
+  }
+
+  orderIssuesByLastUpdated (issues: IssueModel[], sortOrder: string): IssueModel[] {
+    switch (sortOrder) {
+      case 'ascending':
+        return this.orderIssuesByLastUpdatedAscending(issues)
+      case 'descending':
+        return this.orderIssuesByLastUpdatedDescending(issues)
+      default:
+        return issues
+    }
+  }
+
+  protected orderIssuesByLanguageAscending (issues: IssueModel[]): IssueModel[] {
+    return issues.sort((a, b) => a.language.localeCompare(b.language))
+  }
+
+  protected orderIssuesByLanguageDescending (issues: IssueModel[]): IssueModel[] {
+    return issues.sort((a, b) => b.language.localeCompare(a.language))
+  }
+
+  protected orderIssuesByTitleAscending (issues: IssueModel[]): IssueModel[] {
+    return issues.sort((a, b) => a.title.localeCompare(b.title))
+  }
+
+  protected orderIssuesByTitleDescending (issues: IssueModel[]): IssueModel[] {
+    return issues.sort((a, b) => b.title.localeCompare(a.title))
+  }
+
   protected orderIssuesByGroupNameAscending (issues: IssueModel[]): IssueModel[] {
     return issues.sort((a, b) => a.group.name.localeCompare(b.group.name))
   }
 
   protected orderIssuesByGroupNameDescending (issues: IssueModel[]): IssueModel[] {
     return issues.sort((a, b) => b.group.name.localeCompare(a.group.name))
+  }
+
+  protected orderIssuesByLastUpdatedAscending (issues: IssueModel[]): IssueModel[] {
+    return issues.sort((a, b) => a.updatedAt.toString().localeCompare(b.updatedAt.toString()))
+  }
+
+  protected orderIssuesByLastUpdatedDescending (issues: IssueModel[]): IssueModel[] {
+    return issues.sort((a, b) => b.updatedAt.toString().localeCompare(a.updatedAt.toString()))
+  }
+
+  setSortOrder (sortOrder: string): string {
+    switch (sortOrder) {
+      case 'ascending':
+        return 'default'
+      case 'descending':
+        return 'ascending'
+      default:
+        return 'descending'
+    }
   }
 }

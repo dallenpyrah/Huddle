@@ -1,12 +1,12 @@
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-import CommunityIssuesComponent from '../components/community/CommunityIssuesComponent'
-import UserNotificationsComponent from '../components/user/UserNotificationsComponent'
-import UserGroupsComponent from '../components/user/UserGroupsComponent'
-import UserIssuesComponent from '../components/user/UserIssuesComponent'
-import SideBarComponent from '../components/sidebar/SideBarComponent'
-import HelloUserHeader from '../components/headers/HelloUserHeader'
-import DashboardButtons from '../components/user/DashboardButtons'
+import CommunityIssuesComponent from '../components/CommunityIssuesComponent'
+import UserNotificationsComponent from '../components/UserNotificationsComponent'
+import UserGroupsComponent from '../components/UserGroupsComponent'
+import UserIssuesComponent from '../components/UserIssuesComponent'
+import SideBarComponent from '../components/SideBarComponent'
+import HelloUserHeader from '../components/HelloUserHeader'
+import DashboardButtons from '../components/DashboardButtons'
 import { auth } from '../firebase-config'
 import { User } from 'firebase/auth'
 
@@ -74,8 +74,8 @@ export default function DashboardPage (): JSX.Element {
                 </div>
               </div>
               <div className='col-span-7 hidden md:block md:col-start-3 lg:col-start-1 p-5'>
-                <div className="bg-black rounded-lg p-3 h-full">
-                <CommunityIssuesComponent user={user}/>
+                <div className="bg-black rounded-lg p-3 max-h-[100%]">
+                  <CommunityIssuesComponent user={user}/>
                 </div>
               </div>
             </div>
