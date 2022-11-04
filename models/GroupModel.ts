@@ -1,4 +1,4 @@
-export default class Group {
+export default class GroupModel {
   id: number
   name: string
   description: string

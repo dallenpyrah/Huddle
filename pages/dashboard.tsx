@@ -1,16 +1,19 @@
-import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-import CommunityIssuesComponent from '../components/CommunityIssuesComponent'
-import UserNotificationsComponent from '../components/UserNotificationsComponent'
-import UserGroupsComponent from '../components/UserGroupsComponent'
-import UserIssuesComponent from '../components/UserIssuesComponent'
-import SideBarComponent from '../components/SideBarComponent'
-import HelloUserHeader from '../components/HelloUserHeader'
-import DashboardButtons from '../components/DashboardButtons'
-import { auth } from '../firebase-config'
 import { User } from 'firebase/auth'
+import { useRouter } from 'next/router'
+import { auth } from '../firebase-config'
+import HelloUserHeader from '../components/HelloUserHeader'
+import UserGroupsComponent from '../components/UserGroupsComponent'
+import UserNotificationsComponent from '../components/UserNotificationsComponent'
+import UserIssuesComponent from '../components/UserIssuesComponent'
+import DashboardButtons from '../components/DashboardButtons'
+import CommunityIssuesComponent from '../components/CommunityIssuesComponent'
+import SideBarComponent from '../components/SideBarComponent'
+import { QueryClient } from '@tanstack/query-core'
+import { QueryClientProvider } from '@tanstack/react-query'
 
-export default function DashboardPage (): JSX.Element {
+export default function DashboardTestPage (): JSX.Element {
+  const queryClient = new QueryClient()
   const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
   const router = useRouter()
@@ -32,55 +35,54 @@ export default function DashboardPage (): JSX.Element {
 
   if (loading) {
     return (
-        <div className="flex bg-violet-50 h-screen w-screen justify-evenly items-center">
-        </div>
+            <div className="flex bg-zinc-900 h-screen w-screen justify-evenly items-center">
+            </div>
     )
   } else {
     return (
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-7'>
-          <div className='col-span-1 hidden md:block bg-slate-50'>
-            <SideBarComponent/>
-          </div>
-          <div className="col-span-6 h-screen">
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6'>
-              <div className='col-span-2'>
-                <HelloUserHeader name={user?.displayName}/>
-                <h1 className="font-bold text-stone-900 text-lg ml-6 mb-5">Your Groups</h1>
-                <div className="grid grid-cols-2 gap-4 ml-5 h-80">
-                  <UserGroupsComponent user={user} />
+        <QueryClientProvider client={queryClient}>
+            <div className="grid grid-cols-7 bg-zinc-900">
+                <div className="hidden xl:block xl:col-span-1">
+                    <SideBarComponent/>
                 </div>
-              </div>
-              <div className='col-span-2'>
-                <div className="col-span-1 mt-28">
-                  <h1 className="font-bold text-lg ml-7 mb-5">Notifications</h1>
-                </div>
-                <div className="grid grid-cols-1 h-80 ml-7">
-                  <div className="col-span-1 bg-black rounded-md">
-                    <div className="grid grid-cols-1 gap-1 p-3">
-                      <UserNotificationsComponent user={user}/>
+                <div className="col-span-7 xl:col-span-6">
+                    <div className="grid grid-cols-9 max-h-screen">
+                        <div className="col-span-5">
+                            <HelloUserHeader name={user?.displayName}/>
+                        </div>
+                        <div className={'col-span-4 mr-8'}>
+                            <DashboardButtons/>
+                        </div>
+                           <UserGroupsComponent user={user}/>
+                        <div className="col-span-3">
+                            <div className="col-span-1">
+                                <h1 className="font-bold text-lg ml-7 mb-5 text-gray-300">Notifications</h1>
+                            </div>
+                            <div className="grid grid-cols-1 h-80 ml-7">
+                                <div className="col-span-1 bg-black rounded-md">
+                                    <div className="grid grid-cols-1 gap-1 p-3">
+                                        <UserNotificationsComponent user={user}/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-span-3">
+                            <div className="col-span-1">
+                                <h1 className="font-bold text-lg ml-7 mb-5 text-gray-300">Your Issues</h1>
+                            </div>
+                            <div className="grid grid-cols-1 h-80 ml-7 mr-7">
+                                <div className="col-span-1 gap-1">
+                                    <UserIssuesComponent user={user}/>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-span-9">
+                            <CommunityIssuesComponent user={user}/>
+                        </div>
                     </div>
-                  </div>
                 </div>
-              </div>
-              <div className='col-span-3'>
-                <DashboardButtons/>
-                <div className="col-span-1 mt-[3.75rem]">
-                  <h1 className="font-bold text-lg ml-7 mb-5">Your Issues</h1>
-                </div>
-                <div className="grid grid-cols-1 h-80 ml-7 mr-7">
-                  <div className="col-span-1 gap-1">
-                    <UserIssuesComponent user={user}/>
-                  </div>
-                </div>
-              </div>
-              <div className='col-span-7 hidden md:block md:col-start-3 lg:col-start-1 p-5'>
-                <div className="bg-black rounded-lg p-3 max-h-[100%]">
-                  <CommunityIssuesComponent user={user}/>
-                </div>
-              </div>
             </div>
-          </div>
-        </div>
+        </QueryClientProvider>
     )
   }
 }

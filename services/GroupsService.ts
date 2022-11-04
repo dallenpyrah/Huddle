@@ -1,6 +1,7 @@
 import { AxiosInstance } from 'axios'
 import UserGroupModel from '../models/UserGroupModel'
 import pino from 'pino'
+import GroupModel from '../models/GroupModel'
 
 export default class GroupsService {
   axiosService: AxiosInstance
@@ -13,7 +14,16 @@ export default class GroupsService {
   async getUserGroups (userId: string): Promise<UserGroupModel[]> {
     try {
       const groups = await this.axiosService.get<UserGroupModel[]>(`/usergroups/${userId}`)
-      sessionStorage.setItem('userGroups', JSON.stringify(groups.data))
+      return groups.data
+    } catch (error) {
+      this.logger.error(error)
+      throw error
+    }
+  }
+
+  async getNewestGroups (): Promise<GroupModel[]> {
+    try {
+      const groups = await this.axiosService.get<GroupModel[]>('/groups/newest')
       return groups.data
     } catch (error) {
       this.logger.error(error)

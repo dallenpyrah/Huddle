@@ -13,7 +13,6 @@ export default class IssuesService {
   async getUserIssues (userId: string): Promise<IssueModel[]> {
     try {
       const issues = await this.axiosService.get<IssueModel[]>(`/issues/${userId}`)
-      console.log(issues)
       return issues.data
     } catch (error) {
       this.logger.error(error)
@@ -34,7 +33,6 @@ export default class IssuesService {
   async getFilteredCommunityIssues (filter: string): Promise<IssueModel[]> {
     try {
       const issues = await this.axiosService.get<IssueModel[]>(`/issues/community/${filter}`)
-      console.log(issues)
       return issues.data
     } catch (error) {
       this.logger.error(error)

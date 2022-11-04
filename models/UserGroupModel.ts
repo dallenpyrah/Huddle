@@ -1,12 +1,12 @@
-import Group from './GroupModel'
+import GroupModel from './GroupModel'
 
 export default class UserGroupModel {
   id: number
   groupId: number
   userId: number
-  group: Group
+  group: GroupModel
 
-  constructor (id: number, groupId: number, userId: number, group: Group) {
+  constructor (id: number, groupId: number, userId: number, group: GroupModel) {
     this.id = id
     this.groupId = groupId
     this.userId = userId
