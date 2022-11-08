@@ -76,11 +76,11 @@ export default function CommunityIssuesComponent (props: CommunityIssuesComponen
 
   return (
       <div className="bg-black rounded-lg p-3 m-5">
-            <div className="grid grid-cols-8">
-                <div className="col-span-2">
-                    <h1 className="text-white text-lg font-bold p-5">Community Issues</h1>
+            <div className="grid grid-cols-9">
+                <div className="col-span-6 mt-5 ml-4 mb-4">
+                    <h1 className="text-white text-lg font-bold">Community Issues</h1>
                 </div>
-                <div className="col-span-2 col-start-7 mt-2">
+                <div className="col-span-3 mt-4 mb-4 mr-2">
                     <IssuesSearchBar issues={issues} setIssues={setIssues} />
                 </div>
             </div>

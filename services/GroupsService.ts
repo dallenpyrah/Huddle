@@ -30,4 +30,14 @@ export default class GroupsService {
       throw error
     }
   }
+
+  async createGroup (groupModel: GroupModel): Promise<GroupModel> {
+    try {
+      const group = await this.axiosService.post<GroupModel>('/groups', groupModel)
+      return group.data
+    } catch (error) {
+      this.logger.error(error)
+      throw error
+    }
+  }
 }

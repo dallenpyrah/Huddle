@@ -1,19 +1,21 @@
 export default class GroupModel {
-  id: number
+  id: number | 0
   name: string
   description: string
-  createdAt: Date
-  updatedAt: Date
+  createdAt: Date | undefined
+  updatedAt: Date | undefined
+  fireBaseUserId: string | undefined
   color: string
-  creatorId: number
+  creatorId: number | 0
 
-  constructor (id: number, name: string, description: string, createdAt: Date, updatedAt: Date, color: string, creatorId: number) {
-    this.id = id
+  constructor (name: string, description: string, color: string, fireBaseUserId: string | undefined, creatorId: number = 0, id: number = 0, createdAt?: Date, updatedAt?: Date) {
     this.name = name
     this.description = description
+    this.color = color
+    this.fireBaseUserId = fireBaseUserId
+    this.creatorId = creatorId
+    this.id = id
     this.createdAt = createdAt
     this.updatedAt = updatedAt
-    this.color = color
-    this.creatorId = creatorId
   }
 }

@@ -12,10 +12,10 @@ export default function HomePage (): JSX.Element {
 
   return (
     <section>
-      <div className="flex h-screen w-screen justify-evenly items-center">
+      <div className="flex h-screen w-screen bg-zinc-900 justify-evenly items-center">
         <div className="basis-1/2">
           <div>
-            <h1 className='text-8xl font-semibold font-mono'>
+            <h1 className='text-8xl font-semibold text-white font-mono'>
               hu<span className='text-purple-400'>dd</span>le
             </h1>
           </div>
@@ -38,10 +38,6 @@ export default function HomePage (): JSX.Element {
         <div className='basis-1/4'>
           <Image src={LungingMan} alt="Picture of the author" width={500} height={500} />
         </div>
-      </div>
-      <div className="flex bg-violet-50 h-screen w-screen justify-evenly items-center">
-      </div>
-      <div className="flex h-screen w-screen justify-evenly items-center">
       </div>
     </section>
   )
