@@ -1,9 +1,9 @@
 import { AxiosInstance } from 'axios'
-import UserGroupModel from '../models/UserGroupModel'
 import pino from 'pino'
+import UserGroupModel from '../models/UserGroupModel'
 import GroupModel from '../models/GroupModel'
 
-export default class GroupsService {
+export default class UserGroupsService {
   axiosService: AxiosInstance
   private readonly logger: pino.Logger = pino()
 
@@ -21,20 +21,9 @@ export default class GroupsService {
     }
   }
 
-  async getNewestGroups (): Promise<GroupModel[]> {
+  async createUserGroup (userGroupModel: GroupModel): Promise<UserGroupModel> {
     try {
-      const groups = await this.axiosService.get<GroupModel[]>('/groups/newest')
-      return groups.data
-    } catch (error) {
-      this.logger.error(error)
-      throw error
-    }
-  }
-
-  async createGroup (groupModel: GroupModel): Promise<GroupModel> {
-    try {
-      const group = await this.axiosService.post<GroupModel>('/groups', groupModel)
-      await this.axiosService.post<UserGroupModel>('/usergroups', group)
+      const group = await this.axiosService.post<UserGroupModel>('/usergroups', userGroupModel)
       return group.data
     } catch (error) {
       this.logger.error(error)

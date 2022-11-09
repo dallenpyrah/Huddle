@@ -1,3 +1,5 @@
+import UserModel from './UserModel'
+
 export default class GroupModel {
   id: number | 0
   name: string
@@ -7,8 +9,9 @@ export default class GroupModel {
   fireBaseUserId: string | undefined
   color: string
   creatorId: number | 0
+  user: UserModel | undefined
 
-  constructor (name: string, description: string, color: string, fireBaseUserId: string | undefined, creatorId: number = 0, id: number = 0, createdAt?: Date, updatedAt?: Date) {
+  constructor (name: string, description: string, color: string, fireBaseUserId: string | undefined, creatorId: number = 0, id: number = 0, createdAt?: Date, updatedAt?: Date, user?: UserModel) {
     this.name = name
     this.description = description
     this.color = color
@@ -17,5 +20,6 @@ export default class GroupModel {
     this.id = id
     this.createdAt = createdAt
     this.updatedAt = updatedAt
+    this.user = user
   }
 }

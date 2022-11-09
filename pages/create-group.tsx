@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import GroupModel from '../models/GroupModel'
 import { auth } from '../firebase-config'
 import { User } from 'firebase/auth'
+import UserGroupsService from '../services/UserGroupsService'
 
 export default function CreateGroupPage (): JSX.Element {
   const [inputGroup, setInputGroup] = useState({ name: '', description: '', color: '' })

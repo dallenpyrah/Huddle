@@ -32,6 +32,7 @@ export default function UserGroupsComponent (props: UserGroupsComponentProps): J
 
   async function getUsersGroups (): Promise<void> {
     if (props.user !== null) {
+      console.log(props.user.uid)
       const userGroups = await groupsService.getUserGroups(props.user.uid)
       setUserGroups(userGroups)
       setIsStateLoaded(true)

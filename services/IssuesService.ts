@@ -22,7 +22,7 @@ export default class IssuesService {
 
   async getCommunityIssues (limit: number, afterId: number): Promise<IssueModel[]> {
     try {
-      const issues = await this.axiosService.get<IssueModel[]>(`/issues/community/${limit}/${afterId}`)
+      const issues = await this.axiosService.get<IssueModel[]>(`/issues/${limit}/${afterId}`)
       return issues.data
     } catch (error) {
       this.logger.error(error)
@@ -32,7 +32,7 @@ export default class IssuesService {
 
   async getFilteredCommunityIssues (filter: string): Promise<IssueModel[]> {
     try {
-      const issues = await this.axiosService.get<IssueModel[]>(`/issues/community/${filter}`)
+      const issues = await this.axiosService.get<IssueModel[]>(`/issues/${filter}`)
       return issues.data
     } catch (error) {
       this.logger.error(error)
