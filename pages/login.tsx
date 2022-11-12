@@ -1,8 +1,8 @@
 
 import React, { useEffect } from 'react'
-import LoginForm from '../components/LoginForm'
-import LoginWithGoogleButton from '../components/AuthenticationWithGoogleButton'
-import LoginWithGithubButton from '../components/AuthenticateWithGithubButton'
+import LoginForm from '../components/authentication/LoginForm'
+import LoginWithGoogleButton from '../components/authentication/AuthenticationWithGoogleButton'
+import LoginWithGithubButton from '../components/authentication/AuthenticateWithGithubButton'
 import { useRouter } from 'next/router'
 import { auth } from '../firebase-config'
 

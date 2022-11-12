@@ -1,7 +1,7 @@
 import React from 'react'
-import AuthenticateWithGithubButton from '../components/AuthenticateWithGithubButton'
-import AuthenticateWithGoogleButton from '../components/AuthenticationWithGoogleButton'
-import SignUpForm from '../components/SignUpForm'
+import AuthenticateWithGithubButton from '../components/authentication/AuthenticateWithGithubButton'
+import AuthenticateWithGoogleButton from '../components/authentication/AuthenticationWithGoogleButton'
+import SignUpForm from '../components/authentication/SignUpForm'
 
 export default function SignUpPage (): JSX.Element {
   const [errorMessage, setErrorMessage] = React.useState('')

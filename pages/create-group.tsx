@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import GroupsService from '../services/GroupsService'
-import { axiosService } from '../services/AxiosService'
+import GroupsService from '../services/group/GroupsService'
+import { axiosService } from '../services/axios/AxiosService'
 import { useRouter } from 'next/router'
-import GroupModel from '../models/GroupModel'
+import GroupModel from '../models/group/GroupModel'
 import { auth } from '../firebase-config'
 import { User } from 'firebase/auth'
-import UserGroupsService from '../services/UserGroupsService'
+import UserGroupsService from '../services/user-group/UserGroupsService'
 
 export default function CreateGroupPage (): JSX.Element {
   const [inputGroup, setInputGroup] = useState({ name: '', description: '', color: '' })

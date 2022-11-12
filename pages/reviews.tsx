@@ -1,4 +1,4 @@
-import SideBarComponent from '../components/SideBarComponent'
+import SideBarComponent from '../components/navigation/SideBarComponent'
 import React from 'react'
 
 export default function ReviewsPage (): JSX.Element {

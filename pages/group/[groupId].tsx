@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { User } from 'firebase/auth'
 import { useRouter } from 'next/router'
 import { auth } from '../../firebase-config'
-import SideBarComponent from '../../components/SideBarComponent'
+import SideBarComponent from '../../components/navigation/SideBarComponent'
 import axios from 'axios'
-import GroupsService from '../../services/GroupsService'
-import { axiosService } from '../../services/AxiosService'
-import GroupModel from '../../models/GroupModel'
+import GroupsService from '../../services/group/GroupsService'
+import { axiosService } from '../../services/axios/AxiosService'
+import GroupModel from '../../models/group/GroupModel'
 
 export default function GroupDetailsPage (): JSX.Element {
   const [user, setUser] = useState<User>()
