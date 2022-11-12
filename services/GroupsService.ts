@@ -41,4 +41,14 @@ export default class GroupsService {
       throw error
     }
   }
+
+  async getGroupById (groupId: number): Promise<GroupModel> {
+    try {
+      const group = await this.axiosService.get<GroupModel>(`/groups/${groupId}`)
+      return group.data
+    } catch (error) {
+      this.logger.error(error)
+      throw error
+    }
+  }
 }

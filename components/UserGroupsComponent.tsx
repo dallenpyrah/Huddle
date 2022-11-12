@@ -6,6 +6,7 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import 'tailwindcss/colors'
 import { User } from 'firebase/auth'
 import { axiosService } from '../services/AxiosService'
+import { useRouter } from 'next/router'
 
 interface UserGroupsComponentProps {
   user: User | null
@@ -15,6 +16,7 @@ export default function UserGroupsComponent (props: UserGroupsComponentProps): J
   const groupsService = new GroupsService(axiosService)
   const [userGroups, setUserGroups] = useState<UserGroupModel[]>([])
   const [isStateLoaded, setIsStateLoaded] = useState(false)
+  const router = useRouter()
 
   const validColors = [
     'bg-slate-300',
@@ -61,7 +63,7 @@ export default function UserGroupsComponent (props: UserGroupsComponentProps): J
         <h1 className="font-bold text-gray-300 text-lg ml-6 mb-5">Your Groups</h1>
           <div className="grid grid-cols-2 gap-4 ml-5 h-80">
             {isStateLoaded && userGroups.length > 0 && userGroups.map((userGroup, index) => (
-                <div key={index} className={`${index === 2 && userGroups.length === 3 ? 'col-span-2' : 'col-span-1'} ${validColors.find(c => c === userGroup.group.color)} rounded-md p-3 text-white cursor-pointer flex justify-center items-center hover:-translate-y-1.5`}>
+                <div key={index} onClick={async () => await router.push(`/group/${userGroup.groupId}`)} className={`${index === 2 && userGroups.length === 3 ? 'col-span-2' : 'col-span-1'} ${validColors.find(c => c === userGroup.group.color)} rounded-md p-3 text-white cursor-pointer flex justify-center items-center hover:-translate-y-1.5`}>
                   <h1 className="truncate text-center">{userGroup.group.name}</h1>
                 </div>
             ))}

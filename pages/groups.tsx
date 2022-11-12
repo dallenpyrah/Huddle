@@ -59,7 +59,7 @@ export default function GroupsPage (): JSX.Element {
                         <div className={'col-span-3'}>
                             <NewGroupsComponent user={user} />
                         </div>
-                        <div className={'col-span-9 bg-black h-[31rem] ml-4 mt-8 rounded-lg'}>
+                        <div className={'col-span-9 bg-black h-[31rem] ml-4 mt-8 rounded-lg mb-10'}>
                             <div className={'grid grid-cols-9'}>
                                 <div className={'col-span-6 mt-9 ml-6 mb-4'}>
                                     <span className={'text-lg text-white font-semibold'}>Community Groups</span>
