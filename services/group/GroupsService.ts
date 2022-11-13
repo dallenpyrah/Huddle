@@ -2,6 +2,7 @@ import { AxiosInstance } from 'axios'
 import UserGroupModel from '../../models/user-group/UserGroupModel'
 import pino from 'pino'
 import GroupModel from '../../models/group/GroupModel'
+import UserGroupsService from '../user-group/UserGroupsService'
 
 export default class GroupsService {
   axiosService: AxiosInstance
@@ -13,7 +14,7 @@ export default class GroupsService {
 
   async getUserGroups (userId: string): Promise<UserGroupModel[]> {
     try {
-      const groups = await this.axiosService.get<UserGroupModel[]>(`/usergroups/${userId}`)
+      const groups = await this.axiosService.get<UserGroupModel[]>(`/users/${userId}/groups`)
       return groups.data
     } catch (error) {
       this.logger.error(error)
@@ -33,8 +34,10 @@ export default class GroupsService {
 
   async createGroup (groupModel: GroupModel): Promise<GroupModel> {
     try {
+      const userGroupsService = new UserGroupsService(this.axiosService)
       const group = await this.axiosService.post<GroupModel>('/groups', groupModel)
-      await this.axiosService.post<UserGroupModel>('/usergroups', group)
+      await userGroupsService.createUserGroup(group.data)
+
       return group.data
     } catch (error) {
       this.logger.error(error)

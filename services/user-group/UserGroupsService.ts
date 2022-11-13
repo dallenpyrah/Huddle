@@ -13,7 +13,7 @@ export default class UserGroupsService {
 
   async getUserGroups (userId: string): Promise<UserGroupModel[]> {
     try {
-      const groups = await this.axiosService.get<UserGroupModel[]>(`/usergroups/${userId}`)
+      const groups = await this.axiosService.get<UserGroupModel[]>(`/users/${userId}/groups`)
       return groups.data
     } catch (error) {
       this.logger.error(error)
@@ -21,10 +21,24 @@ export default class UserGroupsService {
     }
   }
 
-  async createUserGroup (userGroupModel: GroupModel): Promise<UserGroupModel> {
+  async createUserGroup (groupModel: GroupModel): Promise<UserGroupModel> {
     try {
-      const group = await this.axiosService.post<UserGroupModel>('/usergroups', userGroupModel)
+      const group = await this.axiosService.post(`/groups/${groupModel.id}/users/${groupModel.user?.id ?? ''}`)
       return group.data
+    } catch (error) {
+      this.logger.error(error)
+      throw error
+    }
+  }
+
+  async getUsersByGroupId (groupId: number | undefined): Promise<UserGroupModel[]> {
+    try {
+      if (groupId === undefined) {
+        return []
+      } else {
+        const users = await this.axiosService.get<UserGroupModel[]>(`/groups/${groupId}/users`)
+        return users.data
+      }
     } catch (error) {
       this.logger.error(error)
       throw error
