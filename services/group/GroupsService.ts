@@ -3,6 +3,7 @@ import UserGroupModel from '../../models/user-group/UserGroupModel'
 import pino from 'pino'
 import GroupModel from '../../models/group/GroupModel'
 import UserGroupsService from '../user-group/UserGroupsService'
+import IssueModel from '../../models/issue/IssueModel'
 
 export default class GroupsService {
   axiosService: AxiosInstance
@@ -52,6 +53,20 @@ export default class GroupsService {
     } catch (error) {
       this.logger.error(error)
       throw error
+    }
+  }
+
+  async getIssuesByGroupId (groupId: number | undefined): Promise<IssueModel[]> {
+    try {
+      if (groupId !== undefined) {
+        const issues = await this.axiosService.get<IssueModel[]>(`/groups/${groupId}/issues`)
+        return issues.data
+      } else {
+        return []
+      }
+    } catch (e) {
+      this.logger.error(e)
+      throw e
     }
   }
 }

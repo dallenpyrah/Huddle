@@ -10,18 +10,17 @@ import UserGroupsService from '../../services/user-group/UserGroupsService'
 import UserGroupModel from '../../models/user-group/UserGroupModel'
 import { faChessKing, faUsers } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import GroupDetailsGridHeader from '../../components/groups/headers/GroupDetailsGridHeader'
 import GroupDetailsGrid from '../../components/groups/grid/GroupDetailsGrid'
 
 export default function GroupDetailsPage (): JSX.Element {
   const [user, setUser] = useState<User>()
   const [groupMembers, setGroupMembers] = useState<UserGroupModel[]>([])
   const [group, setGroup] = useState<GroupModel>()
-  const [groupId, setGroupId] = useState<number>()
   const [isStateLoaded, setIsStateLoaded] = useState(false)
   const groupsService = new GroupsService(axiosService)
   const userGroupsService = new UserGroupsService(axiosService)
   const router = useRouter()
+  const groupId = parseInt(router.query.groupId as string, 10)
 
   function getUser (): void {
     auth.onAuthStateChanged((user) => {
@@ -34,9 +33,6 @@ export default function GroupDetailsPage (): JSX.Element {
   }
 
   async function getGroupById (): Promise<void> {
-    const data = router.query
-    const groupId = parseInt(data.groupId as string)
-    setGroupId(groupId)
     const group = await groupsService.getGroupById(groupId)
     setGroup(group)
     setIsStateLoaded(true)
@@ -49,12 +45,13 @@ export default function GroupDetailsPage (): JSX.Element {
   }
 
   useEffect(() => {
+    if (groupId === undefined || groupId === null || isNaN(groupId)) {
+      return
+    }
+
     getUser()
     void getGroupById()
-
-    if (groupId !== undefined) {
-      void getUsersByGroupId()
-    }
+    void getUsersByGroupId()
   }, [groupId])
 
   if (isStateLoaded) {
@@ -87,7 +84,7 @@ export default function GroupDetailsPage (): JSX.Element {
                   : <button className="bg-red-500 text-zinc-900 font-semibold text-sm rounded-md px-4 py-2 mt-5 mr-5">Leave Group</button>
                 }
               </div>
-              <GroupDetailsGrid user={user} />
+              <GroupDetailsGrid user={user} groupId={groupId} isStateLoaded={isStateLoaded} />
             </div>
           </div>
         </div>

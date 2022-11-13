@@ -115,15 +115,4 @@ export default class IssuesService {
   protected orderIssuesByLastUpdatedDescending (issues: IssueModel[]): IssueModel[] {
     return issues.sort((a, b) => b.updatedAt.toString().localeCompare(a.updatedAt.toString()))
   }
-
-  setSortOrder (sortOrder: string): string {
-    switch (sortOrder) {
-      case 'ascending':
-        return 'default'
-      case 'descending':
-        return 'ascending'
-      default:
-        return 'descending'
-    }
-  }
 }
