@@ -1,6 +1,5 @@
 import { AxiosInstance } from 'axios'
 import pino from 'pino'
-import IssueModel from '../../models/issue/IssueModel'
 import NotificationModel from '../../models/notification/NotificationModel'
 
 export default class NotificationService {

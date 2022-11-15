@@ -29,7 +29,7 @@ export default function GroupDetailsGrid (props: IGroupDetailsGridProps): JSX.El
   return (
         <div className={'col-span-9 bg-black rounded-lg'}>
             <GroupDetailsGridHeader />
-            {props.isStateLoaded && issues.length >= 1 && issues.map((issue, index) => (
+            {issues.length >= 1 && issues.map((issue, index) => (
                 <GroupDetailsGridItem key={index} issue={issue} />
             ))}
         </div>

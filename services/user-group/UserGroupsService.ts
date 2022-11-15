@@ -23,7 +23,7 @@ export default class UserGroupsService {
 
   async createUserGroup (groupModel: GroupModel): Promise<UserGroupModel> {
     try {
-      const group = await this.axiosService.post(`/groups/${groupModel.id}/users/${groupModel.user?.id ?? ''}`)
+      const group = await this.axiosService.post(`/groups/${groupModel.id}/users/${groupModel.creatorId ?? ''}`)
       return group.data
     } catch (error) {
       this.logger.error(error)

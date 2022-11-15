@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { User } from 'firebase/auth'
 import { useRouter } from 'next/router'
-import { auth } from '../../firebase-config'
-import SideBarComponent from '../../components/navigation/SideBarComponent'
-import GroupsService from '../../services/group/GroupsService'
-import { axiosService } from '../../services/axios/AxiosService'
-import GroupModel from '../../models/group/GroupModel'
-import UserGroupsService from '../../services/user-group/UserGroupsService'
-import UserGroupModel from '../../models/user-group/UserGroupModel'
-import { faChessKing, faUsers } from '@fortawesome/free-solid-svg-icons'
+import { auth } from '../../../firebase-config'
+import SideBarComponent from '../../../components/navigation/SideBarComponent'
+import GroupsService from '../../../services/group/GroupsService'
+import { axiosService } from '../../../services/axios/AxiosService'
+import GroupModel from '../../../models/group/GroupModel'
+import UserGroupsService from '../../../services/user-group/UserGroupsService'
+import UserGroupModel from '../../../models/user-group/UserGroupModel'
+import { faChessKing, faPlus, faUsers } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import GroupDetailsGrid from '../../components/groups/grid/GroupDetailsGrid'
+import GroupDetailsGrid from '../../../components/groups/grid/GroupDetailsGrid'
 
 export default function GroupDetailsPage (): JSX.Element {
   const [user, setUser] = useState<User>()
@@ -44,6 +44,10 @@ export default function GroupDetailsPage (): JSX.Element {
     setGroupMembers(groupMembers)
   }
 
+  function navigateToCreateIssue (): void {
+    void router.push(`/group/${groupId}/create-issue`)
+  }
+
   useEffect(() => {
     if (groupId === undefined || groupId === null || isNaN(groupId)) {
       return
@@ -56,11 +60,11 @@ export default function GroupDetailsPage (): JSX.Element {
 
   if (isStateLoaded) {
     return (
-        <div className="grid grid-cols-7 bg-zinc-900">
+        <div className="grid grid-cols-7 bg-zinc-900 h-screen">
           <div className="hidden xl:block xl:col-span-1">
             <SideBarComponent/>
           </div>
-          <div className="col-span-6 bg-black mt-8 mb-8 mr-8 rounded-lg">
+          <div className="col-span-7 xl:col-span-6 bg-black mt-8 mb-8 mr-8 ml-8 xl:ml-0 rounded-lg">
             <div className="grid grid-cols-9">
               <div className="col-span-3 ml-7">
                 <div className="text-zinc-300 mt-5 font-bold text-xl">{group?.name}
@@ -78,10 +82,11 @@ export default function GroupDetailsPage (): JSX.Element {
                 <h6 className="text-zinc-500 mt-1 font-light text-sm">{group?.description}</h6>
               </div>
               <div className="col-span-3 col-start-7 text-right">
+                <button className="bg-blue-400 text-zinc-200 font-normal text-sm rounded-md px-4 py-2 mt-5 mr-2" onClick={navigateToCreateIssue}>New Issue</button>
                 {user?.uid === group?.fireBaseUserId
-                  ? <button className="bg-zinc-500 text-zinc-900 font-semibold text-sm rounded-md px-4 py-2 mt-5 mr-5">Join Group</button>
+                  ? <button className="bg-zinc-500 text-zinc-200 font-normal text-sm rounded-md px-4 py-2 mt-5 mr-5">Join Group</button>
 
-                  : <button className="bg-red-500 text-zinc-900 font-semibold text-sm rounded-md px-4 py-2 mt-5 mr-5">Leave Group</button>
+                  : <button className="bg-red-500 text-zinc-200 font-normal text-sm rounded-md px-4 py-2 mt-5 mr-5">Leave Group</button>
                 }
               </div>
               <GroupDetailsGrid user={user} groupId={groupId} isStateLoaded={isStateLoaded} />

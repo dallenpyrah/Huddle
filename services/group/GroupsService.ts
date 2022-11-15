@@ -37,8 +37,8 @@ export default class GroupsService {
     try {
       const userGroupsService = new UserGroupsService(this.axiosService)
       const group = await this.axiosService.post<GroupModel>('/groups', groupModel)
+      console.log(group.data)
       await userGroupsService.createUserGroup(group.data)
-
       return group.data
     } catch (error) {
       this.logger.error(error)
