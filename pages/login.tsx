@@ -57,6 +57,7 @@ export default function LoginPage (): JSX.Element {
               </div>
 
               <div className="text-grey-dark mt-6">
+                {/* eslint-disable-next-line react/no-unescaped-entities */}
                 Don't have an account? <a className="no-underline border-b border-blue text-blue" href="../signup/">
                 Sign up
               </a>.

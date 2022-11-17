@@ -9,7 +9,7 @@ import {
   User
 } from 'firebase/auth'
 import { auth } from '../../firebase-config'
-import AuthenticationModel from '../../models/authentication/AuthenticationModel'
+import AuthenticationModel from '../../models/authentication/IAuthenticationModel'
 import pino from 'pino'
 import { UserCredential } from '@firebase/auth'
 

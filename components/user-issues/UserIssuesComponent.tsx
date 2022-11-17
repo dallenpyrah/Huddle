@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import IssueModel from '../../models/issue/IssueModel'
+import IssueModel from '../../models/issue/IIssueModel'
 import IssuesService from '../../services/issue/IssuesService'
 import { axiosService } from '../../services/axios/AxiosService'
 import Skeleton from 'react-loading-skeleton'
@@ -48,6 +48,10 @@ export default function UserIssuesComponent (props: UserIssuesComponentProps): J
     return skeletons
   }
 
+  function findValidColor (issue: IssueModel): string {
+    return validColors.find(c => c === issue.group.color) ?? 'bg-slate-300'
+  }
+
   useEffect(() => {
     void getUsersIssues()
   }, [])
@@ -55,7 +59,7 @@ export default function UserIssuesComponent (props: UserIssuesComponentProps): J
   return (
         <>
             {isStateLoaded && issues.map((issue, index) => (
-                <div key={index} className={`${validColors.find(c => c === issue.group.color)} col-span-1 rounded-md hover:translate-x-1 hover:border-l-4 mb-2 hover:border-purple-200`}>
+                <div key={index} className={`${findValidColor(issue)} col-span-1 rounded-md hover:translate-x-1 hover:border-l-4 mb-2 hover:border-purple-200`}>
                     <h6 className="p-2 text-sm text-white truncate">{issue.title}</h6>
                 </div>
             ))}

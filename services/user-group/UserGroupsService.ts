@@ -1,7 +1,7 @@
 import { AxiosInstance } from 'axios'
 import pino from 'pino'
-import UserGroupModel from '../../models/user-group/UserGroupModel'
-import GroupModel from '../../models/group/GroupModel'
+import UserGroupModel from '../../models/user-group/IUserGroupModel'
+import GroupModel from '../../models/group/IGroupModel'
 
 export default class UserGroupsService {
   axiosService: AxiosInstance

@@ -3,7 +3,7 @@ import GroupsService from '../../services/group/GroupsService'
 import { axiosService } from '../../services/axios/AxiosService'
 import Skeleton from 'react-loading-skeleton'
 import { User } from 'firebase/auth'
-import GroupModel from '../../models/group/GroupModel'
+import IGroupModel from '../../models/group/IGroupModel'
 
 interface NewGroupsComponentProps {
   user: User | null
@@ -11,7 +11,7 @@ interface NewGroupsComponentProps {
 
 export default function NewGroupsComponent (props: NewGroupsComponentProps): JSX.Element {
   const groupsService = new GroupsService(axiosService)
-  const [newGroups, setNewGroups] = useState<GroupModel[]>([])
+  const [newGroups, setNewGroups] = useState<IGroupModel[]>([])
   const [isStateLoaded, setIsStateLoaded] = useState(false)
 
   const validColors = [
@@ -49,6 +49,10 @@ export default function NewGroupsComponent (props: NewGroupsComponentProps): JSX
     return skeletons
   }
 
+  function findValidColor (group: IGroupModel): string {
+    return validColors.find(c => c === group.color) ?? 'bg-slate-300'
+  }
+
   useEffect(() => {
     void getNewestGroups()
   }, [])
@@ -58,7 +62,7 @@ export default function NewGroupsComponent (props: NewGroupsComponentProps): JSX
           <h1 className="font-bold text-gray-300 text-lg ml-6 mb-5">New Groups</h1>
           <div className="grid grid-cols-2 gap-4 ml-5 h-80">
               {isStateLoaded && newGroups.length > 0 && newGroups.map((group, index) => (
-                  <div key={index} className={`${index === 2 && newGroups.length === 3 ? 'col-span-2' : 'col-span-1'} ${validColors.find(c => c === group.color)} rounded-md p-3 text-white cursor-pointer flex justify-center items-center hover:-translate-y-1.5`}>
+                  <div key={index} className={`${index === 2 && newGroups.length === 3 ? 'col-span-2' : 'col-span-1'} ${findValidColor(group)} rounded-md p-3 text-white cursor-pointer flex justify-center items-center hover:-translate-y-1.5`}>
                       <h1 className="truncate text-center">{group.name}</h1>
                   </div>
               ))}

@@ -1,6 +1,6 @@
 import { AxiosInstance } from 'axios'
 import pino from 'pino'
-import NotificationModel from '../../models/notification/NotificationModel'
+import NotificationModel from '../../models/notification/INotificationModel'
 
 export default class NotificationService {
   private readonly axiosService: AxiosInstance

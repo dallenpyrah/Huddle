@@ -2,7 +2,7 @@ import GroupDetailsGridHeader from '../headers/GroupDetailsGridHeader'
 import React, { useEffect } from 'react'
 import GroupDetailsGridItem from './grid-item/GroupDetailsGridItem'
 import { User } from 'firebase/auth'
-import IssueModel from '../../../models/issue/IssueModel'
+import IssueModel from '../../../models/issue/IIssueModel'
 import { axiosService } from '../../../services/axios/AxiosService'
 import GroupsService from '../../../services/group/GroupsService'
 

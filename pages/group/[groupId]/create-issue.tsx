@@ -1,26 +1,36 @@
-import React, { useEffect, useState } from 'react'
-import { User } from 'firebase/auth'
+import React, { useState } from 'react'
 import { useRouter } from 'next/router'
-import GroupsService from '../../../services/group/GroupsService'
 import { axiosService } from '../../../services/axios/AxiosService'
-import GroupModel from '../../../models/group/GroupModel'
-import { auth } from '../../../firebase-config'
-import IssueModel from '../../../models/issue/IssueModel'
+import IIssueModel from '../../../models/issue/IIssueModel'
+import IssuesService from '../../../services/issue/IssuesService'
 
 export default function CreateIssue (): JSX.Element {
-  const [inputGroup, setInputGroup] = useState({ title: '', description: '', language: '', framework: '' })
-  const [user, setUser] = useState<User>()
-  const router = useRouter()
-  const groupsService = new GroupsService(axiosService)
+  const [newIssue, setNewIssue] = useState<IIssueModel>({
+    comments: [],
+    createdAt: new Date(),
+    framework: '',
+    group: {} as any,
+    id: 0,
+    language: '',
+    status: '',
+    updatedAt: new Date(),
+    user: {} as any,
+    userId: 0,
+    title: '',
+    description: '',
+    groupId: 0
+  })
 
-  const createGroup = async (event: React.FormEvent): Promise<void> => {
+  const router = useRouter()
+  const issuesService = new IssuesService(axiosService)
+
+  const createIssue = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     try {
       event.preventDefault()
-      const issueToCreate = new IssueModel(inputGroup.title, inputGroup.description, inputGroup.language, inputGroup.framework)
-      const createdGroup = await groupsService.createGroup(groupToCreate)
+      const createdIssue = await issuesService.createIssue(newIssue)
 
-      if (createdGroup !== undefined) {
-        void await router.push(`/group/${createdGroup.id}`)
+      if (createdIssue !== undefined) {
+        void await router.push(`/group/${newIssue.groupId}/issues`)
       }
     } catch (error) {
       console.log(error)
@@ -28,34 +38,20 @@ export default function CreateIssue (): JSX.Element {
     }
   }
 
-  function getUser (): void {
-    auth.onAuthStateChanged((user) => {
-      if (user != null) {
-        setUser(user)
-      } else {
-        void router.push('/login')
-      }
-    })
-  }
-
   function handleInput (event: any): void {
     const name = event.target.name
     const value = event.target.value
-    setInputGroup(inputGroup => ({ ...inputGroup, [name]: value }))
+    setNewIssue(newIssue => ({ ...newIssue, [name]: value }))
   }
-
-  useEffect(() => {
-    getUser()
-  }, [])
 
   return (
         <div className={'grid grid-cols-4 bg-zinc-900 h-screen'}>
             <div className={'col-span-2 mt-52 bg-black h-1/2 rounded-lg text-zinc-400 col-start-2'}>
                 <div className={'p-5'}>
                     <h1 className={'mt-7 ml-10 text-xl font-semibold text-white'}>New Issue</h1>
-                    <form className="ml-10 mr-10 mt-8" autoComplete="off" onSubmit={createGroup}>
+                    <form className="ml-10 mr-10 mt-8" autoComplete="off" onSubmit={(event) => { void createIssue(event) }}>
                         <div className="relative z-0 mb-6 w-full group">
-                            <input value={inputGroup?.title} onInput={handleInput} type="title" name="title" id="floating_title"
+                            <input value={newIssue?.title} onInput={handleInput} type="title" name="title" id="floating_title"
                                    className="block py-2.5 px-0 w-full text-sm text-zinc-600 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-purple-600 peer"
                                    placeholder=" " required/>
                             <label htmlFor="floating_title"
@@ -63,7 +59,7 @@ export default function CreateIssue (): JSX.Element {
                             </label>
                         </div>
                         <div className="relative z-0 mb-6 w-full group">
-                            <input value={inputGroup?.description} onInput={handleInput} type="description" name="description" id="floating_name"
+                            <input value={newIssue?.description} onInput={handleInput} type="description" name="description" id="floating_name"
                                    className="block py-2.5 px-0 w-full text-sm text-zinc-600 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-purple-600 peer"
                                    placeholder=" " required/>
                             <label htmlFor="floating_name"

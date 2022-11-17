@@ -2,13 +2,13 @@ import IssuesSearchBar from '../../issues/search-bars/IssuesSearchBar'
 import React, { useEffect, useState } from 'react'
 import { User } from 'firebase/auth'
 import Skeleton from 'react-loading-skeleton'
-import IssueModel from '../../../models/issue/IssueModel'
 import IssuesService from '../../../services/issue/IssuesService'
 import { axiosService } from '../../../services/axios/AxiosService'
 import CommunityIssuesTitleComponent from './headers/CommunityIssuesTitleComponent'
 import CommunityIssuesGroupTitleComponent from './headers/CommunityIssuesGroupTitleComponent'
 import CommunityIssuesLanguageComponent from './headers/CommunityIssuesLanguageComponent'
 import CommunityIssuesLastUpdatedComponent from './headers/CommunityIssuesLastUpdatedComponent'
+import IIssueModel from '../../../models/issue/IIssueModel'
 
 interface CommunityIssuesComponentProps {
   user: User | null
@@ -18,7 +18,7 @@ export default function CommunityIssuesComponent (props: CommunityIssuesComponen
   const maxIssuesCount = 5
   const issuesService = new IssuesService(axiosService)
   const [isStateLoaded, setIsStateLoaded] = useState(false)
-  const [issues, setIssues] = useState<IssueModel[]>([])
+  const [issues, setIssues] = useState<IIssueModel[]>([])
   const [focusHeader, setFocusHeader] = useState('')
 
   const validColors = [
@@ -70,6 +70,10 @@ export default function CommunityIssuesComponent (props: CommunityIssuesComponen
     return skeletons
   }
 
+  function findValidColor (issue: IIssueModel): string {
+    return validColors.find(c => c === issue.group.color) ?? 'bg-slate-300'
+  }
+
   useEffect(() => {
     void getCommunityIssues()
   }, [])
@@ -105,7 +109,7 @@ export default function CommunityIssuesComponent (props: CommunityIssuesComponen
                         <p className="text-xs text-gray-400 ml-5 m-2">{issue.user.name}</p>
                     </div>
                     <div className="col-span-1 mt-3">
-                        <span className={`${validColors.find(c => c === issue.group.color)} text-xs ml-5 mt-1 font-semibold inline-block py-1 px-2 uppercase rounded-full text-white-600 last:mr-0 mr-1`}>
+                        <span className={`${findValidColor(issue)} text-xs ml-5 mt-1 font-semibold inline-block py-1 px-2 uppercase rounded-full text-white-600 last:mr-0 mr-1`}>
                             {issue.group.name}
                         </span>
                     </div>

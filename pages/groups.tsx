@@ -1,5 +1,5 @@
 import SideBarComponent from '../components/navigation/SideBarComponent'
-import React, { useEffect, Fragment, useState, useRef } from 'react'
+import React, { useEffect, useState } from 'react'
 import UserGroupsComponent from '../components/user-groups/UserGroupsComponent'
 import { User } from 'firebase/auth'
 import { useRouter } from 'next/router'
@@ -8,8 +8,6 @@ import { faSearch, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import DashboardButtons from '../components/dashboard/DashboardButtons'
 import NewGroupsComponent from '../components/groups/NewGroupsComponent'
-import { Dialog, Transition } from '@headlessui/react'
-import { func } from 'prop-types'
 
 export default function GroupsPage (): JSX.Element {
   const [user, setUser] = useState<User | null>(null)

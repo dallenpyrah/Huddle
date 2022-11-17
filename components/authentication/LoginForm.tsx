@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import React from 'react'
 import { useGlobalContext } from '../../context/GlobalContext'
-import AuthenticationModel from '../../models/authentication/AuthenticationModel'
+import IAuthenticationModel from '../../models/authentication/IAuthenticationModel'
 import AuthenticationService from '../../services/authentication/AuthenticationService'
 import { axiosService } from '../../services/axios/AxiosService'
 
@@ -13,8 +13,16 @@ export default function LoginForm (props: { setErrorMessage: (errorMessage: any)
   async function login (event: any): Promise<void> {
     try {
       event.preventDefault()
-      const user = new AuthenticationModel(event.target.email.value, event.target.password.value)
-      const userCredentials = await authenticationService.login(user)
+
+      const authenticationModel: IAuthenticationModel = {
+        email: event.target.email.value,
+        password: event.target.password.value,
+        fullName: undefined,
+        confirmPassword: undefined,
+        rememberMe: undefined
+      }
+
+      const userCredentials = await authenticationService.login(authenticationModel)
       if (userCredentials.user !== null) {
         setIsAuthenticated(true)
         void await router.push('/dashboard')
@@ -25,7 +33,7 @@ export default function LoginForm (props: { setErrorMessage: (errorMessage: any)
   }
 
   return (
-        <form onSubmit={login}>
+        <form onSubmit={(event) => { void login(event) }}>
             <input
                 type="text"
                 className="block border border-grey-light w-full p-3 rounded mb-4"

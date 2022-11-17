@@ -1,4 +1,4 @@
-import IssueModel from '../../../../models/issue/IssueModel'
+import IssueModel from '../../../../models/issue/IIssueModel'
 import IssuesService from '../../../../services/issue/IssuesService'
 import { axiosService } from '../../../../services/axios/AxiosService'
 import React, { useState } from 'react'

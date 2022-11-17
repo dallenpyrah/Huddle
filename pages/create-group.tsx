@@ -1,22 +1,30 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import GroupsService from '../services/group/GroupsService'
 import { axiosService } from '../services/axios/AxiosService'
 import { useRouter } from 'next/router'
-import GroupModel from '../models/group/GroupModel'
-import { auth } from '../firebase-config'
-import { User } from 'firebase/auth'
+
+import IGroupModel from '../models/group/IGroupModel'
 
 export default function CreateGroupPage (): JSX.Element {
-  const [inputGroup, setInputGroup] = useState({ name: '', description: '', color: '' })
-  const [user, setUser] = useState<User>()
+  const [inputGroup, setInputGroup] = useState<IGroupModel>({
+    color: '',
+    createdAt: undefined,
+    creatorId: 0,
+    description: '',
+    fireBaseUserId: undefined,
+    id: 0,
+    name: '',
+    updatedAt: undefined,
+    user: undefined
+  })
+
   const router = useRouter()
   const groupsService = new GroupsService(axiosService)
 
   const createGroup = async (event: any): Promise<void> => {
     try {
       event.preventDefault()
-      const groupToCreate = new GroupModel(inputGroup.name, inputGroup.description, inputGroup.color, user?.uid)
-      const createdGroup = await groupsService.createGroup(groupToCreate)
+      const createdGroup = await groupsService.createGroup(inputGroup)
 
       if (createdGroup !== undefined) {
         void await router.push(`/group/${createdGroup.id}`)
@@ -27,32 +35,18 @@ export default function CreateGroupPage (): JSX.Element {
     }
   }
 
-  function getUser (): void {
-    auth.onAuthStateChanged((user) => {
-      if (user != null) {
-        setUser(user)
-      } else {
-        void router.push('/login')
-      }
-    })
-  }
-
   function handleInput (event: any): void {
     const name = event.target.name
     const value = event.target.value
     setInputGroup(inputGroup => ({ ...inputGroup, [name]: value }))
   }
 
-  useEffect(() => {
-    getUser()
-  }, [])
-
   return (
         <div className={'grid grid-cols-4 bg-zinc-900 h-screen'}>
             <div className={'col-span-2 mt-52 bg-black h-1/2 rounded-lg text-zinc-400 col-start-2'}>
                 <div className={'p-5'}>
                     <h1 className={'mt-7 ml-10 text-xl font-semibold text-white'}>New Group</h1>
-                    <form className="ml-10 mr-10 mt-8" autoComplete="off" onSubmit={createGroup}>
+                    <form className="ml-10 mr-10 mt-8" autoComplete="off" onSubmit={(event) => { void createGroup(event) }}>
                         <div className="relative z-0 mb-6 w-full group">
                             <input value={inputGroup?.name} onInput={handleInput} type="name" name="name" id="floating_name"
                                    className="block py-2.5 px-0 w-full text-sm text-zinc-600 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-purple-600 peer"

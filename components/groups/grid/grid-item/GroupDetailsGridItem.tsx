@@ -1,5 +1,5 @@
 import React from 'react'
-import IssueModel from '../../../../models/issue/IssueModel'
+import IssueModel from '../../../../models/issue/IIssueModel'
 
 interface IGroupDetailsGridItemProps {
   issue: IssueModel

@@ -1,7 +1,7 @@
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
-import IssueModel from '../../../models/issue/IssueModel'
+import IssueModel from '../../../models/issue/IIssueModel'
 import { axiosService } from '../../../services/axios/AxiosService'
 import IssuesService from '../../../services/issue/IssuesService'
 

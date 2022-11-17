@@ -1,11 +1,16 @@
 import { useRouter } from 'next/router'
 import React from 'react'
 import { useGlobalContext } from '../../context/GlobalContext'
-import AuthenticationModel from '../../models/authentication/AuthenticationModel'
 import AuthenticationService from '../../services/authentication/AuthenticationService'
 import { axiosService } from '../../services/axios/AxiosService'
+import IAuthenticationModel from '../../models/authentication/IAuthenticationModel'
 
-export default function SignUpForm (props: { setErrorMessage: (errorMessage: any) => void, errorMessage: string }): JSX.Element {
+interface ISignUpFormProps {
+  setErrorMessage: (errorMessage: any) => void
+  errorMessage: string
+}
+
+export default function SignUpForm (props: ISignUpFormProps): JSX.Element {
   const { setIsAuthenticated } = useGlobalContext()
   const router = useRouter()
 
@@ -14,8 +19,15 @@ export default function SignUpForm (props: { setErrorMessage: (errorMessage: any
   async function handleSignUpEvent (event: any): Promise<void> {
     try {
       event.preventDefault()
-      const user = new AuthenticationModel(event.target.email.value, event.target.password.value, event.target.fullName.value, event.target.confirm_password.value)
-      const userCredentials = await authenticationService.signUpWithPasswordAndEmail(user)
+      const authenticationModel: IAuthenticationModel = {
+        email: event.target.email.value,
+        password: event.target.password.value,
+        fullName: event.target.fullName.value,
+        confirmPassword: event.target.confirmPassword.value,
+        rememberMe: false
+      }
+
+      const userCredentials = await authenticationService.signUpWithPasswordAndEmail(authenticationModel)
       if (userCredentials !== null) {
         setIsAuthenticated(true)
         void await router.push('/dashboard')
@@ -27,7 +39,7 @@ export default function SignUpForm (props: { setErrorMessage: (errorMessage: any
   }
 
   return (
-        <form onSubmit={handleSignUpEvent}>
+        <form onSubmit={(event) => { void handleSignUpEvent(event) }}>
                         <input
                             type="text"
                             className="block border border-grey-light w-full p-3 rounded mb-4"

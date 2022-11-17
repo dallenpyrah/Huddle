@@ -3,7 +3,7 @@ import Skeleton from 'react-loading-skeleton'
 import { axiosService } from '../../services/axios/AxiosService'
 import NotificationService from '../../services/notification/NotificationService'
 import { User } from 'firebase/auth'
-import NotificationModel from '../../models/notification/NotificationModel'
+import NotificationModel from '../../models/notification/INotificationModel'
 
 interface UserNotificationsComponentProps {
   user: User | null
