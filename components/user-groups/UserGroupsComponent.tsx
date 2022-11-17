@@ -55,7 +55,7 @@ export default function UserGroupsComponent (props: UserGroupsComponentProps): J
   }
 
   function navigateToGroupPage (groupId: number): void {
-    void router.push(`/groups/${groupId}`)
+    void router.push(`/group/${groupId}`)
   }
 
   function findValidColor (userGroupModel: IUserGroupModel): string {
