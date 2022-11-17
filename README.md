@@ -9,10 +9,9 @@ A platform for software professionals to gather together and help each other sol
 
 **Built with** 🔨
 
-- React.js
 - Next.js
-- Node.js
-- Javascript
+- Typescript
+
 
 ## Getting Started 🏄🏽
 
