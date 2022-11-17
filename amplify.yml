@@ -1,0 +1,19 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - yarn install
+        - npm install env-cmd
+        - npm ci
+    build:
+      commands:
+        - echo "I am running on $BUILD_ENV"
+        - npm run build:$BUILD_ENV
+  artifacts:
+    baseDirectory: .next
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - node_modules/**/*
