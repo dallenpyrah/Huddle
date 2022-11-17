@@ -5,7 +5,7 @@ import pino from 'pino'
 const logger = pino()
 
 const firebaseConfig = {
-  apiKey: process.env.FIREBASE_API_KEY,
+  apiKey: 'AIzaSyDo9w_q2OjAF5k2BUv1V_0HNw8wjbLmZYQ',
   authDomain: process.env.FIREBASE_AUTH_DOMAIN,
   databaseURL: process.env.FIREBASE_DATABASE_URL,
   projectId: process.env.FIREBASE_PROJECT_ID,
