@@ -5,7 +5,6 @@
   "scripts": {
     "dev": "next dev",
     "build": "env-cmd -f .env.development next build",
-    "build:development": "env-cmd -f .env.development next build",
     "build:prod": "env-cmd -f .env.production next build",
     "start": "next start",
     "lint": "next lint",
