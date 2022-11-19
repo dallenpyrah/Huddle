@@ -27,7 +27,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm ci
-    - run: npm run build:production --if-present
+    - run: npm run build:prod --if-present
       env: 
           NEXT_PUBLIC_API_KEY: ${{ secrets.FIREBASE_API_KEY }} 
           NEXT_PUBLIC_FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }} 
