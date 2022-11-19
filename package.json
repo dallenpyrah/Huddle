@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "env-cmd -f .env.development next build",
     "build:development": "env-cmd -f .env.development next build",
     "build:prod": "env-cmd -f .env.production next build",
     "start": "next start",
@@ -21,6 +21,7 @@
     "axios": "^0.27.2",
     "daisyui": "^2.38.1",
     "dotenv": "^16.0.3",
+    "env-cmd": "^10.1.0",
     "firebase": "^9.9.4",
     "headlessui": "^0.0.0",
     "heroicons": "^2.0.13",
