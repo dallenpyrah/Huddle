@@ -3,14 +3,14 @@ import * as firebase from 'firebase/app'
 import pino from 'pino'
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyDo9w_q2OjAF5k2BUv1V_0HNw8wjbLmZYQ',
-  authDomain: 'huddle-68e55.firebaseapp.com',
-  databaseURL: 'https://huddle-68e55-default-rtdb.firebaseio.com',
-  projectId: 'huddle-68e55',
-  storageBucket: 'huddle-68e55.appspot.com',
-  messagingSenderId: '145379649614',
-  appId: '1:145379649614:web:7c2cfb6003d7ea2fe03b1f',
-  measurementId: 'G-N43LD24ZXY'
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  databaseURL: process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
 }
 
 const logger = pino()
