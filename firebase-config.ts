@@ -15,8 +15,8 @@ const firebaseConfig = {
 
 const logger = pino()
 const app = firebase.initializeApp(firebaseConfig)
-
 const auth = getAuth(app)
+
 auth.onAuthStateChanged((user) => {
   if (user !== null) {
     logger.info(user)
@@ -24,6 +24,7 @@ auth.onAuthStateChanged((user) => {
     logger.info('No user is signed in.')
   }
 })
+
 void auth.setPersistence(browserSessionPersistence)
 
 export { auth }
