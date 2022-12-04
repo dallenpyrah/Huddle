@@ -1,11 +1,9 @@
 import { useRouter } from 'next/router'
 import React from 'react'
-import { useGlobalContext } from '../../context/GlobalContext'
 import AuthenticationService from '../../services/authentication/AuthenticationService'
 import { axiosService } from '../../services/axios/AxiosService'
 
 export default function AuthenticateWithGoogleButton (props: { passErrorMessage: (errorMessage: string) => void }): JSX.Element {
-  const { setIsAuthenticated } = useGlobalContext()
   const router = useRouter()
   const authenticationService = new AuthenticationService(axiosService)
 
@@ -14,7 +12,6 @@ export default function AuthenticateWithGoogleButton (props: { passErrorMessage:
       event.preventDefault()
       const userCredentials = await authenticationService.loginOrSignupWithGoogle()
       if ((userCredentials?.user) !== null) {
-        setIsAuthenticated(true)
         void await router.push('/dashboard')
       }
     } catch (error: any) {

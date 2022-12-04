@@ -12,6 +12,7 @@ import IIssueModel from '../../../models/issue/IIssueModel'
 
 interface CommunityIssuesComponentProps {
   user: User | null
+  userId: number
 }
 
 export default function CommunityIssuesComponent (props: CommunityIssuesComponentProps): JSX.Element {
@@ -35,14 +36,12 @@ export default function CommunityIssuesComponent (props: CommunityIssuesComponen
   ]
 
   async function getCommunityIssues (): Promise<void> {
-    if (props.user !== null) {
-      const limit = 5
-      const afterId = 1
-      const issues = await issuesService.getCommunityIssues(limit, afterId)
-      issues.length = 5
-      setIssues(issues)
-      setIsStateLoaded(true)
-    }
+    const limit = 5
+    const afterId = 1
+    const issues = await issuesService.getCommunityIssues(limit, afterId)
+    issues.length = 5
+    setIssues(issues)
+    setIsStateLoaded(true)
   }
 
   function loadCommunityIssuesSkeletons (): JSX.Element[] {
@@ -79,7 +78,7 @@ export default function CommunityIssuesComponent (props: CommunityIssuesComponen
   }, [])
 
   return (
-      <div className="bg-black rounded-lg p-3 m-5">
+      <>
             <div className="grid grid-cols-9">
                 <div className="col-span-6 mt-5 ml-4 mb-4">
                     <h1 className="text-white text-lg font-bold">Community Issues</h1>
@@ -131,7 +130,6 @@ export default function CommunityIssuesComponent (props: CommunityIssuesComponen
                 </div>
             }
             {!isStateLoaded && loadCommunityIssuesSkeletons()}
-
-        </div>
+    </>
   )
 }

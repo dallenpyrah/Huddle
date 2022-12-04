@@ -7,6 +7,7 @@ import { User } from 'firebase/auth'
 
 interface UserIssuesComponentProps {
   user: User | null
+  userId: number
 }
 
 export default function UserIssuesComponent (props: UserIssuesComponentProps): JSX.Element {
@@ -28,8 +29,8 @@ export default function UserIssuesComponent (props: UserIssuesComponentProps): J
   ]
 
   async function getUsersIssues (): Promise<void> {
-    if (props.user !== null) {
-      const issues = await issuesService.getUserIssues(props.user.uid)
+    if (props.userId > 0) {
+      const issues = await issuesService.getUserIssues(props.userId)
       setIssues(issues)
       setIsStateLoaded(true)
     }

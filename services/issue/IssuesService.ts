@@ -10,7 +10,7 @@ export default class IssuesService {
     this.axiosService = axiosService
   }
 
-  async getUserIssues (userId: string): Promise<IIssueModel[]> {
+  async getUserIssues (userId: number): Promise<IIssueModel[]> {
     try {
       const issues = await this.axiosService.get<IIssueModel[]>(`/issues/${userId}`)
       return issues.data

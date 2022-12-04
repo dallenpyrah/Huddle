@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router'
 import React from 'react'
-import { useGlobalContext } from '../../context/GlobalContext'
 import AuthenticationService from '../../services/authentication/AuthenticationService'
 import { axiosService } from '../../services/axios/AxiosService'
 import IAuthenticationModel from '../../models/authentication/IAuthenticationModel'
@@ -11,7 +10,6 @@ interface ISignUpFormProps {
 }
 
 export default function SignUpForm (props: ISignUpFormProps): JSX.Element {
-  const { setIsAuthenticated } = useGlobalContext()
   const router = useRouter()
 
   const authenticationService = new AuthenticationService(axiosService)
@@ -29,7 +27,6 @@ export default function SignUpForm (props: ISignUpFormProps): JSX.Element {
 
       const userCredentials = await authenticationService.signUpWithPasswordAndEmail(authenticationModel)
       if (userCredentials !== null) {
-        setIsAuthenticated(true)
         void await router.push('/dashboard')
       }
     } catch (error: any) {

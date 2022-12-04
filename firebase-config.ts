@@ -1,6 +1,5 @@
 import { browserSessionPersistence, getAuth } from 'firebase/auth'
 import * as firebase from 'firebase/app'
-import pino from 'pino'
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -13,18 +12,8 @@ const firebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
 }
 
-const logger = pino()
-const app = firebase.initializeApp(firebaseConfig)
-const auth = getAuth(app)
-
-auth.onAuthStateChanged((user) => {
-  if (user !== null) {
-    logger.info(user)
-  } else {
-    logger.info('No user is signed in.')
-  }
-})
-
+const firebaseApp = firebase.initializeApp(firebaseConfig)
+const auth = getAuth(firebaseApp)
 void auth.setPersistence(browserSessionPersistence)
 
-export { auth }
+export { firebaseApp, auth }

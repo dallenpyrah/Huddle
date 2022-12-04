@@ -10,6 +10,7 @@ import { useRouter } from 'next/router'
 
 interface UserGroupsComponentProps {
   user: User | null
+  userId: number
 }
 
 export default function UserGroupsComponent (props: UserGroupsComponentProps): JSX.Element {
@@ -33,9 +34,8 @@ export default function UserGroupsComponent (props: UserGroupsComponentProps): J
   const maxGroupCount = 4
 
   async function getUsersGroups (): Promise<void> {
-    if (props.user !== null) {
-      console.log(props.user.uid)
-      const userGroups = await groupsService.getUserGroups(props.user.uid)
+    if (props.userId > 0) {
+      const userGroups = await groupsService.getUserGroups(props.userId)
       setUserGroups(userGroups)
       setIsStateLoaded(true)
     }

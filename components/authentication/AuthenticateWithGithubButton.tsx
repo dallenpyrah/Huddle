@@ -1,11 +1,9 @@
 import { useRouter } from 'next/router'
-import { useGlobalContext } from '../../context/GlobalContext'
 import AuthenticationService from '../../services/authentication/AuthenticationService'
 import { axiosService } from '../../services/axios/AxiosService'
 import React from 'react'
 
 export default function AuthenticateWithGithubButton (props: { passErrorMessage: (errorMessage: string) => void }): JSX.Element {
-  const { setIsAuthenticated } = useGlobalContext()
   const router = useRouter()
   const authenticationService = new AuthenticationService(axiosService)
 
@@ -14,7 +12,6 @@ export default function AuthenticateWithGithubButton (props: { passErrorMessage:
       event.preventDefault()
       const userCredentials = await authenticationService.loginOrSignupWithGithub()
       if (userCredentials.user !== null) {
-        setIsAuthenticated(true)
         void await router.push('/dashboard')
       }
     } catch (error: any) {

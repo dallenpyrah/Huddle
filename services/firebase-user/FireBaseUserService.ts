@@ -1,8 +1,8 @@
 import { AxiosInstance } from 'axios'
 import pino from 'pino'
-import NotificationModel from '../../models/notification/INotificationModel'
+import IUserModel from '../../models/user/IUserModel'
 
-export default class NotificationService {
+export default class FireBaseUserService {
   private readonly axiosService: AxiosInstance
   private readonly logger: pino.Logger = pino()
 
@@ -10,10 +10,10 @@ export default class NotificationService {
     this.axiosService = axiosService
   }
 
-  async getUserNotifications (userId: number): Promise<NotificationModel[]> {
+  async getUserByFireBaseId (fireBaseUserId: string): Promise<IUserModel> {
     try {
-      const notifications = await this.axiosService.get<NotificationModel[]>(`/notifications/${userId}`)
-      return notifications.data
+      const user = await this.axiosService.get<IUserModel>(`/firebase/${fireBaseUserId}`)
+      return user.data
     } catch (error) {
       this.logger.error(error)
       throw error

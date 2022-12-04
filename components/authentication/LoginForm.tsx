@@ -1,12 +1,10 @@
 import { useRouter } from 'next/router'
 import React from 'react'
-import { useGlobalContext } from '../../context/GlobalContext'
 import IAuthenticationModel from '../../models/authentication/IAuthenticationModel'
 import AuthenticationService from '../../services/authentication/AuthenticationService'
 import { axiosService } from '../../services/axios/AxiosService'
 
 export default function LoginForm (props: { setErrorMessage: (errorMessage: any) => void, errorMessage: string }): JSX.Element {
-  const { setIsAuthenticated } = useGlobalContext()
   const router = useRouter()
   const authenticationService = new AuthenticationService(axiosService)
 
@@ -24,7 +22,6 @@ export default function LoginForm (props: { setErrorMessage: (errorMessage: any)
 
       const userCredentials = await authenticationService.login(authenticationModel)
       if (userCredentials.user !== null) {
-        setIsAuthenticated(true)
         void await router.push('/dashboard')
       }
     } catch (error: any) {

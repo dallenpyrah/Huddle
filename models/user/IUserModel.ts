@@ -1,5 +1,5 @@
 export default interface IUserModel {
-  id: string
+  id: number
   name: string
   email: string
   created: Date

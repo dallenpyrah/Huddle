@@ -7,6 +7,7 @@ import NotificationModel from '../../models/notification/INotificationModel'
 
 interface UserNotificationsComponentProps {
   user: User | null
+  userId: number
 }
 
 export default function UserNotificationsComponent (props: UserNotificationsComponentProps): JSX.Element {
@@ -16,8 +17,8 @@ export default function UserNotificationsComponent (props: UserNotificationsComp
   const maxNotificationsCount = 6
 
   async function getUsersNotifications (): Promise<void> {
-    if (props.user !== null) {
-      const notifications = await notificationService.getUserNotifications(props.user.uid)
+    if (props.userId > 0) {
+      const notifications = await notificationService.getUserNotifications(props.userId)
       setNotifications(notifications)
       setIsStateLoaded(true)
     }

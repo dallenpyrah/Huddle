@@ -8,10 +8,11 @@ import {
   updateProfile,
   User
 } from 'firebase/auth'
-import { auth } from '../../firebase-config'
 import AuthenticationModel from '../../models/authentication/IAuthenticationModel'
 import pino from 'pino'
 import { UserCredential } from '@firebase/auth'
+import firebase from 'firebase/compat'
+import { auth } from '../../firebase-config'
 
 export default class AuthenticationService {
   axiosService: AxiosInstance

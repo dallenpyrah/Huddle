@@ -13,7 +13,7 @@ export default class GroupsService {
     this.axiosService = axiosService
   }
 
-  async getUserGroups (userId: string): Promise<UserGroupModel[]> {
+  async getUserGroups (userId: number): Promise<UserGroupModel[]> {
     try {
       const groups = await this.axiosService.get<UserGroupModel[]>(`/users/${userId}/groups`)
       return groups.data

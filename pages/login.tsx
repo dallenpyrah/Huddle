@@ -4,27 +4,18 @@ import LoginForm from '../components/authentication/LoginForm'
 import LoginWithGoogleButton from '../components/authentication/AuthenticationWithGoogleButton'
 import LoginWithGithubButton from '../components/authentication/AuthenticateWithGithubButton'
 import { useRouter } from 'next/router'
-import { auth } from '../firebase-config'
+import { useAuth } from '../context/AuthUserContext'
 
 export default function LoginPage (): JSX.Element {
   const [errorMessage, setErrorMessage] = React.useState('')
-  const [loading, setLoading] = React.useState(true)
-
+  const { authUser, loading } = useAuth()
   const router = useRouter()
 
-  function getUser (): void {
-    auth.onAuthStateChanged((user) => {
-      if (user != null) {
-        void router.push('/dashboard')
-      } else {
-        setLoading(false)
-      }
-    })
-  }
-
   useEffect(() => {
-    getUser()
-  }, [])
+    if (!loading && authUser === null) {
+      void router.push('/login')
+    }
+  }, [authUser, loading])
 
   if (loading) {
     return (
