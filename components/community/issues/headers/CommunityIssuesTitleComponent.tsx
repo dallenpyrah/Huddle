@@ -27,7 +27,7 @@ export default function IssueTitle (props: IssueTitleProps): JSX.Element {
 
   return (
     <>
-      <h1 className="text-md ml-5 text-white" onClick={() => orderByTitle()}>
+      <h1 className="text-md ml-6 text-white" onClick={() => orderByTitle()}>
         <span className={`${props.focusHeader === 'title' ? focusColor : ''} cursor-pointer hover:text-transparent hover:bg-gradient-to-r hover:from-indigo-500 hover:via-purple-500 hover:to-pink-500 hover:bg-clip-text`}>
           Title
         </span>

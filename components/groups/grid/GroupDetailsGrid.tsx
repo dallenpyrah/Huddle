@@ -18,7 +18,6 @@ export default function GroupDetailsGrid (props: IGroupDetailsGridProps): JSX.El
 
   async function getIssuesByGroupId (): Promise<void> {
     const issues = await groupsService.getIssuesByGroupId(props.groupId)
-    console.log(issues)
     setIssues(issues)
   }
 

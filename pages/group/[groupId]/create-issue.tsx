@@ -1,10 +1,13 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { axiosService } from '../../../services/axios/AxiosService'
 import IIssueModel from '../../../models/issue/IIssueModel'
 import IssuesService from '../../../services/issue/IssuesService'
+import { useAuth } from '../../../context/AuthUserContext'
 
 export default function CreateIssue (): JSX.Element {
+  const { userId } = useAuth()
+  const groupId = parseInt(useRouter().query.groupId as string, 10)
   const [newIssue, setNewIssue] = useState<IIssueModel>({
     comments: [],
     createdAt: new Date(),
@@ -30,7 +33,7 @@ export default function CreateIssue (): JSX.Element {
       const createdIssue = await issuesService.createIssue(newIssue)
 
       if (createdIssue !== undefined) {
-        void await router.push(`/group/${newIssue.groupId}/issues`)
+        void await router.push(`/group/${newIssue.groupId}`)
       }
     } catch (error) {
       console.log(error)
@@ -43,6 +46,13 @@ export default function CreateIssue (): JSX.Element {
     const value = event.target.value
     setNewIssue(newIssue => ({ ...newIssue, [name]: value }))
   }
+
+  useEffect(() => {
+    if (userId > 0 && groupId > 0) {
+      setNewIssue(newIssue => ({ ...newIssue, userId }))
+      setNewIssue(newIssue => ({ ...newIssue, groupId }))
+    }
+  }, [userId])
 
   return (
         <div className={'grid grid-cols-4 bg-zinc-900 h-screen'}>
@@ -67,23 +77,23 @@ export default function CreateIssue (): JSX.Element {
                             </label>
                         </div>
                         <div className="relative z-0 mb-6 w-full group">
-                            <select name="color" onInput={handleInput} id="underline_select"
+                            <select name="language" onInput={handleInput} id="underline_select"
                                     className="block py-2.5 px-0 w-full text-sm text-zinc-600 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-purple-600 peer">
-                                <option defaultValue="bg-purple-300">Language</option>
-                                <option value="bg-purple-300">C#</option>
-                                <option value="bg-blue-300">C++</option>
-                                <option value="bg-orange-300">JavaScript</option>
-                                <option value="bg-green-300">Python</option>
+                                <option defaultValue="">Language</option>
+                                <option value="C#">C#</option>
+                                <option value="C++">C++</option>
+                                <option value="JavaScript">JavaScript</option>
+                                <option value="Python">Python</option>
                             </select>
                         </div>
                         <div className="relative z-0 mb-6 w-full group">
-                            <select name="color" onInput={handleInput} id="underline_select"
+                            <select name="framework" onInput={handleInput} id="underline_select"
                                     className="block py-2.5 px-0 w-full text-sm text-zinc-600 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-purple-600 peer">
-                                <option defaultValue="bg-purple-300">Framework</option>
-                                <option value="bg-purple-300">React</option>
-                                <option value="bg-blue-300">.NET Core</option>
-                                <option value="bg-orange-300">Vue</option>
-                                <option value="bg-green-300">Django</option>
+                                <option defaultValue="">Framework</option>
+                                <option value="React">React</option>
+                                <option value=".NET Core">.NET Core</option>
+                                <option value="Vue">Vue</option>
+                                <option value="Django">Django</option>
                             </select>
                         </div>
 

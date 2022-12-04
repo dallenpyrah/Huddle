@@ -27,7 +27,7 @@ export default function CommunityIssuesLastUpdatedComponent (props: CommunityIss
 
   return (
         <>
-            <h1 className="text-md ml-5 text-white" onClick={() => orderByLastUpdated()}>
+            <h1 className="text-md ml-4 text-white" onClick={() => orderByLastUpdated()}>
                 <span className={`${props.focusHeader === 'lastUpdated' ? focusColor : ''} cursor-pointer hover:text-transparent hover:bg-gradient-to-r hover:from-indigo-500 hover:via-purple-500 hover:to-pink-500 hover:bg-clip-text`}>
                     Last Updated
                 </span>

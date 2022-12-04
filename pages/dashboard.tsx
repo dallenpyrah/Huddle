@@ -56,9 +56,7 @@ export default function DashboardPage (): JSX.Element {
                               </div>
                           </div>
                       </div>
-                      <div className="col-span-9 bg-black h-[31rem] ml-4 mt-7 rounded-lg mb-10">
-                          <CommunityIssuesComponent user={authUser} userId={userId}/>
-                      </div>
+                      <CommunityIssuesComponent user={authUser} userId={userId}/>
                   </div>
               </div>
           </div>

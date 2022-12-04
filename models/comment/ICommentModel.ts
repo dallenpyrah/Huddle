@@ -1,10 +1,10 @@
-import IGroupModel from '../group/IGroupModel'
 import UserModel from '../user/IUserModel'
+import IIssueModel from '../issue/IIssueModel'
 
 export default interface ICommentModel {
   id: number
   issueId: number
-  issue: IGroupModel
+  issue: IIssueModel
   userId: number
   user: UserModel
   createdAt: Date

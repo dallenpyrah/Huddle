@@ -12,17 +12,12 @@ export default function LoginPage (): JSX.Element {
   const router = useRouter()
 
   useEffect(() => {
-    if (!loading && authUser === null) {
-      void router.push('/login')
+    if (!loading && authUser !== null) {
+      void router.push('/dashboard')
     }
   }, [authUser, loading])
 
-  if (loading) {
-    return (
-        <div className="flex bg-violet-50 h-screen w-screen justify-evenly items-center">
-        </div>
-    )
-  } else {
+  if (!loading && authUser === null) {
     return (
         <div className="flex bg-violet-50 h-screen w-screen justify-evenly items-center">
           <div className="bg-grey-lighter min-h-screen flex flex-col">
@@ -55,6 +50,11 @@ export default function LoginPage (): JSX.Element {
               </div>
             </div>
           </div>
+        </div>
+    )
+  } else {
+    return (
+        <div className="flex bg-violet-50 h-screen w-screen justify-evenly items-center">
         </div>
     )
   }

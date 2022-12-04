@@ -11,9 +11,10 @@ import UserGroupModel from '../../../models/user-group/IUserGroupModel'
 import { faChessKing, faUsers } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import GroupDetailsGrid from '../../../components/groups/grid/GroupDetailsGrid'
+import { useAuth } from '../../../context/AuthUserContext'
 
 export default function GroupDetailsPage (): JSX.Element {
-  const [user, setUser] = useState<User>()
+  const { authUser, loading, userId } = useAuth()
   const [groupMembers, setGroupMembers] = useState<UserGroupModel[]>([])
   const [group, setGroup] = useState<GroupModel>()
   const [isStateLoaded, setIsStateLoaded] = useState(false)
@@ -21,16 +22,6 @@ export default function GroupDetailsPage (): JSX.Element {
   const userGroupsService = new UserGroupsService(axiosService)
   const router = useRouter()
   const groupId = parseInt(router.query.groupId as string, 10)
-
-  function getUser (): void {
-    auth.onAuthStateChanged((user) => {
-      if (user != null) {
-        setUser(user)
-      } else {
-        void router.push('/login')
-      }
-    })
-  }
 
   async function getGroupById (): Promise<void> {
     const group = await groupsService.getGroupById(groupId)
@@ -53,10 +44,13 @@ export default function GroupDetailsPage (): JSX.Element {
       return
     }
 
-    getUser()
+    if (!loading && authUser === null) {
+      void router.push('/login')
+    }
+
     void getGroupById()
     void getUsersByGroupId()
-  }, [groupId])
+  }, [groupId, loading, authUser])
 
   if (isStateLoaded) {
     return (
@@ -83,13 +77,13 @@ export default function GroupDetailsPage (): JSX.Element {
               </div>
               <div className="col-span-3 col-start-7 text-right">
                 <button className="bg-blue-400 text-zinc-200 font-normal text-sm rounded-md px-4 py-2 mt-5 mr-2" onClick={navigateToCreateIssue}>New Issue</button>
-                {user?.uid === group?.fireBaseUserId
+                {authUser?.uid === group?.fireBaseUserId
                   ? <button className="bg-zinc-500 text-zinc-200 font-normal text-sm rounded-md px-4 py-2 mt-5 mr-5">Join Group</button>
 
                   : <button className="bg-red-500 text-zinc-200 font-normal text-sm rounded-md px-4 py-2 mt-5 mr-5">Leave Group</button>
                 }
               </div>
-              <GroupDetailsGrid user={user} groupId={groupId} isStateLoaded={isStateLoaded} />
+              <GroupDetailsGrid user={authUser} groupId={groupId} isStateLoaded={isStateLoaded} />
             </div>
           </div>
         </div>

@@ -36,10 +36,9 @@ export default function CommunityIssuesComponent (props: CommunityIssuesComponen
   ]
 
   async function getCommunityIssues (): Promise<void> {
-    const limit = 5
+    const limit = 25
     const afterId = 1
     const issues = await issuesService.getCommunityIssues(limit, afterId)
-    issues.length = 5
     setIssues(issues)
     setIsStateLoaded(true)
   }
@@ -78,16 +77,13 @@ export default function CommunityIssuesComponent (props: CommunityIssuesComponen
   }, [])
 
   return (
-      <>
-            <div className="grid grid-cols-9">
-                <div className="col-span-6 mt-5 ml-4 mb-4">
+      <div className="col-span-9 bg-black ml-4 mt-7 rounded-lg overflow-y-scroll h-[30rem] scroll-smooth">
+            <div className="grid grid-cols-9 sticky top-0 bg-black">
+                <div className="col-span-6 m-6">
                     <h1 className="text-white text-lg font-bold">Community Issues</h1>
                 </div>
-                <div className="col-span-3 mt-4 mb-4 mr-2">
-                    <IssuesSearchBar issues={issues} setIssues={setIssues} />
-                </div>
             </div>
-            <div className="grid grid-cols-4">
+            <div className="grid grid-cols-4 sticky top-[4.75rem] bg-black">
                 <div className="col-span-1">
                     <CommunityIssuesTitleComponent issues={issues} setIssues={setIssues} focusHeader={focusHeader} setFocusHeader={setFocusHeader} />
                 </div>
@@ -102,7 +98,7 @@ export default function CommunityIssuesComponent (props: CommunityIssuesComponen
                 </div>
             </div>
             {isStateLoaded && issues.length > 0 && issues.map((issue, index) => (
-                <div key={index} className="grid grid-cols-4 mt-1 pt-1 pb-1 hover:bg-zinc-900 hover:rounded-lg">
+                <div key={index} className="grid grid-cols-4 mt-1 mb-2 pt-1 pb-1 ml-2 mr-2 hover:bg-zinc-900 hover:rounded-lg">
                     <div className="col-span-1">
                         <h1 className="text-sm text-gray-300 ml-5 m-2">{issue.title}</h1>
                         <p className="text-xs text-gray-400 ml-5 m-2">{issue.user.name}</p>
@@ -130,6 +126,6 @@ export default function CommunityIssuesComponent (props: CommunityIssuesComponen
                 </div>
             }
             {!isStateLoaded && loadCommunityIssuesSkeletons()}
-    </>
+    </div>
   )
 }

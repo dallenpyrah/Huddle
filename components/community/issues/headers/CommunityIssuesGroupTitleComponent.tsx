@@ -27,7 +27,7 @@ export default function CommunityIssuesGroupTitleComponent (props: CommunityIssu
 
   return (
     <>
-      <h1 className="text-md ml-5 text-white" onClick={() => orderByGroupName()}>
+      <h1 className="text-md ml-6 text-white" onClick={() => orderByGroupName()}>
         <span className={`${props.focusHeader === 'group' ? focusColor : ''} cursor-pointer hover:text-transparent hover:bg-gradient-to-r hover:from-indigo-500 hover:via-purple-500 hover:to-pink-500 hover:bg-clip-text`}>
           Group
         </span>
