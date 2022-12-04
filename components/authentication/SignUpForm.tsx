@@ -57,7 +57,7 @@ export default function SignUpForm (props: ISignUpFormProps): JSX.Element {
                         <input
                             type="password"
                             className="block border border-grey-light w-full p-3 rounded mb-4"
-                            name="confirm_password"
+                            name="confirmPassword"
                             placeholder="Confirm Password" />
 
                         <span className='w-full text-center text-red-500'>
