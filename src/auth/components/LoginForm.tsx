@@ -33,6 +33,7 @@ export default function LoginForm (props: { setErrorMessage: (errorMessage: any)
         <form onSubmit={(event) => {
           void login(event)
         }}>
+
             <input
                 type="text"
                 className="block border border-grey-light w-full p-3 rounded mb-4"

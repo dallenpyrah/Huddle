@@ -6,7 +6,7 @@ export default function SideBarComponent (): JSX.Element {
   return (
         <div className="py-4 px-3 h-screen mt-3">
             <span className="self-center text-xl whitespace-nowrap text-white font-semibold font-mono ml-5">
-                <a href='/huddle-frontend/pages'>
+                <a href='/'>
                     Hu<span className='text-purple-300'>dd</span>le
                 </a>
             </span>
