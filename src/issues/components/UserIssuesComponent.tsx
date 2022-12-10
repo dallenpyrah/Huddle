@@ -77,7 +77,7 @@ export default function UserIssuesComponent (props: UserIssuesComponentProps): J
                     ))}
                     {isStateLoaded && issues.length === 0 &&
                         <div className="col-span-2 bg-black rounded-md p-3 flex text-white justify-center items-center">
-                            <h6>You are not a member of any groups</h6>
+                            <h6>You have not created any issues.</h6>
                         </div>
                     }
                     {!isStateLoaded && loadIssueSkeletons()}
