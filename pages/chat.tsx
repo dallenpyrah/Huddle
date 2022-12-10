@@ -1,4 +1,4 @@
-import SideBarComponent from '../components/navigation/SideBarComponent'
+import SideBarComponent from '../src/utils/components/SideBarComponent'
 import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPaperPlane, faSearch } from '@fortawesome/free-solid-svg-icons'
@@ -14,16 +14,16 @@ export default function ChatPage (): JSX.Element {
   return (
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-7 h-screen'>
             <div className="col-span-1 hidden md:block">
-                <SideBarComponent />
+                <SideBarComponent/>
             </div>
             <div className="col-span-2 p-5 overflow-y-auto">
                 <div className="flex flex-row justify-between">
                     <h1 className="font-bold text-2xl">Inbox</h1>
                 </div>
                 <div className="flex flex-row mt-2">
-                    <input className="w-full" placeholder="Search for a user" />
+                    <input className="w-full" placeholder="Search for a user"/>
                     <button className="bg-black p-1 ml-2 pr-2 pl-2 text-white rounded-md hover:bg-gray-800">
-                        <FontAwesomeIcon icon={faSearch} />
+                        <FontAwesomeIcon icon={faSearch}/>
                     </button>
                 </div>
                 <div className="flex flex-row bg-slate-100 p-8 rounded-lg mt-6">
@@ -60,18 +60,18 @@ export default function ChatPage (): JSX.Element {
                 <div className="grid grid-cols-1 justify-between break-words">
                     <div className="col-span-1">
                         <form onSubmit={handleMessageInput} className="">
-                            <input placeholder="Write a message..." className=" w-full p-4 bg-slate-50 text-sm" />
+                            <input placeholder="Write a message..." className=" w-full p-4 bg-slate-50 text-sm"/>
                         </form>
                     </div>
                 </div>
                 <div className="grid grid-cols-12">
                     <div className="col-span-1 col-start-12 text-right">
                         <button className="text-white text-sm bg-black p-2 rounded-lg mt-2 hover:bg-gray-800">
-                            <FontAwesomeIcon icon={faPaperPlane} />
+                            <FontAwesomeIcon icon={faPaperPlane}/>
                         </button>
                     </div>
                 </div>
             </div>
-        </div >
+        </div>
   )
 }

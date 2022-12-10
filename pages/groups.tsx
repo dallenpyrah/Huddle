@@ -1,12 +1,12 @@
-import SideBarComponent from '../components/navigation/SideBarComponent'
+import SideBarComponent from '../src/utils/components/SideBarComponent'
 import React, { useEffect } from 'react'
-import UserGroupsComponent from '../components/user-groups/UserGroupsComponent'
+import UserGroupsComponent from '../src/groups/components/UserGroupsComponent'
 import { useRouter } from 'next/router'
-import { faSearch, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faPlus, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import DashboardButtons from '../components/dashboard/DashboardButtons'
-import NewGroupsComponent from '../components/groups/NewGroupsComponent'
-import { useAuth } from '../context/AuthUserContext'
+import DashboardButtons from '../src/utils/components/DashboardButtons'
+import NewGroupsComponent from '../src/groups/components/NewGroupsComponent'
+import { useAuth } from '../src/auth/contexts/AuthUserContext'
 
 export default function GroupsPage (): JSX.Element {
   const { authUser, loading, userId } = useAuth()
