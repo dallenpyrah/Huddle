@@ -4,21 +4,26 @@ import FlexColHeaderLinks from '../src/home/components/cols/FlexColHeaderLinks'
 import HuddleSlogan from '../src/home/components/HuddleSlogan'
 import GetStartedButton from '../src/home/components/buttons/GetStartedButton'
 import LearnMoreButton from '../src/home/components/buttons/LearnMoreButton'
+import Image from 'next/image'
+import HomePageCube from '../public/HomePageCube.png'
 
 export default function HomePage (): JSX.Element {
   return (
-        <div className="h-screen bg-black">
+        <div className="h-screen bg-black max-h-screen">
             <div className="flex flex-row w-screen justify-between">
                 <FlexColHuddleTitle/>
                <FlexColHeaderLinks />
             </div>
-            <div className="flex flex-row w-screen justify-items-center">
-                <div className="flex basis-1/4 mx-52 my-72">
+            <div className="flex flex-row w-screen justify-center items-center my-40">
+                <div className="flex basis-1/4 ml-52">
                     <div>
                         <HuddleSlogan />
                         <GetStartedButton />
                         <LearnMoreButton />
                     </div>
+                </div>
+                <div className="flex basis-1/2 items-center ml-52">
+                    <Image src={HomePageCube} objectFit={'cover'} className="rounded-lg" priority />
                 </div>
             </div>
         </div>

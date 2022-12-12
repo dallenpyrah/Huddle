@@ -8,12 +8,11 @@ import IssueModel from '../../issues/models/IIssueModel'
 export default class GroupsService {
   axiosService: AxiosInstance
   userGroupsService: UserGroupsService
-  private readonly logger: pino.Logger
+  logger = pino()
 
-  constructor (axiosService: AxiosInstance, userGroupsService: UserGroupsService, logger: pino.Logger) {
+  constructor (axiosService: AxiosInstance, userGroupsService: UserGroupsService) {
     this.axiosService = axiosService
     this.userGroupsService = userGroupsService
-    this.logger = logger
   }
 
   async getUserGroups (userId: number): Promise<UserGroupModel[]> {

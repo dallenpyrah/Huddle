@@ -4,17 +4,15 @@ import IUserGroupModel from '../models/IUserGroupModel'
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import 'tailwindcss/colors'
-import { User } from 'firebase/auth'
 import { axiosService } from '../../utils/services/AxiosService'
 import { useRouter } from 'next/router'
+import UserGroupsService from '../services/UserGroupsService'
+import IUserGroupsComponentProps from '../interfaces/IUserGroupsComponentProps'
 
-interface UserGroupsComponentProps {
-  user: User | null
-  userId: number
-}
+const userGroupsService = new UserGroupsService(axiosService)
+const groupsService = new GroupsService(axiosService, userGroupsService)
 
-export default function UserGroupsComponent (props: UserGroupsComponentProps): JSX.Element {
-  const groupsService = new GroupsService(axiosService)
+export default function UserGroupsComponent (props: IUserGroupsComponentProps): JSX.Element {
   const [userGroups, setUserGroups] = useState<IUserGroupModel[]>([])
   const [isStateLoaded, setIsStateLoaded] = useState(false)
   const router = useRouter()

@@ -2,15 +2,14 @@ import React, { useEffect, useState } from 'react'
 import GroupsService from '../services/GroupsService'
 import { axiosService } from '../../utils/services/AxiosService'
 import Skeleton from 'react-loading-skeleton'
-import { User } from 'firebase/auth'
 import IGroupModel from '../models/IGroupModel'
+import UserGroupsService from '../services/UserGroupsService'
+import INewGroupsComponentProps from '../interfaces/INewGroupsComponentProps'
 
-interface NewGroupsComponentProps {
-  user: User | null
-}
+const userGroupsService = new UserGroupsService(axiosService)
+const groupsService = new GroupsService(axiosService, userGroupsService)
 
-export default function NewGroupsComponent (props: NewGroupsComponentProps): JSX.Element {
-  const groupsService = new GroupsService(axiosService)
+export default function NewGroupsComponent (props: INewGroupsComponentProps): JSX.Element {
   const [newGroups, setNewGroups] = useState<IGroupModel[]>([])
   const [isStateLoaded, setIsStateLoaded] = useState(false)
 

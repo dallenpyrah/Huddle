@@ -1,6 +1,6 @@
 import useFirebaseAuth from '../utils/UseFirebaseAuth'
 import { User } from 'firebase/auth'
-import { createContext, useContext } from 'react'
+import React, { createContext, useContext } from 'react'
 
 const authUserContext = createContext({
   // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
@@ -9,11 +9,15 @@ const authUserContext = createContext({
   userId: 0
 })
 
-export function AuthUserProvider ({ children }): JSX.Element {
+interface IAuthUserProverProps {
+  children: React.ReactNode
+}
+
+export function AuthUserProvider (props: IAuthUserProverProps): JSX.Element {
   const auth = useFirebaseAuth()
   return (
         <authUserContext.Provider value={auth}>
-            {children}
+            {props.children}
         </authUserContext.Provider>
   )
 }

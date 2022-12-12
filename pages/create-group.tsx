@@ -2,8 +2,11 @@ import React, { useState } from 'react'
 import GroupsService from '../src/groups/services/GroupsService'
 import { axiosService } from '../src/utils/services/AxiosService'
 import { useRouter } from 'next/router'
-
 import IGroupModel from '../src/groups/models/IGroupModel'
+import UserGroupsService from '../src/groups/services/UserGroupsService'
+
+const userGroupsService = new UserGroupsService(axiosService)
+const groupsService = new GroupsService(axiosService, userGroupsService)
 
 export default function CreateGroupPage (): JSX.Element {
   const [inputGroup, setInputGroup] = useState<IGroupModel>({
@@ -19,7 +22,6 @@ export default function CreateGroupPage (): JSX.Element {
   })
 
   const router = useRouter()
-  const groupsService = new GroupsService(axiosService)
 
   const createGroup = async (event: any): Promise<void> => {
     try {
