@@ -46,15 +46,10 @@ export default function SignUpPage (): JSX.Element {
 
   return (
         <div className="flex h-screen bg-black">
-            <div className="flex my-auto flex-row h-fit w-screen justify-center items-center">
-                {<FirstSignUpPhase handleChange={handleChange} />}
+            <div className="flex my-auto flex-row h-screen w-screen justify-center items-center">
+                {<FirstSignUpPhase handleChange={handleChange} nextPhase={nextPhase} isCurrentPhaseValid={isCurrentPhaseValid} />}
             </div>
-          <div className="flex flex-col items-end">
-            {isCurrentPhaseValid &&
-                <button
-                    className='bg-green-400 py-2 px-3 m-3 text-white font-light rounded-md align-bottom' onClick={() => nextPhase}>Next
-                </button>
-            }
+          <div className="flex flex-col justify-end mb-20 mr-20">
           </div>
         </div>
   )
