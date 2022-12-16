@@ -3,8 +3,9 @@ import React, { useEffect } from 'react'
 import GroupDetailsGridItem from './GroupDetailsGridItem'
 import { User } from 'firebase/auth'
 import IssueModel from '../../issues/models/IIssueModel'
-import { axiosService } from '../../utils/services/AxiosService'
-import GroupsService from '../services/GroupsService'
+import { IGroupsService } from '../interfaces/IGroupsService'
+import { appContainer } from '../../../inversify/container'
+import { TYPES } from '../../../inversify/types'
 
 interface IGroupDetailsGridProps {
   user: User | null | undefined
@@ -12,9 +13,10 @@ interface IGroupDetailsGridProps {
   isStateLoaded: boolean
 }
 
+const groupsService = appContainer.get<IGroupsService>(TYPES.GroupsService)
+
 export default function GroupDetailsGrid (props: IGroupDetailsGridProps): JSX.Element {
   const [issues, setIssues] = React.useState<IssueModel[]>([])
-  const groupsService = new GroupsService(axiosService)
 
   async function getIssuesByGroupId (): Promise<void> {
     const issues = await groupsService.getIssuesByGroupId(props.groupId)

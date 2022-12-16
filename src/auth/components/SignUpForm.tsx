@@ -1,18 +1,19 @@
 import { useRouter } from 'next/router'
 import React from 'react'
-import AuthenticationService from '../services/AuthenticationService'
-import { axiosService } from '../../utils/services/AxiosService'
 import IAuthenticationModel from '../models/IAuthenticationModel'
+import { appContainer } from '../../../inversify/container'
+import { IAuthenticationService } from '../service-interfaces/IAuthenticationService'
+import { TYPES } from '../../../inversify/types'
 
 interface ISignUpFormProps {
   setErrorMessage: (errorMessage: any) => void
   errorMessage: string
 }
 
+const authenticationService = appContainer.get<IAuthenticationService>(TYPES.AuthenticationService)
+
 export default function SignUpForm (props: ISignUpFormProps): JSX.Element {
   const router = useRouter()
-
-  const authenticationService = new AuthenticationService(axiosService)
 
   async function handleSignUpEvent (event: any): Promise<void> {
     try {

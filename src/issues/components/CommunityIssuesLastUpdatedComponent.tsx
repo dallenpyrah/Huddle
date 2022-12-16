@@ -1,7 +1,9 @@
 import IssueModel from '../models/IIssueModel'
 import IssuesService from '../services/IssuesService'
-import { axiosService } from '../../utils/services/AxiosService'
 import React, { useState } from 'react'
+import { appContainer } from '../../../inversify/container'
+import { IIssueOrderingService } from '../service-interfaces/IIssueOrderingService'
+import { TYPES } from '../../../inversify/types'
 
 interface CommunityIssuesLastUpdatedComponentProps {
   issues: IssueModel[]
@@ -10,8 +12,9 @@ interface CommunityIssuesLastUpdatedComponentProps {
   setFocusHeader: (color: string) => void
 }
 
+const issueOrderingService = appContainer.get<IIssueOrderingService>(TYPES.IssueOrderingService)
+
 export default function CommunityIssuesLastUpdatedComponent (props: CommunityIssuesLastUpdatedComponentProps): JSX.Element {
-  const issuesService = new IssuesService(axiosService)
   const [sortOrder, setSortOrder] = useState('descending')
   const [focusColor, setFocusColor] = useState('')
 
@@ -19,7 +22,7 @@ export default function CommunityIssuesLastUpdatedComponent (props: CommunityIss
     const newFocusColor = 'bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-transparent text-white'
     setFocusColor(newFocusColor)
     props.setFocusHeader('lastUpdated')
-    const sortedIssues = issuesService.orderIssuesByLastUpdated([...props.issues], sortOrder)
+    const sortedIssues = issueOrderingService.orderIssuesByLastUpdated([...props.issues], sortOrder)
     const newSortOrder = sortOrder === 'ascending' ? 'descending' : 'ascending'
     setSortOrder(newSortOrder)
     props.setIssues(sortedIssues)

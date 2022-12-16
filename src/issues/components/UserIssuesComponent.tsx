@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import IssueModel from '../models/IIssueModel'
-import IssuesService from '../services/IssuesService'
-import { axiosService } from '../../utils/services/AxiosService'
 import Skeleton from 'react-loading-skeleton'
 import { User } from 'firebase/auth'
+import { appContainer } from '../../../inversify/container'
+import { IIssuesService } from '../service-interfaces/IIssuesService'
+import { TYPES } from '../../../inversify/types'
 
 interface UserIssuesComponentProps {
   user: User | null
   userId: number
 }
 
+const issuesService = appContainer.get<IIssuesService>(TYPES.IssuesService)
+
 export default function UserIssuesComponent (props: UserIssuesComponentProps): JSX.Element {
   const [issues, setIssues] = useState<IssueModel[]>([])
   const [isStateLoaded, setIsStateLoaded] = useState(false)
-  const issuesService = new IssuesService(axiosService)
   const maxIssuesCount = 7
   const validColors = [
     'bg-slate-300',
@@ -48,10 +50,6 @@ export default function UserIssuesComponent (props: UserIssuesComponentProps): J
     }
 
     return skeletons
-  }
-
-  function findValidColor (issue: IssueModel): string {
-    return validColors.find(c => c === issue.group.color) ?? 'bg-slate-300'
   }
 
   useEffect(() => {

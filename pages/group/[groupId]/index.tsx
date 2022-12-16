@@ -1,23 +1,25 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import SideBarComponent from '../../../src/utils/components/SideBarComponent'
-import GroupsService from '../../../src/groups/services/GroupsService'
-import { axiosService } from '../../../src/utils/services/AxiosService'
 import GroupModel from '../../../src/groups/models/IGroupModel'
-import UserGroupsService from '../../../src/groups/services/UserGroupsService'
 import UserGroupModel from '../../../src/groups/models/IUserGroupModel'
 import { faChessKing, faUsers } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import GroupDetailsGrid from '../../../src/groups/components/GroupDetailsGrid'
 import { useAuth } from '../../../src/auth/contexts/AuthUserContext'
+import { appContainer } from '../../../inversify/container'
+import { IGroupsService } from '../../../src/groups/interfaces/IGroupsService'
+import { IUserGroupsService } from '../../../src/groups/interfaces/IUserGroupsService'
+import { TYPES } from '../../../inversify/types'
+
+const groupsService = appContainer.get<IGroupsService>(TYPES.GroupsService)
+const userGroupsService = appContainer.get<IUserGroupsService>(TYPES.UserGroupsService)
 
 export default function GroupDetailsPage (): JSX.Element {
-  const { authUser, loading, userId } = useAuth()
+  const { authUser, loading } = useAuth()
   const [groupMembers, setGroupMembers] = useState<UserGroupModel[]>([])
   const [group, setGroup] = useState<GroupModel>()
   const [isStateLoaded, setIsStateLoaded] = useState(false)
-  const groupsService = new GroupsService(axiosService)
-  const userGroupsService = new UserGroupsService(axiosService)
   const router = useRouter()
   const groupId = parseInt(router.query.groupId as string, 10)
 

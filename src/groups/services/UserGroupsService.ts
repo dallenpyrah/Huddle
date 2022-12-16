@@ -1,19 +1,26 @@
-import { AxiosInstance } from 'axios'
+import { inject, injectable } from 'inversify'
 import pino from 'pino'
 import UserGroupModel from '../models/IUserGroupModel'
 import GroupModel from '../models/IGroupModel'
+import type { IAxiosService } from '../../auth/service-interfaces/IAxiosService'
+import { AxiosInstance } from 'axios'
+import { TYPES } from '../../../inversify/types'
+import { IUserGroupsService } from '../interfaces/IUserGroupsService'
 
-export default class UserGroupsService {
-  axiosService: AxiosInstance
+@injectable()
+export class UserGroupsService implements IUserGroupsService {
+  private readonly axiosService: IAxiosService
   private readonly logger: pino.Logger = pino()
+  private readonly axios: AxiosInstance
 
-  constructor (axiosService: AxiosInstance) {
+  constructor (@inject(TYPES.AxiosService) axiosService: IAxiosService) {
     this.axiosService = axiosService
+    this.axios = axiosService.getAxiosInstance()
   }
 
   async getUserGroups (userId: string): Promise<UserGroupModel[]> {
     try {
-      const groups = await this.axiosService.get<UserGroupModel[]>(`/users/${userId}/groups`)
+      const groups = await this.axios.get<UserGroupModel[]>(`/users/${userId}/groups`)
       return groups.data
     } catch (error) {
       this.logger.error(error)
@@ -23,7 +30,9 @@ export default class UserGroupsService {
 
   async createUserGroup (groupModel: GroupModel): Promise<UserGroupModel> {
     try {
-      const group = await this.axiosService.post(`/groups/${groupModel.id}/users/${groupModel.creatorId ?? ''}`)
+      const group = await this.axios.post(
+          `/groups/${groupModel.id}/users/${groupModel.creatorId ?? ''}`
+      )
       return group.data
     } catch (error) {
       this.logger.error(error)
@@ -36,7 +45,7 @@ export default class UserGroupsService {
       if (groupId === undefined) {
         return []
       } else {
-        const users = await this.axiosService.get<UserGroupModel[]>(`/groups/${groupId}/users`)
+        const users = await this.axios.get<UserGroupModel[]>(`/groups/${groupId}/users`)
         return users.data
       }
     } catch (error) {

@@ -1,7 +1,7 @@
 import React from 'react'
 import SignUpFirstAndLastNameQuestion from './SignUpFirstAndLastNameQuestion'
 import TransparentInputField from '../../utils/components/TransparentInputField'
-import IFirstSignUpPhaseProps from '../interfaces/IFirstSignUpPhaseProps'
+import IFirstSignUpPhaseProps from '../component-interfaces/IFirstSignUpPhaseProps'
 
 const firstSignUpPhase = (props: IFirstSignUpPhaseProps): JSX.Element => {
   return (
