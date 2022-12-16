@@ -1,8 +1,20 @@
+import { injectable } from 'inversify'
 import axios, { AxiosInstance } from 'axios'
+import { IAxiosService } from '../../auth/service-interfaces/IAxiosService'
+import 'reflect-metadata'
 
-const axiosBase: AxiosInstance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_AXIOS_BASE_URL,
-  timeout: 10000
-})
+@injectable()
+export class AxiosService implements IAxiosService {
+  private readonly axiosInstance: AxiosInstance
 
-export const axiosService = axiosBase
+  constructor () {
+    this.axiosInstance = axios.create({
+      baseURL: process.env.NEXT_PUBLIC_AXIOS_BASE_URL,
+      timeout: 10000
+    })
+  }
+
+  public getAxiosInstance (): AxiosInstance {
+    return this.axiosInstance
+  }
+}

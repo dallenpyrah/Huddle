@@ -1,14 +1,16 @@
 import { useEffect, useState } from 'react'
 import { firebaseApp } from '../../../firebase-config'
 import { getAuth, User } from 'firebase/auth'
-import FireBaseUserService from '../services/FireBaseUserService'
-import { axiosService } from '../../utils/services/AxiosService'
+import { appContainer } from '../../../inversify/container'
+import { IFireBaseUserService } from '../service-interfaces/IFireBaseService'
+import { TYPES } from '../../../inversify/types'
+
+const fireBaseUserService = appContainer.get<IFireBaseUserService>(TYPES.FireBaseUserService)
 
 export default function useFirebaseAuth (): { authUser: User | null, loading: boolean, userId: number } {
   const [authUser, setAuthUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
   const [userId, setUserId] = useState<number>(0)
-  const fireBaseUserService = new FireBaseUserService(axiosService)
 
   const authStateChanged = async (authState: User | null): Promise<void> => {
     if (authState == null) {

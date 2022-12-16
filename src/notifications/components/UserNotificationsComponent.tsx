@@ -1,19 +1,21 @@
 import React, { useEffect } from 'react'
 import Skeleton from 'react-loading-skeleton'
-import { axiosService } from '../../utils/services/AxiosService'
-import NotificationService from '../services/NotificationService'
 import { User } from 'firebase/auth'
 import NotificationModel from '../models/INotificationModel'
+import { appContainer } from '../../../inversify/container'
+import { INotificationService } from '../service-interfaces/INotificationService'
+import { TYPES } from '../../../inversify/types'
 
 interface UserNotificationsComponentProps {
   user: User | null
   userId: number
 }
 
+const notificationService = appContainer.get<INotificationService>(TYPES.NotificationService)
+
 export default function UserNotificationsComponent (props: UserNotificationsComponentProps): JSX.Element {
   const [notifications, setNotifications] = React.useState<NotificationModel[]>([])
   const [isSateLoaded, setIsStateLoaded] = React.useState<boolean>(false)
-  const notificationService = new NotificationService(axiosService)
   const maxNotificationsCount = 6
 
   async function getUsersNotifications (): Promise<void> {
