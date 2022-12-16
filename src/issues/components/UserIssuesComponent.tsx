@@ -11,24 +11,25 @@ interface UserIssuesComponentProps {
   userId: number
 }
 
+export const validColors = [
+  'bg-slate-300',
+  'bg-red-300',
+  'bg-orange-300',
+  'bg-yellow-300',
+  'bg-green-300',
+  'bg-teal-300',
+  'bg-blue-300',
+  'bg-indigo-300',
+  'bg-purple-300',
+  'bg-pink-300'
+]
+
 const issuesService = appContainer.get<IIssuesService>(TYPES.IssuesService)
 
 export default function UserIssuesComponent (props: UserIssuesComponentProps): JSX.Element {
   const [issues, setIssues] = useState<IssueModel[]>([])
   const [isStateLoaded, setIsStateLoaded] = useState(false)
   const maxIssuesCount = 7
-  const validColors = [
-    'bg-slate-300',
-    'bg-red-300',
-    'bg-orange-300',
-    'bg-yellow-300',
-    'bg-green-300',
-    'bg-teal-300',
-    'bg-blue-300',
-    'bg-indigo-300',
-    'bg-purple-300',
-    'bg-pink-300'
-  ]
 
   async function getUsersIssues (): Promise<void> {
     if (props.userId > 0) {

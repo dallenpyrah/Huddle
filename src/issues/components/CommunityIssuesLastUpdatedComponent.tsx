@@ -1,5 +1,4 @@
 import IssueModel from '../models/IIssueModel'
-import IssuesService from '../services/IssuesService'
 import React, { useState } from 'react'
 import { appContainer } from '../../../inversify/container'
 import { IIssueOrderingService } from '../service-interfaces/IIssueOrderingService'
