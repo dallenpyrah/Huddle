@@ -16,16 +16,13 @@ group:
 - any: ['src/group/**']
 
 issue:
-- any: ['src/issue/**']
+- any: ['src/issues/**']
 
 home:
 - any: ['src/home/**']
 
 image:
 - any: ['src/images/**']
-
-issue:
-- any: ['src/issues/**']
 
 notification:
 - any: ['src/notifications/**']

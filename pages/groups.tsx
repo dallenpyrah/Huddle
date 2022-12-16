@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import DashboardButtons from '../src/utils/components/DashboardButtons'
 import NewGroupsComponent from '../src/groups/components/NewGroupsComponent'
 import { useAuth } from '../src/auth/contexts/AuthUserContext'
+// test
 
 export default function GroupsPage (): JSX.Element {
   const { authUser, loading, userId } = useAuth()
