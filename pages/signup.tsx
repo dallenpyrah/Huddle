@@ -13,7 +13,6 @@ export default function SignUpPage (): JSX.Element {
     [SignUpPhase.THIRD]: (userInformation: UserSignUpModel): { isValid: boolean, message: string } => signUpService.isThirdPhaseValid(userInformation)
   }
 
-  const [message, setMessage] = React.useState('')
   const [isCurrentPhaseValid, setIsCurrentPhaseValid] = React.useState(false)
   const [currentPhase, setCurrentPhase] = React.useState<SignUpPhase>(SignUpPhase.FIRST)
   const [inputGroup, setInputGroup] = React.useState<UserSignUpModel>({
@@ -39,9 +38,8 @@ export default function SignUpPage (): JSX.Element {
   }
 
   useEffect(() => {
-    const { isValid, message } = phasesActionDictionary[currentPhase](inputGroup)
+    const { isValid } = phasesActionDictionary[currentPhase](inputGroup)
     setIsCurrentPhaseValid(isValid)
-    setMessage(message)
   }, [inputGroup])
 
   return (
