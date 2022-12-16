@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "build:cicd": "env-cmd -f .env.cicd next build",
     "build": "env-cmd -f .env.development next build",
     "build:prod": "env-cmd -f .env.production next build",
     "start": "next start",
