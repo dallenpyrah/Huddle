@@ -16,7 +16,7 @@ const firstSignUpPhase = (props: IFirstSignUpPhaseProps): JSX.Element => {
                     {props.isCurrentPhaseValid &&
                         <div className="flex basis-1/4 justify-end">
                             <button
-                                className='bg-green-400 py-2 px-3 text-white font-light rounded-sm' onClick={() => props.nextPhase}>Next
+                                className='bg-green-400 py-2 px-3 text-white font-light rounded-sm absolute' onClick={() => props.nextPhase}>Next
                             </button>
                         </div>
                     }
