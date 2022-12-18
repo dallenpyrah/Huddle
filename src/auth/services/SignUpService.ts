@@ -14,15 +14,14 @@ class UserSignUpService {
   }
 
   isSecondPhaseValid (state: UserSignUpModel): { isValid: boolean, message: string } {
-    if (state.email === '') {
-      return { isValid: false, message: 'Email is required' }
-    }
+    const isPasswordMatching = this.isPasswordMatching(state)
+    const isEmailValid = this.isEmailValid(state.email)
 
-    if (!this.isPasswordMatching(state)) {
-      return { isValid: false, message: 'Passwords do not match' }
+    if (isPasswordMatching && isEmailValid) {
+      return { isValid: true, message: '' }
+    } else {
+      return { isValid: false, message: 'Password and email are not valid' }
     }
-
-    return { isValid: true, message: '' }
   }
 
   isThirdPhaseValid (state: UserSignUpModel): { isValid: boolean, message: string } {
@@ -37,8 +36,50 @@ class UserSignUpService {
     return { isValid: true, message: '' }
   }
 
-  isPasswordMatching (state: UserSignUpModel): boolean {
-    return state.password === state.confirmPassword
+  isPasswordMatching (user?: UserSignUpModel | undefined): { isValid: boolean, message: string } {
+    if (user?.confirmPassword.length === 0) {
+      return { isValid: true, message: '' }
+    }
+
+    if (user?.password !== user?.confirmPassword) {
+      return { isValid: false, message: 'Passwords do not match' }
+    }
+
+    return { isValid: true, message: '' }
+  }
+
+  isPasswordValid (password: string): { isValid: boolean, message: string } {
+    if (password.length < 6) {
+      return { isValid: false, message: 'Password must be at least 6 characters long' }
+    }
+
+    if (!/[A-Z]/.test(password)) {
+      return { isValid: false, message: 'Password must contain at least one uppercase letter' }
+    }
+
+    if (!/[a-z]/.test(password)) {
+      return { isValid: false, message: 'Password must contain at least one lowercase letter' }
+    }
+
+    if (!/[0-9]/.test(password)) {
+      return { isValid: false, message: 'Password must contain at least one number' }
+    }
+
+    return { isValid: true, message: '' }
+  }
+
+  isEmailValid (email: string): { isValid: boolean, message: string } {
+    const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
+
+    if (!emailRegex.test(email)) {
+      return { isValid: false, message: 'Email is not valid' }
+    }
+
+    if (!email.includes('.')) {
+      return { isValid: false, message: 'Email must contain a period' }
+    }
+
+    return { isValid: true, message: '' }
   }
 }
 
