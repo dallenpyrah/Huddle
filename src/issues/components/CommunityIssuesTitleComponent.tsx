@@ -1,7 +1,8 @@
 import IssueModel from '../models/IIssueModel'
-import IssuesService from '../services/IssuesService'
-import { axiosService } from '../../utils/services/AxiosService'
 import React, { useState } from 'react'
+import { appContainer } from '../../../inversify/container'
+import { TYPES } from '../../../inversify/types'
+import { IIssueOrderingService } from '../service-interfaces/IIssueOrderingService'
 
 interface IssueTitleProps {
   issues: IssueModel[]
@@ -10,14 +11,15 @@ interface IssueTitleProps {
   setFocusHeader: (color: string) => void
 }
 
+const issueOrderingService = appContainer.get<IIssueOrderingService>(TYPES.IssueOrderingService)
+
 export default function IssueTitle (props: IssueTitleProps): JSX.Element {
-  const issuesService = new IssuesService(axiosService)
   const [sortOrder, setSortOrder] = useState('descending')
   const [focusColor, setFocusColor] = useState('')
   const newFocusColor = 'bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-transparent text-white'
 
   function orderByTitle (): void {
-    const sortedIssues = issuesService.orderIssuesByTitle([...props.issues], sortOrder)
+    const sortedIssues = issueOrderingService.orderIssuesByTitle([...props.issues], sortOrder)
     const newSortOrder = sortOrder === 'ascending' ? 'descending' : 'ascending'
     setFocusColor(newFocusColor)
     props.setFocusHeader('title')

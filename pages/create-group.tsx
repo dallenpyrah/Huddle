@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
-import GroupsService from '../src/groups/services/GroupsService'
-import { axiosService } from '../src/utils/services/AxiosService'
 import { useRouter } from 'next/router'
 import IGroupModel from '../src/groups/models/IGroupModel'
-import UserGroupsService from '../src/groups/services/UserGroupsService'
+import { appContainer } from '../inversify/container'
+import { TYPES } from '../inversify/types'
+import { IGroupsService } from '../src/groups/interfaces/IGroupsService'
 
-const userGroupsService = new UserGroupsService(axiosService)
-const groupsService = new GroupsService(axiosService, userGroupsService)
+const groupsService = appContainer.get<IGroupsService>(TYPES.GroupsService)
 
 export default function CreateGroupPage (): JSX.Element {
   const [inputGroup, setInputGroup] = useState<IGroupModel>({

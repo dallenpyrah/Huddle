@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { axiosService } from '../../../src/utils/services/AxiosService'
 import IIssueModel from '../../../src/issues/models/IIssueModel'
-import IssuesService from '../../../src/issues/services/IssuesService'
 import { useAuth } from '../../../src/auth/contexts/AuthUserContext'
+import { appContainer } from '../../../inversify/container'
+import { TYPES } from '../../../inversify/types'
+import { IIssuesService } from '../../../src/issues/service-interfaces/IIssuesService'
+
+const issuesService = appContainer.get<IIssuesService>(TYPES.IssuesService)
 
 export default function CreateIssue (): JSX.Element {
   const { userId } = useAuth()
@@ -25,7 +28,6 @@ export default function CreateIssue (): JSX.Element {
   })
 
   const router = useRouter()
-  const issuesService = new IssuesService(axiosService)
 
   const createIssue = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     try {

@@ -1,0 +1,43 @@
+# Add 'repo' label to any root file changes
+repo:
+- '*'
+
+# Add 'source' label to any change to src files within the source dir EXCEPT for the docs sub-folder
+source:
+- any: ['src/**/*', '!src/docs/*']
+
+authentication:
+- any: ['src/auth/**']
+
+comment:
+- any: ['src/comment/**']
+
+group:
+- any: ['src/group/**']
+
+issue:
+- any: ['src/issue/**']
+
+home:
+- any: ['src/home/**']
+
+image:
+- any: ['src/images/**']
+
+issue:
+- any: ['src/issues/**']
+
+notification:
+- any: ['src/notifications/**']
+
+util:
+- any: ['src/utils/**']
+
+page:
+- any: ['pages/**/*']
+
+inversify:
+- any: ['inversify/**/*']
+
+css:
+- any: ['styles/**/*']

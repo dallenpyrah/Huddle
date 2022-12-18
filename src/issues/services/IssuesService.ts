@@ -1,18 +1,25 @@
 import { AxiosInstance } from 'axios'
 import pino from 'pino'
 import IIssueModel from '../models/IIssueModel'
+import { inject, injectable } from 'inversify'
+import { TYPES } from '../../../inversify/types'
+import type { IAxiosService } from '../../auth/service-interfaces/IAxiosService'
+import { IIssuesService } from '../service-interfaces/IIssuesService'
 
-export default class IssuesService {
-  private readonly axiosService: AxiosInstance
+@injectable()
+export class IssuesService implements IIssuesService {
+  private readonly axiosService: IAxiosService
   private readonly logger: pino.Logger = pino()
+  private readonly axios: AxiosInstance
 
-  constructor (axiosService: AxiosInstance) {
+  constructor (@inject(TYPES.AxiosService) axiosService: IAxiosService) {
     this.axiosService = axiosService
+    this.axios = axiosService.getAxiosInstance()
   }
 
   async getUserIssues (userId: number): Promise<IIssueModel[]> {
     try {
-      const issues = await this.axiosService.get<IIssueModel[]>(`/issues/${userId}`)
+      const issues = await this.axios.get<IIssueModel[]>(`/issues/${userId}`)
       return issues.data
     } catch (error) {
       this.logger.error(error)
@@ -22,7 +29,7 @@ export default class IssuesService {
 
   async getCommunityIssues (limit: number, afterId: number): Promise<IIssueModel[]> {
     try {
-      const issues = await this.axiosService.get<IIssueModel[]>(`/issues/${limit}/${afterId}`)
+      const issues = await this.axios.get<IIssueModel[]>(`/issues/${limit}/${afterId}`)
       return issues.data
     } catch (error) {
       this.logger.error(error)
@@ -32,7 +39,7 @@ export default class IssuesService {
 
   async getFilteredCommunityIssues (filter: string): Promise<IIssueModel[]> {
     try {
-      const issues = await this.axiosService.get<IIssueModel[]>(`/issues/${filter}`)
+      const issues = await this.axios.get<IIssueModel[]>(`/issues/${filter}`)
       return issues.data
     } catch (error) {
       this.logger.error(error)
@@ -40,89 +47,13 @@ export default class IssuesService {
     }
   }
 
-  orderIssuesByTitle (issues: IIssueModel[], sortOrder: string): IIssueModel[] {
-    switch (sortOrder) {
-      case 'ascending':
-        return this.orderIssuesByTitleAscending(issues)
-      case 'descending':
-        return this.orderIssuesByTitleDescending(issues)
-      default:
-        return issues
-    }
-  }
-
-  orderIssuesByGroupName (issues: IIssueModel[], sortOrder: string): IIssueModel[] {
-    switch (sortOrder) {
-      case 'ascending':
-        return this.orderIssuesByGroupNameAscending(issues)
-      case 'descending':
-        return this.orderIssuesByGroupNameDescending(issues)
-      default:
-        return issues
-    }
-  }
-
-  orderIssuesByLanguage (issues: IIssueModel[], sortOrder: string): IIssueModel[] {
-    switch (sortOrder) {
-      case 'ascending':
-        return this.orderIssuesByLanguageAscending(issues)
-      case 'descending':
-        return this.orderIssuesByLanguageDescending(issues)
-      default:
-        return issues
-    }
-  }
-
-  orderIssuesByLastUpdated (issues: IIssueModel[], sortOrder: string): IIssueModel[] {
-    switch (sortOrder) {
-      case 'ascending':
-        return this.orderIssuesByLastUpdatedAscending(issues)
-      case 'descending':
-        return this.orderIssuesByLastUpdatedDescending(issues)
-      default:
-        return issues
-    }
-  }
-
   async createIssue (newIssue: IIssueModel): Promise<IIssueModel> {
     try {
-      const issue = await this.axiosService.post<IIssueModel>('/issues', newIssue)
+      const issue = await this.axios.post<IIssueModel>('/issues', newIssue)
       return issue.data
     } catch (error) {
       this.logger.error(error)
       throw error
     }
-  }
-
-  protected orderIssuesByLanguageAscending (issues: IIssueModel[]): IIssueModel[] {
-    return issues.sort((a, b) => a.language.localeCompare(b.language))
-  }
-
-  protected orderIssuesByLanguageDescending (issues: IIssueModel[]): IIssueModel[] {
-    return issues.sort((a, b) => b.language.localeCompare(a.language))
-  }
-
-  protected orderIssuesByTitleAscending (issues: IIssueModel[]): IIssueModel[] {
-    return issues.sort((a, b) => a.title.localeCompare(b.title))
-  }
-
-  protected orderIssuesByTitleDescending (issues: IIssueModel[]): IIssueModel[] {
-    return issues.sort((a, b) => b.title.localeCompare(a.title))
-  }
-
-  protected orderIssuesByGroupNameAscending (issues: IIssueModel[]): IIssueModel[] {
-    return issues.sort((a, b) => a.group.name.localeCompare(b.group.name))
-  }
-
-  protected orderIssuesByGroupNameDescending (issues: IIssueModel[]): IIssueModel[] {
-    return issues.sort((a, b) => b.group.name.localeCompare(a.group.name))
-  }
-
-  protected orderIssuesByLastUpdatedAscending (issues: IIssueModel[]): IIssueModel[] {
-    return issues.sort((a, b) => a.updatedAt.toString().localeCompare(b.updatedAt.toString()))
-  }
-
-  protected orderIssuesByLastUpdatedDescending (issues: IIssueModel[]): IIssueModel[] {
-    return issues.sort((a, b) => b.updatedAt.toString().localeCompare(a.updatedAt.toString()))
   }
 }

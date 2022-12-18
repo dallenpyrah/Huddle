@@ -1,22 +1,24 @@
 import React, { useEffect, useState } from 'react'
 import { User } from 'firebase/auth'
 import Skeleton from 'react-loading-skeleton'
-import IssuesService from '../services/IssuesService'
-import { axiosService } from '../../utils/services/AxiosService'
 import CommunityIssuesTitleComponent from './CommunityIssuesTitleComponent'
 import CommunityIssuesGroupTitleComponent from './CommunityIssuesGroupTitleComponent'
 import CommunityIssuesLanguageComponent from './CommunityIssuesLanguageComponent'
 import CommunityIssuesLastUpdatedComponent from './CommunityIssuesLastUpdatedComponent'
 import IIssueModel from '../models/IIssueModel'
+import { appContainer } from '../../../inversify/container'
+import { TYPES } from '../../../inversify/types'
+import { IIssuesService } from '../service-interfaces/IIssuesService'
 
 interface CommunityIssuesComponentProps {
   user: User | null
   userId: number
 }
 
+const issuesService = appContainer.get<IIssuesService>(TYPES.IssuesService)
+
 export default function CommunityIssuesComponent (props: CommunityIssuesComponentProps): JSX.Element {
   const maxIssuesCount = 5
-  const issuesService = new IssuesService(axiosService)
   const [isStateLoaded, setIsStateLoaded] = useState(false)
   const [issues, setIssues] = useState<IIssueModel[]>([])
   const [focusHeader, setFocusHeader] = useState('')
@@ -49,16 +51,16 @@ export default function CommunityIssuesComponent (props: CommunityIssuesComponen
       skeletons.push(
                 <div key={i} className="grid grid-cols-4 pt-2 pb-2">
                     <div className="col-span-1">
-                        <h1 className="text-sm text-gray-300 ml-5 m-2"><Skeleton count={1} baseColor="black"/></h1>
+                        <h1 className="text-sm text-gray-300 ml-5 m-2"><Skeleton count={1} baseColor="black" /></h1>
                     </div>
                     <div className="col-span-1 ml-5">
-                        <Skeleton count={1} baseColor="black"/>
+                        <Skeleton count={1} baseColor="black" />
                     </div>
                     <div className="col-span-1 ml-5">
-                        <Skeleton count={1} baseColor="black"/>
+                        <Skeleton count={1} baseColor="black" />
                     </div>
                     <div className="col-span-1">
-                        <h1 className="text-sm text-gray-300 ml-5 m-2"><Skeleton count={1} baseColor="black"/></h1>
+                        <h1 className="text-sm text-gray-300 ml-5 m-2"><Skeleton count={1} baseColor="black" /></h1>
                     </div>
                 </div>
       )
@@ -85,24 +87,24 @@ export default function CommunityIssuesComponent (props: CommunityIssuesComponen
             <div className="grid grid-cols-4 sticky top-[4.75rem] bg-black">
                 <div className="col-span-1">
                     <CommunityIssuesTitleComponent issues={issues} setIssues={setIssues} focusHeader={focusHeader}
-                                                   setFocusHeader={setFocusHeader}/>
+                        setFocusHeader={setFocusHeader} />
                 </div>
                 <div className="col-span-1">
                     <CommunityIssuesGroupTitleComponent issues={issues} setIssues={setIssues} focusHeader={focusHeader}
-                                                        setFocusHeader={setFocusHeader}/>
+                        setFocusHeader={setFocusHeader} />
                 </div>
                 <div className="col-span-1">
                     <CommunityIssuesLanguageComponent issues={issues} setIssues={setIssues} focusHeader={focusHeader}
-                                                      setFocusHeader={setFocusHeader}/>
+                        setFocusHeader={setFocusHeader} />
                 </div>
                 <div className="col-span-1">
                     <CommunityIssuesLastUpdatedComponent issues={issues} setIssues={setIssues} focusHeader={focusHeader}
-                                                         setFocusHeader={setFocusHeader}/>
+                        setFocusHeader={setFocusHeader} />
                 </div>
             </div>
             {isStateLoaded && issues.length > 0 && issues.map((issue, index) => (
                 <div key={index}
-                     className="grid grid-cols-4 mt-1 mb-2 pt-1 pb-1 ml-2 mr-2 hover:bg-zinc-900 rounded-lg min-w-0 min-h-0">
+                    className="grid grid-cols-4 mt-1 mb-2 pt-1 pb-1 ml-2 mr-2 hover:bg-zinc-900 rounded-lg min-w-0 min-h-0">
                     <div className="col-span-1">
                         <h1 className="text-sm text-gray-300 ml-5 m-2">{issue.title}</h1>
                         <p className="text-xs text-gray-400 ml-5 m-2">{issue.user.name}</p>

@@ -1,11 +1,13 @@
 import { useRouter } from 'next/router'
-import AuthenticationService from '../services/AuthenticationService'
-import { axiosService } from '../../utils/services/AxiosService'
 import React from 'react'
+import { appContainer } from '../../../inversify/container'
+import { TYPES } from '../../../inversify/types'
+import { IAuthenticationService } from '../service-interfaces/IAuthenticationService'
+
+const authenticationService = appContainer.get<IAuthenticationService>(TYPES.AuthenticationService)
 
 export default function AuthenticateWithGithubButton (props: { passErrorMessage: (errorMessage: string) => void }): JSX.Element {
   const router = useRouter()
-  const authenticationService = new AuthenticationService(axiosService)
 
   async function handleLoginOrSignupWithGithub (event: any): Promise<void> {
     try {
