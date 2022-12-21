@@ -10,8 +10,7 @@ const signUpService = new SignUpService()
 export default function SignUpPage (): JSX.Element {
   const phasesActionDictionary = {
     [SignUpPhase.FIRST]: (userInformation: UserSignUpModel): { isValid: boolean, message: string } => signUpService.isFirstPhaseValid(userInformation),
-    [SignUpPhase.SECOND]: (userInformation: UserSignUpModel): { isValid: boolean, message: string } => signUpService.isSecondPhaseValid(userInformation),
-    [SignUpPhase.THIRD]: (userInformation: UserSignUpModel): { isValid: boolean, message: string } => signUpService.isThirdPhaseValid(userInformation)
+    [SignUpPhase.SECOND]: (userInformation: UserSignUpModel): { isValid: boolean, message: string } => signUpService.isSecondPhaseValid(userInformation)
   }
 
   const [isCurrentPhaseValid, setIsCurrentPhaseValid] = React.useState(false)

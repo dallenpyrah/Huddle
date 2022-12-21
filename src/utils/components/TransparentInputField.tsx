@@ -13,6 +13,7 @@ const transparentInputField = (props: ITransparentInputFieldProps): JSX.Element 
     confirmPassword: (value: string) => signUpService.isPasswordMatching(props.userInformation)
   }
 
+  const [isPageLoaded, setIsPageLoaded] = React.useState(false)
   const [message, setMessage] = React.useState('')
   const [isValid, setIsValid] = React.useState(true)
   const labelClass = isValid ? 'peer-focus:text-green-300 text-gray-500' : 'peer-focus:text-red-400 text-red-300'
@@ -33,11 +34,13 @@ const transparentInputField = (props: ITransparentInputFieldProps): JSX.Element 
   }
 
   useEffect(() => {
-    if (validationFunctions[props.name] !== undefined) {
+    if (validationFunctions[props.name] !== undefined && isPageLoaded) {
       const { isValid, message } = validationFunctions[props.name]('')
       setIsValid(isValid)
       setMessage(message)
     }
+
+    setIsPageLoaded(true)
   }, [props.userInformation])
 
   return (

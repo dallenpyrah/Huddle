@@ -13,24 +13,21 @@ class UserSignUpService {
     return { isValid: true, message: '' }
   }
 
-  isSecondPhaseValid (state: UserSignUpModel): { isValid: boolean, message: string } {
-    const isPasswordMatching = this.isPasswordMatching(state)
-    const isEmailValid = this.isEmailValid(state.email)
+  isSecondPhaseValid (state: UserSignUpModel | undefined): { isValid: boolean, message: string } {
+    const matchingPasswordCheck = this.isPasswordMatching(state)
+    const emailCheck = this.isEmailValid(state.email)
+    const passwordCheck = this.isPasswordValid(state.password)
 
-    if (isPasswordMatching && isEmailValid) {
-      return { isValid: true, message: '' }
-    } else {
-      return { isValid: false, message: 'Password and email are not valid' }
-    }
-  }
-
-  isThirdPhaseValid (state: UserSignUpModel): { isValid: boolean, message: string } {
-    if (state.position === '') {
-      return { isValid: false, message: 'Position is required' }
+    if (!matchingPasswordCheck.isValid) {
+      return matchingPasswordCheck
     }
 
-    if (state.company === '') {
-      return { isValid: false, message: 'Company is required' }
+    if (!emailCheck.isValid) {
+      return emailCheck
+    }
+
+    if (!passwordCheck.isValid) {
+      return passwordCheck
     }
 
     return { isValid: true, message: '' }
@@ -40,6 +37,8 @@ class UserSignUpService {
     if (user?.confirmPassword.length === 0) {
       return { isValid: true, message: '' }
     }
+
+    console.log(user)
 
     if (user?.password !== user?.confirmPassword) {
       return { isValid: false, message: 'Passwords do not match' }

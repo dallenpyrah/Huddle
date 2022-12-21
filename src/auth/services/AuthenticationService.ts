@@ -12,6 +12,7 @@ import AuthenticationModel from '../models/IAuthenticationModel'
 import pino from 'pino'
 import { UserCredential } from '@firebase/auth'
 import { auth } from '../../../firebase-config'
+import UserSignUpModel from '../models/UserSignUpModel'
 
 export default class AuthenticationService {
   axiosService: AxiosInstance
@@ -56,12 +57,18 @@ export default class AuthenticationService {
     }
   }
 
-  async signUpWithPasswordAndEmail (user: AuthenticationModel): Promise<User | null> {
+  async signUpWithPasswordAndEmail (user: UserSignUpModel): Promise<User | null> {
     try {
-      const createdUser: UserCredential = await createUserWithEmailAndPassword(auth, user.email, user.password)
-      await updateProfile(createdUser.user, { displayName: user.fullName })
-      await this.axiosService.post('/auth/signup', createdUser.user)
-      return await this.getCurrentUser()
+      const userCredential = await createUserWithEmailAndPassword(auth, user?.email, user?.password)
+
+      if (auth.currentUser != null) {
+        await updateProfile(auth.currentUser, {
+          displayName: `${user?.firstName} ${user?.lastName}`
+        })
+      }
+
+      await this.axiosService.post('/auth/signup', userCredential.user)
+      return userCredential.user
     } catch (error) {
       this.logger.error(error)
       throw error
