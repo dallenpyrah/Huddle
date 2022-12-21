@@ -1,11 +1,13 @@
 import { useRouter } from 'next/router'
 import React from 'react'
-import AuthenticationService from '../services/AuthenticationService'
-import { axiosService } from '../../utils/services/AxiosService'
+import { appContainer } from '../../../inversify/container'
+import { IAuthenticationService } from '../service-interfaces/IAuthenticationService'
+import { TYPES } from '../../../inversify/types'
+
+const authenticationService = appContainer.get<IAuthenticationService>(TYPES.AuthenticationService)
 
 export default function AuthenticateWithGoogleButton (props: { passErrorMessage: (errorMessage: string) => void }): JSX.Element {
   const router = useRouter()
-  const authenticationService = new AuthenticationService(axiosService)
 
   async function handleLoginOrSignupWithGoogle (event: any): Promise<void> {
     try {

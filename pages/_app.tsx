@@ -1,6 +1,7 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import React from 'react'
+import 'reflect-metadata'
 import * as dotenv from 'dotenv'
 import { AuthUserProvider } from '../src/auth/contexts/AuthUserContext'
 

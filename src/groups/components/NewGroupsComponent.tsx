@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import GroupsService from '../services/GroupsService'
-import { axiosService } from '../../utils/services/AxiosService'
 import Skeleton from 'react-loading-skeleton'
 import IGroupModel from '../models/IGroupModel'
-import UserGroupsService from '../services/UserGroupsService'
-import INewGroupsComponentProps from '../interfaces/INewGroupsComponentProps'
+import INewGroupsComponentProps from '../component-interfaces/INewGroupsComponentProps'
+import { appContainer } from '../../../inversify/container'
+import { IGroupsService } from '../interfaces/IGroupsService'
+import { TYPES } from '../../../inversify/types'
 
-const userGroupsService = new UserGroupsService(axiosService)
-const groupsService = new GroupsService(axiosService, userGroupsService)
+const groupsService = appContainer.get<IGroupsService>(TYPES.GroupsService)
 
 export default function NewGroupsComponent (props: INewGroupsComponentProps): JSX.Element {
   const [newGroups, setNewGroups] = useState<IGroupModel[]>([])

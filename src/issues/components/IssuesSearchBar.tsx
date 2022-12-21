@@ -2,16 +2,18 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import IssueModel from '../models/IIssueModel'
-import { axiosService } from '../../utils/services/AxiosService'
-import IssuesService from '../services/IssuesService'
+import { appContainer } from '../../../inversify/container'
+import { TYPES } from '../../../inversify/types'
+import { IIssuesService } from '../service-interfaces/IIssuesService'
 
 interface IssuesSearchBarProps {
   issues: IssueModel[]
   setIssues: (issues: IssueModel[]) => void
 }
 
+const issuesService = appContainer.get<IIssuesService>(TYPES.IssuesService)
+
 export default function IssuesSearchBar (props: IssuesSearchBarProps): JSX.Element {
-  const issuesService = new IssuesService(axiosService)
   const [searchTerm, setSearchTerm] = React.useState('')
 
   const searchForIssues = async (event: any): Promise<void> => {
