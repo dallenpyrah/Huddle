@@ -1,4 +1,5 @@
 import 'reflect-metadata'
+// @ts-expect-error
 import { Container } from 'inversify'
 import { IAxiosService } from '../src/auth/service-interfaces/IAxiosService'
 import { AxiosService } from '../src/utils/services/AxiosService'
@@ -17,6 +18,8 @@ import { IIssueOrderingService } from '../src/issues/service-interfaces/IIssueOr
 import { IssuesService } from '../src/issues/services/IssuesService'
 import { INotificationService } from '../src/notifications/service-interfaces/INotificationService'
 import { NotificationService } from '../src/notifications/services/NotificationService'
+import { IUserSignUpUtility } from '../src/auth/interfaces/IUserSignUpUtility'
+import { UserSignUpUtility } from '../src/auth/services/UserSignUpUtility'
 
 const appContainer = new Container()
 
@@ -28,5 +31,6 @@ appContainer.bind<IAuthenticationService>(TYPES.AuthenticationService).to(Authen
 appContainer.bind<IFireBaseUserService>(TYPES.FireBaseUserService).to(FireBaseUserService)
 appContainer.bind<IIssueOrderingService>(TYPES.IssueOrderingService).to(IssueOrderingService)
 appContainer.bind<INotificationService>(TYPES.NotificationService).to(NotificationService)
+appContainer.bind<IUserSignUpUtility>(TYPES.UserSignUpUtility).to(UserSignUpUtility)
 
 export { appContainer }

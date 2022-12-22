@@ -1,4 +1,4 @@
-import UserModel from '../../auth/models/IUserModel'
+import UserModel from '../../auth/models/UserModel'
 import IIssueModel from '../../issues/models/IIssueModel'
 
 export default interface ICommentModel {

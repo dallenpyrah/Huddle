@@ -1,5 +1,5 @@
 import GroupModel from './IGroupModel'
-import UserModel from '../../auth/models/IUserModel'
+import UserModel from '../../auth/models/UserModel'
 
 export default interface IUserGroupModel {
   id: number

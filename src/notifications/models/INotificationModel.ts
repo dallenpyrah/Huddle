@@ -1,4 +1,4 @@
-import UserModel from '../../auth/models/IUserModel'
+import UserModel from '../../auth/models/UserModel'
 
 export default interface INotificationModel {
   id: number

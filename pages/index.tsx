@@ -12,18 +12,18 @@ export default function HomePage (): JSX.Element {
         <div className="h-screen bg-black max-h-screen">
             <div className="flex flex-row w-screen justify-between">
                 <FlexColHuddleTitle/>
-               <FlexColHeaderLinks />
+                <FlexColHeaderLinks/>
             </div>
             <div className="flex flex-row w-screen justify-center items-center my-40">
                 <div className="flex basis-1/4 ml-52">
                     <div>
-                        <HuddleSlogan />
-                        <GetStartedButton />
-                        <LearnMoreButton />
+                        <HuddleSlogan/>
+                        <GetStartedButton/>
+                        <LearnMoreButton/>
                     </div>
                 </div>
                 <div className="flex basis-1/2 items-center ml-52">
-                    <Image src={HomePageCube} objectFit={'cover'} className="rounded-lg" priority />
+                    <Image src={HomePageCube} objectFit={'cover'} className="rounded-lg" priority/>
                 </div>
             </div>
         </div>

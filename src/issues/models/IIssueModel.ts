@@ -1,5 +1,5 @@
 import GroupModel from '../../groups/models/IGroupModel'
-import UserModel from '../../auth/models/IUserModel'
+import UserModel from '../../auth/models/UserModel'
 import CommentModel from '../../comments/models/ICommentModel'
 
 export default interface IIssueModel {

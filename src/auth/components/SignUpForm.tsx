@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import React from 'react'
-import IAuthenticationModel from '../models/IAuthenticationModel'
+import AuthenticationModel from '../models/AuthenticationModel'
 import { appContainer } from '../../../inversify/container'
 import { IAuthenticationService } from '../service-interfaces/IAuthenticationService'
 import { TYPES } from '../../../inversify/types'
@@ -18,7 +18,7 @@ export default function SignUpForm (props: ISignUpFormProps): JSX.Element {
   async function handleSignUpEvent (event: any): Promise<void> {
     try {
       event.preventDefault()
-      const authenticationModel: IAuthenticationModel = {
+      const authenticationModel: AuthenticationModel = {
         email: event.target.email.value,
         password: event.target.password.value,
         fullName: event.target.fullName.value,

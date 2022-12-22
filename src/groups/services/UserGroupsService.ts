@@ -31,7 +31,7 @@ export class UserGroupsService implements IUserGroupsService {
   async createUserGroup (groupModel: GroupModel): Promise<UserGroupModel> {
     try {
       const group = await this.axios.post(
-          `/groups/${groupModel.id}/users/${groupModel.creatorId ?? ''}`
+                `/groups/${groupModel.id}/users/${groupModel.creatorId ?? ''}`
       )
       return group.data
     } catch (error) {

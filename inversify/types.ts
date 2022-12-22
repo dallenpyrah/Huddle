@@ -6,5 +6,6 @@ export const TYPES = {
   AuthenticationService: Symbol.for('AuthenticationService'),
   FireBaseUserService: Symbol.for('FireBaseUserService'),
   IssueOrderingService: Symbol.for('IssueOrderingService'),
-  NotificationService: Symbol.for('NotificationService')
+  NotificationService: Symbol.for('NotificationService'),
+  UserSignUpUtility: Symbol.for('UserSignUpUtility')
 }

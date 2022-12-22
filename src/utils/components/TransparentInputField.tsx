@@ -1,16 +1,18 @@
 import React, { useEffect } from 'react'
 import ITransparentInputFieldProps from '../interfaces/ITransparentInputFieldProps'
-import SignUpService from '../../auth/services/SignUpService'
+import { appContainer } from '../../../inversify/container'
+import { IUserSignUpUtility } from '../../auth/interfaces/IUserSignUpUtility'
+import { TYPES } from '../../../inversify/types'
 
-const signUpService = new SignUpService()
+const userSignUpUtility = appContainer.get<IUserSignUpUtility>(TYPES.UserSignUpUtility)
 
 type ValidationFunction = (value: string) => { isValid: boolean, message: string }
 
 const transparentInputField = (props: ITransparentInputFieldProps): JSX.Element => {
   const validationFunctions: { [key: string]: ValidationFunction } = {
-    email: (value: string) => signUpService.isEmailValid(value),
-    password: (value: string) => signUpService.isPasswordValid(value),
-    confirmPassword: (value: string) => signUpService.isPasswordMatching(props.userInformation)
+    email: (value: string) => userSignUpUtility.isEmailValid(value),
+    password: (value: string) => userSignUpUtility.isPasswordValid(value),
+    confirmPassword: (value: string) => userSignUpUtility.isPasswordMatching(props.userInformation)
   }
 
   const [isPageLoaded, setIsPageLoaded] = React.useState(false)
@@ -58,16 +60,16 @@ const transparentInputField = (props: ITransparentInputFieldProps): JSX.Element 
                  ${inputClass}`}
                  placeholder=" " required/>
 
-          <label htmlFor="floating_name"
-                 className={`peer-focus:font-medium absolute text-sm
+        <label htmlFor="floating_name"
+               className={`peer-focus:font-medium absolute text-sm
                   dark:text-gray-400 duration-300
                    transform -translate-y-7 scale-75 top-3
                     -z-10 origin-[0] peer-focus:left-0 
                     peer-placeholder-shown:scale-100
                      peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7 ${labelClass}`}>
-              {isValid && props.label}
-              {!isValid && message}
-          </label>
+          {isValid && props.label}
+          {!isValid && message}
+        </label>
       </div>
   )
 }

@@ -7,12 +7,14 @@ const firstSignUpPhase = (props: ISignUpPhaseProps): JSX.Element => {
   return (
         <>
             <div className="flex basis-1/4 mx-5">
-                 <SignUpFirstAndLastNameQuestion />
+                <SignUpFirstAndLastNameQuestion/>
             </div>
             <div className="flex basis-1/4 mx-5">
                 <form className="w-full" autoComplete="off" onSubmit={(event) => props.nextPhase(event)}>
-                    <TransparentInputField label={'First Name'} type={'text'} name={'firstName'} autoComplete={'off'} handleChange={props.handleChange}/>
-                    <TransparentInputField label={'Last Name'} type={'text'} name={'lastName'} autoComplete={'off'} handleChange={props.handleChange}/>
+                    <TransparentInputField label={'First Name'} type={'text'} name={'firstName'} autoComplete={'off'}
+                                           handleChange={props.handleChange}/>
+                    <TransparentInputField label={'Last Name'} type={'text'} name={'lastName'} autoComplete={'off'}
+                                           handleChange={props.handleChange}/>
                     {props.isCurrentPhaseValid &&
                         <div className="flex basis-1/4 justify-end">
                             <button

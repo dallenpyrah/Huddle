@@ -1,6 +1,6 @@
 import { AxiosInstance } from 'axios'
 import pino from 'pino'
-import IUserModel from '../models/IUserModel'
+import IUserModel from '../models/UserModel'
 import { inject, injectable } from 'inversify'
 import { TYPES } from '../../../inversify/types'
 import type { IAxiosService } from '../service-interfaces/IAxiosService'

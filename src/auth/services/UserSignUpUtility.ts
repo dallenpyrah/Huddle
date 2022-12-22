@@ -1,6 +1,9 @@
 import UserSignUpModel from '../models/UserSignUpModel'
+import { IUserSignUpUtility } from '../interfaces/IUserSignUpUtility'
+import { injectable } from 'inversify'
 
-class UserSignUpService {
+@injectable()
+export class UserSignUpUtility implements IUserSignUpUtility {
   isFirstPhaseValid (state: UserSignUpModel): { isValid: boolean, message: string } {
     if (state.firstName === '') {
       return { isValid: false, message: 'First name is required' }
@@ -14,6 +17,10 @@ class UserSignUpService {
   }
 
   isSecondPhaseValid (state: UserSignUpModel | undefined): { isValid: boolean, message: string } {
+    if (state === undefined) {
+      return { isValid: false, message: 'Something went wrong' }
+    }
+
     const matchingPasswordCheck = this.isPasswordMatching(state)
     const emailCheck = this.isEmailValid(state.email)
     const passwordCheck = this.isPasswordValid(state.password)
@@ -34,12 +41,6 @@ class UserSignUpService {
   }
 
   isPasswordMatching (user?: UserSignUpModel | undefined): { isValid: boolean, message: string } {
-    if (user?.confirmPassword.length === 0) {
-      return { isValid: true, message: '' }
-    }
-
-    console.log(user)
-
     if (user?.password !== user?.confirmPassword) {
       return { isValid: false, message: 'Passwords do not match' }
     }
@@ -81,5 +82,3 @@ class UserSignUpService {
     return { isValid: true, message: '' }
   }
 }
-
-export default UserSignUpService

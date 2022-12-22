@@ -1,16 +1,18 @@
 import React, { useEffect } from 'react'
 import FirstSignUpPhase from '../src/auth/components/FirstSignUpPhase'
-import SignUpService from '../src/auth/services/SignUpService'
 import UserSignUpModel from '../src/auth/models/UserSignUpModel'
 import SignUpPhase from '../src/auth/enums/SignUpPhase'
 import { SecondSignUpPhase } from '../src/auth/components/SecondSignUpPhase'
+import { appContainer } from '../inversify/container'
+import { IUserSignUpUtility } from '../src/auth/interfaces/IUserSignUpUtility'
+import { TYPES } from '../inversify/types'
 
-const signUpService = new SignUpService()
+const userSignUpUtility = appContainer.get<IUserSignUpUtility>(TYPES.UserSignUpUtility)
 
 export default function SignUpPage (): JSX.Element {
   const phasesActionDictionary = {
-    [SignUpPhase.FIRST]: (userInformation: UserSignUpModel): { isValid: boolean, message: string } => signUpService.isFirstPhaseValid(userInformation),
-    [SignUpPhase.SECOND]: (userInformation: UserSignUpModel): { isValid: boolean, message: string } => signUpService.isSecondPhaseValid(userInformation)
+    [SignUpPhase.FIRST]: (userInformation: UserSignUpModel): { isValid: boolean, message: string } => userSignUpUtility.isFirstPhaseValid(userInformation),
+    [SignUpPhase.SECOND]: (userInformation: UserSignUpModel): { isValid: boolean, message: string } => userSignUpUtility.isSecondPhaseValid(userInformation)
   }
 
   const [isCurrentPhaseValid, setIsCurrentPhaseValid] = React.useState(false)

@@ -1,6 +1,7 @@
-import AuthenticationModel from '../models/IAuthenticationModel'
+import AuthenticationModel from '../models/AuthenticationModel'
 import { UserCredential } from '@firebase/auth'
 import { User } from 'firebase/auth'
+import UserSignUpModel from '../models/UserSignUpModel'
 
 export interface IAuthenticationService {
   login: (user: AuthenticationModel) => Promise<UserCredential>
@@ -9,7 +10,7 @@ export interface IAuthenticationService {
 
   loginOrSignupWithGoogle: () => Promise<UserCredential>
 
-  signUpWithPasswordAndEmail: (user: AuthenticationModel) => Promise<User | null>
+  signUpWithPasswordAndEmail: (user: UserSignUpModel | undefined) => Promise<UserCredential>
 
   getCurrentUser: () => Promise<User | null>
 }

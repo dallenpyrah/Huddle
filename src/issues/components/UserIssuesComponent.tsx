@@ -44,10 +44,10 @@ export default function UserIssuesComponent (props: UserIssuesComponentProps): J
 
     for (let i = 0; i < maxIssuesCount; i++) {
       skeletons.push(
-                <div key={i}
-                     className="col-span-1 rounded-md hover:translate-x-1 hover:border-l-4 mt-2 hover:border-blue-400">
-                    <h6 className="p-2 text-sm text-black truncate"><Skeleton baseColor="gray"/></h6>
-                </div>)
+          <div key={i}
+               className="col-span-1 rounded-md hover:translate-x-1 hover:border-l-4 mt-2 hover:border-blue-400">
+            <h6 className="p-2 text-sm text-black truncate"><Skeleton baseColor="gray"/></h6>
+          </div>)
     }
 
     return skeletons
@@ -58,29 +58,29 @@ export default function UserIssuesComponent (props: UserIssuesComponentProps): J
   }, [])
 
   return (
-        <div className="grid grid-cols-1 h-80 ml-7">
-            <div className="col-span-1 gap-1">
-                <div className="col-span-1 gap-1 bg-black h-[20rem] rounded overflow-y-auto">
-                    {isStateLoaded && issues.map((issue, index) => (
-                        <div key={index} className={'col-span-1 my-2 p-2 mx-2 rounded hover:bg-zinc-900'}>
-                            <div>
-                                <span className="text-gray-300 truncate text-sm">{issue.title}</span>
-                            </div>
-                            <div>
+      <div className="grid grid-cols-1 h-80 ml-7">
+        <div className="col-span-1 gap-1">
+          <div className="col-span-1 gap-1 bg-black h-[20rem] rounded overflow-y-auto">
+            {isStateLoaded && issues.map((issue, index) => (
+                <div key={index} className={'col-span-1 my-2 p-2 mx-2 rounded hover:bg-zinc-900'}>
+                  <div>
+                    <span className="text-gray-300 truncate text-sm">{issue.title}</span>
+                  </div>
+                  <div>
                                 <span
                                     className={`text-xs text-gray-600 rounded p-1 mt-1 ${issue.group.color}`}>{issue.group.name}</span>
-                                <span
-                                    className={`text-xs rounded p-1 float-right mt-1 ${issue.status === 'OPEN' ? 'bg-green-300' : ''}`}>{issue.status}</span>
-                            </div>
-                        </div>
-                    ))}
-                    {isStateLoaded && issues.length === 0 &&
-                        <div className="col-span-2 bg-black rounded-md p-3 flex text-white justify-center items-center">
-                            <h6>You have not created any issues.</h6>
-                        </div>
-                    }
-                    {!isStateLoaded && loadIssueSkeletons()}
+                    <span
+                        className={`text-xs rounded p-1 float-right mt-1 ${issue.status === 'OPEN' ? 'bg-green-300' : ''}`}>{issue.status}</span>
+                  </div>
                 </div>
+            ))}
+            {isStateLoaded && issues.length === 0 &&
+                <div className="col-span-2 bg-black rounded-md p-3 flex text-white justify-center items-center">
+                  <h6>You have not created any issues.</h6>
+                </div>
+            }
+            {!isStateLoaded && loadIssueSkeletons()}
+          </div>
             </div>
         </div>
   )

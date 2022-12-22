@@ -8,7 +8,7 @@ import {
   updateProfile,
   User
 } from 'firebase/auth'
-import AuthenticationModel from '../models/IAuthenticationModel'
+import AuthenticationModel from '../models/AuthenticationModel'
 import pino from 'pino'
 import { UserCredential } from '@firebase/auth'
 import { auth } from '../../../firebase-config'
@@ -16,6 +16,7 @@ import { inject, injectable } from 'inversify'
 import { TYPES } from '../../../inversify/types'
 import type { IAxiosService } from '../service-interfaces/IAxiosService'
 import { IAuthenticationService } from '../service-interfaces/IAuthenticationService'
+import UserSignUpModel from '../models/UserSignUpModel'
 
 @injectable()
 export class AuthenticationService implements IAuthenticationService {
@@ -63,12 +64,13 @@ export class AuthenticationService implements IAuthenticationService {
     }
   }
 
-  async signUpWithPasswordAndEmail (user: AuthenticationModel): Promise<User | null> {
+  async signUpWithPasswordAndEmail (user: UserSignUpModel | undefined): Promise<UserCredential> {
     try {
-      const createdUser: UserCredential = await createUserWithEmailAndPassword(auth, user.email, user.password)
-      await updateProfile(createdUser.user, { displayName: user.fullName })
-      await this.axios.post('/auth/signup', createdUser.user)
-      return await this.getCurrentUser()
+      const userCredential: UserCredential = await createUserWithEmailAndPassword(auth, user?.email as string, user?.password as string)
+      console.log(userCredential)
+      await updateProfile(userCredential.user, { displayName: `${user?.firstName as string} ${user?.lastName as string}` })
+      await this.axios.post('/auth/signup', userCredential.user)
+      return userCredential
     } catch (error) {
       this.logger.error(error)
       throw error

@@ -8,7 +8,7 @@ interface IHeaderLinkProps {
 
 const headerLink = (props: IHeaderLinkProps): JSX.Element => {
   return (
-      <span className="text-white font-semibold mx-7 hover:text-green-300">
+        <span className="text-white font-semibold mx-7 hover:text-green-300">
           <Link href={props.navigateTo}>{props.title}</Link>
       </span>
   )
