@@ -1,4 +1,4 @@
-export default interface IAuthenticationModel {
+export default interface AuthenticationModel {
   fullName: string | undefined
   password: string
   email: string

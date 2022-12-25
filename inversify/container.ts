@@ -1,5 +1,4 @@
 import 'reflect-metadata'
-// @ts-expect-error
 import { Container } from 'inversify'
 import { IAxiosService } from '../src/auth/service-interfaces/IAxiosService'
 import { AxiosService } from '../src/utils/services/AxiosService'

@@ -3,47 +3,52 @@ import ITransparentInputFieldProps from '../interfaces/ITransparentInputFieldPro
 import { appContainer } from '../../../inversify/container'
 import { IUserSignUpUtility } from '../../auth/interfaces/IUserSignUpUtility'
 import { TYPES } from '../../../inversify/types'
+import { PhaseValidityModel } from '../../auth/models/PhaseValidityModel'
 
 const userSignUpUtility = appContainer.get<IUserSignUpUtility>(TYPES.UserSignUpUtility)
 
-type ValidationFunction = (value: string) => { isValid: boolean, message: string }
-
 const transparentInputField = (props: ITransparentInputFieldProps): JSX.Element => {
-  const validationFunctions: { [key: string]: ValidationFunction } = {
-    email: (value: string) => userSignUpUtility.isEmailValid(value),
-    password: (value: string) => userSignUpUtility.isPasswordValid(value),
-    confirmPassword: (value: string) => userSignUpUtility.isPasswordMatching(props.userInformation)
-  }
-
-  const [isPageLoaded, setIsPageLoaded] = React.useState(false)
   const [message, setMessage] = React.useState('')
   const [isValid, setIsValid] = React.useState(true)
   const labelClass = isValid ? 'peer-focus:text-green-300 text-gray-500' : 'peer-focus:text-red-400 text-red-300'
   const inputClass = isValid ? 'border-gray-300 focus:border-green-300' : 'border-red-300 focus:border-red-400'
 
+  function validateInputField (value: string): void {
+    let validityModel: PhaseValidityModel
+
+    switch (props.name) {
+      case 'email':
+        validityModel = userSignUpUtility.isEmailValid(value)
+        setIsValid(validityModel.isValid)
+        setMessage(validityModel.message)
+        break
+      case 'password':
+        validityModel = userSignUpUtility.isPasswordValid(value)
+        setIsValid(validityModel.isValid)
+        setMessage(validityModel.message)
+        break
+      case 'confirmPassword':
+        validityModel = userSignUpUtility.isPasswordMatching(props.userInformation)
+        setIsValid(validityModel.isValid)
+        setMessage(validityModel.message)
+        break
+    }
+  }
+
   const handleLocalComponentChange = (event: React.FormEvent<HTMLInputElement>): void => {
     if (event.currentTarget.value.length <= 0) {
       setIsValid(true)
       setMessage('')
-      return
     }
 
-    if (validationFunctions[props.name] !== undefined) {
-      const { isValid, message } = validationFunctions[props.name](event.currentTarget.value)
-      setIsValid(isValid)
-      setMessage(message)
-    }
+    validateInputField(event.currentTarget.value)
   }
 
   useEffect(() => {
-    if (validationFunctions[props.name] !== undefined && isPageLoaded) {
-      const { isValid, message } = validationFunctions[props.name]('')
-      setIsValid(isValid)
-      setMessage(message)
+    if (props.userInformation !== undefined) {
+      validateInputField(props.userInformation.confirmPassword)
     }
-
-    setIsPageLoaded(true)
-  }, [props.userInformation])
+  }, [props.userInformation?.confirmPassword])
 
   return (
       <div className="relative z-0 mb-6 w-full group">
