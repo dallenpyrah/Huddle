@@ -49,8 +49,12 @@ export default function SignUpPage (): JSX.Element {
   return (
         <div className="flex h-screen bg-black">
             <div className="flex my-auto flex-row h-screen w-screen justify-center items-center">
-                {currentPhase === SignUpPhase.FIRST && <FirstSignUpPhase handleChange={handleChange} nextPhase={nextPhase} isCurrentPhaseValid={isCurrentPhaseValid} />}
-                {currentPhase === SignUpPhase.SECOND && <SecondSignUpPhase handleChange={handleChange} nextPhase={nextPhase} isCurrentPhaseValid={isCurrentPhaseValid} userInformation={inputGroup} />}
+                {currentPhase === SignUpPhase.FIRST &&
+                    <FirstSignUpPhase handleChange={handleChange} nextPhase={nextPhase}
+                                      isCurrentPhaseValid={isCurrentPhaseValid} userInformation={inputGroup}/>}
+              {currentPhase === SignUpPhase.SECOND &&
+                  <SecondSignUpPhase handleChange={handleChange} nextPhase={nextPhase}
+                                     isCurrentPhaseValid={isCurrentPhaseValid} userInformation={inputGroup}/>}
             </div>
           <div className="flex flex-col justify-end mb-20 mr-20">
           </div>

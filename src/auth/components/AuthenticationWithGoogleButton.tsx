@@ -3,10 +3,11 @@ import React from 'react'
 import { appContainer } from '../../../inversify/container'
 import { IAuthenticationService } from '../service-interfaces/IAuthenticationService'
 import { TYPES } from '../../../inversify/types'
+import { IAuthenticationButtonProps } from '../component-interfaces/IAuthenticationButtonProps'
 
 const authenticationService = appContainer.get<IAuthenticationService>(TYPES.AuthenticationService)
 
-export default function AuthenticateWithGoogleButton (props: { passErrorMessage: (errorMessage: string) => void }): JSX.Element {
+export default function AuthenticateWithGoogleButton (props: IAuthenticationButtonProps): JSX.Element {
   const router = useRouter()
 
   async function handleLoginOrSignupWithGoogle (event: any): Promise<void> {
@@ -17,7 +18,7 @@ export default function AuthenticateWithGoogleButton (props: { passErrorMessage:
         void await router.push('/dashboard')
       }
     } catch (error: any) {
-      props.passErrorMessage(error.message)
+      props.setMessage(error.message)
     }
   }
 
@@ -40,7 +41,7 @@ export default function AuthenticateWithGoogleButton (props: { passErrorMessage:
                     d="M9.68807 3.85336C11.5073 3.85336 12.7344 4.66168 13.4342 5.33718L16.1684 2.59107C14.4892 0.985496 12.3039 0 9.68807 0C5.89885 0 2.62637 2.23672 1.0332 5.49214L4.16573 7.99466C4.95162 5.59183 7.12608 3.85336 9.68807 3.85336Z"
                     fill="#EB4335"/>
             </svg>
-            <p className="text-base font-medium ml-4 text-gray-700">Continue with Google</p>
+            <p className="text-base font-medium ml-4 text-zinc-600">Continue with Google</p>
         </button>
   )
 }
