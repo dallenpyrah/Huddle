@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react'
-import ITransparentInputFieldProps from '../interfaces/ITransparentInputFieldProps'
+import ITransparentInputFieldProps from '../../utils/interfaces/ITransparentInputFieldProps'
 import { appContainer } from '../../../inversify/container'
-import { IUserSignUpUtility } from '../../auth/interfaces/IUserSignUpUtility'
+import { IUserSignUpUtility } from '../interfaces/IUserSignUpUtility'
 import { TYPES } from '../../../inversify/types'
-import { PhaseValidityModel } from '../../auth/models/PhaseValidityModel'
+import { PhaseValidityModel } from '../models/PhaseValidityModel'
 
 const userSignUpUtility = appContainer.get<IUserSignUpUtility>(TYPES.UserSignUpUtility)
 
-const transparentInputField = (props: ITransparentInputFieldProps): JSX.Element => {
+const signUpInputField = (props: ITransparentInputFieldProps): JSX.Element => {
   const [message, setMessage] = React.useState('')
   const [isValid, setIsValid] = React.useState(true)
   const labelClass = isValid ? 'peer-focus:text-green-300 text-gray-500' : 'peer-focus:text-red-400 text-red-300'
@@ -79,4 +79,4 @@ const transparentInputField = (props: ITransparentInputFieldProps): JSX.Element 
   )
 }
 
-export default transparentInputField
+export default signUpInputField

@@ -33,7 +33,7 @@ export default function AuthenticateWithGithubButton (props: IAuthenticationButt
                   fill="#333333"
               />
           </svg>
-          <p className="text-base font-medium ml-4 text-zinc-600 text-xs">Continue with Github</p>
+          <p className="text-base font-medium ml-4 text-zinc-600">Continue with Github</p>
       </button>
   )
 }

@@ -1,6 +1,6 @@
 import React from 'react'
 import SignUpFirstAndLastNameQuestion from './SignUpFirstAndLastNameQuestion'
-import TransparentInputField from '../../utils/components/TransparentInputField'
+import TransparentInputField from './SignUpInputField'
 import { ISignUpPhaseProps } from '../interfaces/ISignUpPhaseProps'
 import AuthenticateWithGithubButton from './AuthenticateWithGithubButton'
 import AuthenticateWithGoogleButton from './AuthenticationWithGoogleButton'

@@ -1,6 +1,6 @@
 import { ISignUpPhaseProps } from '../interfaces/ISignUpPhaseProps'
 import React from 'react'
-import TransparentInputField from '../../utils/components/TransparentInputField'
+import TransparentInputField from './SignUpInputField'
 import { SignUpWelcomeMessage } from './SignUpWelcomeMessage'
 import { useRouter } from 'next/router'
 import { appContainer } from '../../../inversify/container'
