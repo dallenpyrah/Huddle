@@ -1,8 +1,11 @@
 import React from 'react'
+import Link from 'next/link'
 
 const huddleHeader = (): JSX.Element => {
   return (
-        <h1 className="text-white font-medium text-2xl">Huddle</h1>
+      <Link href="/">
+        <a className="text-white font-medium text-2xl hover:text-green-400">Huddle</a>
+      </Link>
   )
 }
 

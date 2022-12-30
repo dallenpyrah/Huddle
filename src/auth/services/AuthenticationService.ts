@@ -8,7 +8,6 @@ import {
   updateProfile,
   User
 } from 'firebase/auth'
-import AuthenticationModel from '../models/AuthenticationModel'
 import pino from 'pino'
 import { UserCredential } from '@firebase/auth'
 import { auth } from '../../../firebase-config'
@@ -29,7 +28,7 @@ export class AuthenticationService implements IAuthenticationService {
     this.axios = axiosService.getAxiosInstance()
   }
 
-  async login (user: AuthenticationModel): Promise<UserCredential> {
+  async signInWithEmailAndPassword (user: UserSignUpModel): Promise<UserCredential> {
     try {
       const loggedInUser = await signInWithEmailAndPassword(auth, user.email, user.password)
       await this.axios.post('/auth/signup', loggedInUser.user)
