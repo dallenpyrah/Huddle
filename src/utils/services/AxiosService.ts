@@ -1,6 +1,6 @@
 import { injectable } from 'inversify'
 import axios, { AxiosInstance } from 'axios'
-import { IAxiosService } from '../../auth/service-interfaces/IAxiosService'
+import { IAxiosService } from '../../auth/interfaces/service/IAxiosService'
 import 'reflect-metadata'
 
 @injectable()

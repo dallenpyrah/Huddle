@@ -1,6 +1,6 @@
 import { UserCredential } from '@firebase/auth'
 import { User } from 'firebase/auth'
-import UserSignUpModel from '../models/UserSignUpModel'
+import UserSignUpModel from '../../models/UserSignUpModel'
 
 export interface IAuthenticationService {
   signInWithEmailAndPassword: (user: UserSignUpModel) => Promise<UserCredential>

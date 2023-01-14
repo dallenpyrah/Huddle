@@ -3,8 +3,8 @@ import pino from 'pino'
 import IUserModel from '../models/UserModel'
 import { inject, injectable } from 'inversify'
 import { TYPES } from '../../../inversify/types'
-import type { IAxiosService } from '../service-interfaces/IAxiosService'
-import { IFireBaseUserService } from '../service-interfaces/IFireBaseService'
+import type { IAxiosService } from '../interfaces/service/IAxiosService'
+import { IFireBaseUserService } from '../interfaces/service/IFireBaseService'
 
 @injectable()
 export class FireBaseUserService implements IFireBaseUserService {

@@ -7,7 +7,7 @@ const flexColHeaderLinks = (): JSX.Element => {
           <div>
               <HeaderLink title={'API'} navigateTo={'https://github.com/dallenpyrah/HuddleAPI'}/>
               <HeaderLink title={'Dashboard'} navigateTo={'/dashboard'}/>
-              <HeaderLink title={'About'} navigateTo={'/about'}/>
+              <HeaderLink title={'Pricing'} navigateTo={'/pricing'}/>
               <HeaderLink title={'Login'} navigateTo={'/login'}/>
           </div>
       </div>

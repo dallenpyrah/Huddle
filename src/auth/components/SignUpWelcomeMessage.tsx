@@ -1,5 +1,5 @@
 import React from 'react'
-import { ISignUpWelcomeMessageProps } from '../component-interfaces/ISignUpWelcomeMessageProps'
+import { ISignUpWelcomeMessageProps } from '../interfaces/prop/ISignUpWelcomeMessageProps'
 
 export const SignUpWelcomeMessage = (props: ISignUpWelcomeMessageProps): JSX.Element => {
   return (

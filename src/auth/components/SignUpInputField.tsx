@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import ITransparentInputFieldProps from '../../utils/interfaces/ITransparentInputFieldProps'
 import { appContainer } from '../../../inversify/container'
-import { IUserSignUpUtility } from '../interfaces/IUserSignUpUtility'
+import { IUserSignUpUtility } from '../interfaces/service/IUserSignUpUtility'
 import { TYPES } from '../../../inversify/types'
 import { PhaseValidityModel } from '../models/PhaseValidityModel'
 

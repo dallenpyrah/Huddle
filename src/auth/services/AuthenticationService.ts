@@ -13,8 +13,8 @@ import { UserCredential } from '@firebase/auth'
 import { auth } from '../../../firebase-config'
 import { inject, injectable } from 'inversify'
 import { TYPES } from '../../../inversify/types'
-import type { IAxiosService } from '../service-interfaces/IAxiosService'
-import { IAuthenticationService } from '../service-interfaces/IAuthenticationService'
+import type { IAxiosService } from '../interfaces/service/IAxiosService'
+import { IAuthenticationService } from '../interfaces/service/IAuthenticationService'
 import UserSignUpModel from '../models/UserSignUpModel'
 
 @injectable()

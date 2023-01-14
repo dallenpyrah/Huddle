@@ -2,8 +2,8 @@ import { useRouter } from 'next/router'
 import React from 'react'
 import { appContainer } from '../../../inversify/container'
 import { TYPES } from '../../../inversify/types'
-import { IAuthenticationService } from '../service-interfaces/IAuthenticationService'
-import { IAuthenticationButtonProps } from '../component-interfaces/IAuthenticationButtonProps'
+import { IAuthenticationService } from '../interfaces/service/IAuthenticationService'
+import { IAuthenticationButtonProps } from '../interfaces/prop/IAuthenticationButtonProps'
 
 const authenticationService = appContainer.get<IAuthenticationService>(TYPES.AuthenticationService)
 

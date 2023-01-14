@@ -1,5 +1,5 @@
 import UserSignUpModel from '../models/UserSignUpModel'
-import { IUserSignUpUtility } from '../interfaces/IUserSignUpUtility'
+import { IUserSignUpUtility } from '../interfaces/service/IUserSignUpUtility'
 import { injectable } from 'inversify'
 
 @injectable()

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { firebaseApp } from '../../../firebase-config'
 import { getAuth, User } from 'firebase/auth'
 import { appContainer } from '../../../inversify/container'
-import { IFireBaseUserService } from '../service-interfaces/IFireBaseService'
+import { IFireBaseUserService } from '../interfaces/service/IFireBaseService'
 import { TYPES } from '../../../inversify/types'
 
 const fireBaseUserService = appContainer.get<IFireBaseUserService>(TYPES.FireBaseUserService)

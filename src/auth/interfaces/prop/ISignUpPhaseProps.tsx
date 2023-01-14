@@ -1,5 +1,5 @@
 import React from 'react'
-import UserSignUpModel from '../models/UserSignUpModel'
+import UserSignUpModel from '../../models/UserSignUpModel'
 
 export interface ISignUpPhaseProps {
   handleChange: (event: React.FormEvent<HTMLInputElement>) => void

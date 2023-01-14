@@ -1,5 +1,5 @@
-import UserSignUpModel from '../models/UserSignUpModel'
-import { PhaseValidityModel } from '../models/PhaseValidityModel'
+import UserSignUpModel from '../../models/UserSignUpModel'
+import { PhaseValidityModel } from '../../models/PhaseValidityModel'
 
 export interface IUserSignUpUtility {
   isFirstPhaseValid: (state: UserSignUpModel) => PhaseValidityModel

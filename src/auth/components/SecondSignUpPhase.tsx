@@ -1,11 +1,11 @@
-import { ISignUpPhaseProps } from '../interfaces/ISignUpPhaseProps'
+import { ISignUpPhaseProps } from '../interfaces/prop/ISignUpPhaseProps'
 import React from 'react'
 import TransparentInputField from './SignUpInputField'
 import { SignUpWelcomeMessage } from './SignUpWelcomeMessage'
 import { useRouter } from 'next/router'
 import { appContainer } from '../../../inversify/container'
 import { TYPES } from '../../../inversify/types'
-import { IAuthenticationService } from '../service-interfaces/IAuthenticationService'
+import { IAuthenticationService } from '../interfaces/service/IAuthenticationService'
 
 const authenticationService = appContainer.get<IAuthenticationService>(TYPES.AuthenticationService)
 

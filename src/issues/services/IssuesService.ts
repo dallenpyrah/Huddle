@@ -3,7 +3,7 @@ import pino from 'pino'
 import IIssueModel from '../models/IIssueModel'
 import { inject, injectable } from 'inversify'
 import { TYPES } from '../../../inversify/types'
-import type { IAxiosService } from '../../auth/service-interfaces/IAxiosService'
+import type { IAxiosService } from '../../auth/interfaces/service/IAxiosService'
 import { IIssuesService } from '../service-interfaces/IIssuesService'
 
 @injectable()

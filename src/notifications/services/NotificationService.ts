@@ -1,7 +1,7 @@
 import { AxiosInstance } from 'axios'
 import pino from 'pino'
 import NotificationModel from '../models/INotificationModel'
-import type { IAxiosService } from '../../auth/service-interfaces/IAxiosService'
+import type { IAxiosService } from '../../auth/interfaces/service/IAxiosService'
 import { inject, injectable } from 'inversify'
 import { TYPES } from '../../../inversify/types'
 import { INotificationService } from '../service-interfaces/INotificationService'
