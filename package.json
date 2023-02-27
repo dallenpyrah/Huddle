@@ -27,7 +27,7 @@
     "headlessui": "^0.0.0",
     "heroicons": "^2.0.13",
     "inversify": "^6.0.1",
-    "next": "12.2.5",
+    "next": "13.2.1",
     "pino": "^8.6.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
